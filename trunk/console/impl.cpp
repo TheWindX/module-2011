@@ -152,6 +152,58 @@ namespace ns_base
 		return 0;
 	}
 
+	static int _lua_reserve(lua_State* st)
+	{
+		if(!lua_isnumber(st, -1) )
+		{
+			return 0;
+		}
+
+		h_console_script* hcs;
+		get(hcs);
+
+		int num = lua_tointeger(st, -1);
+
+		hcs->set_show_reserve(num);
+		return 0;
+	}
+
+	static int _lua_clear(lua_State* st)
+	{
+		if(lua_gettop(st) != 0)
+		{
+			return 0;
+		}
+
+		h_console_script* hcs;
+		get(hcs);
+
+		hcs->clear();
+		return 0;
+	}
+
+	
+	static int _lua_help(lua_State* st)
+	{
+		if(lua_gettop(st) != 0)
+		{
+			return 0;
+		}
+		
+		h_console_script* hcs;
+		get(hcs);
+
+		hcs->output("\
+					__dump(<fpath>)\t\n\
+					__print(<content>)\t\n\
+					__reserve(<line_number>)\t\n\
+					__clear()\t\n\
+					__help()\t\n", light_grey, black);
+		
+		return 0;
+	}
+
+
 	h_impl_console_script::~h_impl_console_script()
 	{	
 		//if(m_current != m_internal)
@@ -202,6 +254,9 @@ namespace ns_base
 		m_current = cur;
 		m_current->reg_func("__dump", &_lua_dump);
 		m_current->reg_func("__print", &_lua_print);
+		m_current->reg_func("__reserve", &_lua_reserve);
+		m_current->reg_func("__clear", &_lua_clear);
+		m_current->reg_func("__help", &_lua_help);
 	}
 
 	void h_impl_console_script::reset_lua()
@@ -401,6 +456,19 @@ namespace ns_base
 			printf("<<< ");
 			hc->set_text_color(white);
 		}
+	}
+
+	void h_impl_console_script::clear()
+	{
+		h_console* hc;
+		get(hc);
+
+		//ÇåÆÁ
+		system("cls");
+		this->m_items.clear();
+		hc->set_text_color(green);
+		printf("<<< ");
+		hc->set_text_color(white);
 	}
 
 	void h_impl_console_script::release()

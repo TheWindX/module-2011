@@ -176,6 +176,15 @@ namespace ns_base
 				//send done
 				m_send_buffers.erase(id);
 				this->s_send(bytesTransferred);
+				if(m_bclient_or_server)
+				{
+					this->m_client->s_session_send(bytesTransferred);
+				}
+				else
+				{
+					this->m_server->s_session_send(m_server_id, bytesTransferred);
+				}
+
 			}
 			else
 			{
@@ -188,10 +197,19 @@ namespace ns_base
 			this->s_error(errorCode.value() );
 			this->close();
 			m_statu = e_exception;
+
+			if(m_bclient_or_server)
+			{
+				this->m_client->s_session_error(errorCode.value() );
+			}
+			else
+			{
+				this->m_server->s_session_error(m_server_id, errorCode.value() );
+			}
 		}
 	}
 
-	void impl_session::send(char* buff, size_t sz)
+	void impl_session::send(const char* buff, size_t sz)
 	{	
 		m_id_count++;
 		m_send_buffers[m_id_count] = std::string(buff, buff+sz);
@@ -266,6 +284,17 @@ namespace ns_base
 		{
 			m_buffer.push_back(m_read_buffer, bytes_transferred);
 			this->s_recv(bytes_transferred);
+			
+
+			if(m_bclient_or_server)
+			{
+				this->m_client->s_session_recv(bytes_transferred);
+			}
+			else
+			{
+				this->m_server->s_session_recv(m_server_id, bytes_transferred);
+			}
+
 			if(m_statu == e_establish)
 			{
 				m_socket.async_receive(boost::asio::buffer(m_read_buffer, BUFFER_SZ),
@@ -286,11 +315,11 @@ namespace ns_base
 
 			if(m_bclient_or_server)
 			{
-				m_client->s_session_break();
+				m_client->s_session_error(ec.value() );
 			}
 			else
 			{
-				m_server->s_session_break(m_server_id);
+				m_server->s_session_error(m_server_id, ec.value() );
 			}
 		}
 		
@@ -333,7 +362,7 @@ namespace ns_base
 		if (err) 
 		{ 
 			release_session();
-			s_error(err.value() );
+			s_connect_error(err.value() );
 		} 
 		else 
 		{ 
@@ -449,7 +478,7 @@ namespace ns_base
 			impl_session* ps = m_session[id];
 			delete ps;
 			m_session.erase(id);
-			s_error(error.value() );
+			s_listen_error(error.value() );
 		}
 	}
 
@@ -568,7 +597,7 @@ namespace ns_base
 
 	void h_impl_asio_net::run_once()
 	{
-		m_io.run_one();
+		m_io.poll();
 	}
 
 }
