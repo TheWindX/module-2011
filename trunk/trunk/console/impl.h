@@ -84,6 +84,8 @@ namespace ns_base
 		//格式化输出
 		void format_output();
 
+		void clear();
+
 		void release();
 	};
 }

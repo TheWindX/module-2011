@@ -35,7 +35,7 @@ namespace ns_base
 
 		virtual size_t get_recv_buffer_size() = 0;
 		virtual size_t recv(char* buff, size_t sz) = 0;
-		virtual void send(char* buff, size_t sz) = 0;
+		virtual void send(const char* buff, size_t sz) = 0;
 
 		virtual i_endpoint* get_local_endpoint() = 0;
 		virtual i_endpoint* get_remote_endpoint() = 0;
@@ -54,8 +54,11 @@ namespace ns_base
 	{
 		ns_delegate::Delegate<void(void)> s_timeout;
 		ns_delegate::Delegate<void(void)> s_done;
-		ns_delegate::Delegate<void(long)> s_error;
-		ns_delegate::Delegate<void(void)> s_session_break;
+		ns_delegate::Delegate<void(long)> s_connect_error;//(error_code)
+
+		ns_delegate::Delegate<void(long)> s_session_recv;
+		ns_delegate::Delegate<void(long)> s_session_send;
+		ns_delegate::Delegate<void(long)> s_session_error;//(error_code)
 
 
 		virtual void connect(i_endpoint* ep, size_t timeout) = 0;
@@ -67,8 +70,12 @@ namespace ns_base
 	{
 		//ns_delegate::Delegate<void(void)> s_bind_error;
 		ns_delegate::Delegate<void(long)> s_accept;
-		ns_delegate::Delegate<void(long)> s_error;
-		ns_delegate::Delegate<void(long)> s_session_break;
+		ns_delegate::Delegate<void(long)> s_bind_error;
+		ns_delegate::Delegate<void(long)> s_listen_error;
+		
+		ns_delegate::Delegate<void(long, long)> s_session_recv;
+		ns_delegate::Delegate<void(long, long)> s_session_send;
+		ns_delegate::Delegate<void(long, long)> s_session_error;
 		
 		virtual bool bind(unsigned short port) = 0;
 		virtual void listen(bool blisten) = 0;

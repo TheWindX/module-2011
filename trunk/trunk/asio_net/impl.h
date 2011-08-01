@@ -49,7 +49,7 @@ namespace ns_base
 		size_t m_id_count;
 		std::map<size_t, std::string> m_send_buffers;
 		void send_handler(size_t id, size_t bytesTransferred, const boost::system::error_code& errorCode);
-		void send(char* buff, size_t sz);
+		void send(const char* buff, size_t sz);
 
 		impl_endpoint m_endpoint;
 		i_endpoint* get_local_endpoint();

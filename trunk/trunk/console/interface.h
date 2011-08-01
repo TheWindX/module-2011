@@ -72,7 +72,8 @@ namespace ns_base
 		//把历史命令行内容dump到文件
 		virtual void dump(const char* path) = 0;
 		//托管输出到命令行
-		virtual void output(const char* content, int fc, int bc) = 0;
+		virtual void output(const char* content, int fc = white, int bc = black) = 0;
+		virtual void clear() = 0;
 
 		virtual void release() = 0;
 	};
