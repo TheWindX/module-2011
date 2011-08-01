@@ -1,0 +1,163 @@
+//Microsoft Developer Studio generated resource script.
+//
+#include "resource.h"
+
+#define APSTUDIO_READONLY_SYMBOLS
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 2 resource.
+//
+#include "winres.h"
+
+/////////////////////////////////////////////////////////////////////////////
+#undef APSTUDIO_READONLY_SYMBOLS
+
+/////////////////////////////////////////////////////////////////////////////
+// English (U.S.) resources
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_ENU)
+#ifdef _WIN32
+LANGUAGE LANG_ENGLISH, SUBLANG_ENGLISH_US
+#pragma code_page(1252)
+#endif //_WIN32
+
+#ifdef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// TEXTINCLUDE
+//
+
+1 TEXTINCLUDE MOVEABLE PURE 
+BEGIN
+    "resource.h\0"
+END
+
+2 TEXTINCLUDE MOVEABLE PURE 
+BEGIN
+    "#include ""winres.h""\r\n"
+    "\0"
+END
+
+3 TEXTINCLUDE MOVEABLE PURE 
+BEGIN
+    "1 TYPELIB ""SystemOS.tlb""\r\n"
+    "\0"
+END
+
+#endif    // APSTUDIO_INVOKED
+
+
+#ifndef _MAC
+/////////////////////////////////////////////////////////////////////////////
+//
+// Version
+//
+
+VS_VERSION_INFO VERSIONINFO
+ FILEVERSION 1,0,0,1
+ PRODUCTVERSION 1,0,0,1
+ FILEFLAGSMASK 0x3fL
+#ifdef _DEBUG
+ FILEFLAGS 0x1L
+#else
+ FILEFLAGS 0x0L
+#endif
+ FILEOS 0x4L
+ FILETYPE 0x2L
+ FILESUBTYPE 0x0L
+BEGIN
+    BLOCK "StringFileInfo"
+    BEGIN
+        BLOCK "040904B0"
+        BEGIN
+            VALUE "FileDescription", "SystemOS Module\0"
+            VALUE "FileVersion", "1, 0, 0, 1\0"
+            VALUE "InternalName", "SystemOS\0"
+            VALUE "LegalCopyright", "Copyright 1999\0"
+            VALUE "OriginalFilename", "SystemOS.DLL\0"
+            VALUE "ProductName", "SystemOS Module\0"
+            VALUE "ProductVersion", "1, 0, 0, 1\0"
+        END
+    END
+    BLOCK "VarFileInfo"
+    BEGIN
+        VALUE "Translation", 0x409, 1200
+    END
+END
+
+#endif    // !_MAC
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// REGISTRY
+//
+
+//IDR_OSINFORMATION       REGISTRY MOVEABLE PURE  "OSInformation.rgs"
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// String Table
+//
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    IDS_PROJNAME            "SystemOS"
+    IDS_WINDOWS_NT          "Windows NT"
+    IDS_WINDOWS_95          "Windows 95"
+    IDS_WINDOWS_98          "Windows 98"
+    IDS_NT_WORKSTATION      "Windows NT Workstation"
+    IDS_NT_SERVER           "Windows NT Server"
+    IDS_NT_DOMAIN_CONTROLLER "Windows NT server - Domain Controller"
+    IDS_NT_40               "4.0"
+    IDS_NT_50               "5.0"
+    IDS_NT_351              "3.51"
+    IDS_WINDOWS_32S         "Win32s"
+    IDS_WINDOWS_31          "Win 3.1"
+END
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    IDS_ERR_GETVERSION      "Failed to get OS version"
+    IDS_WINDOWS_2000        "Windows 2000"
+    IDS_WIN2K_PROF          "Windows 2000 Professional"
+    IDS_WIN2K_SERVER        "Windows 2000 Server"
+    IDS_WIN2K_ADV_SERVER    "Windows 2000 Advanced Server"
+    IDS_WIN2K_DATA_CENETER  "Windows 2000 Data Ceneter"
+    IDS_NT_SP6              "Service Pack 6"
+    IDS_WIN2K_DOMAIN_CONTROLLER "Windows 2000 Domain Controller"
+    IDS_SUITE_BACKOFFICE    "Microsoft Backoffice"
+    IDS_SUITE_DATACENTER    "Data Center"
+    IDS_SUITE_ENTERPRISE    "Advcanced Server"
+    IDS_SUITE_SMALLBUSINESS "Microsoft Small Business Server "
+    IDS_SUITE_SMALLBUSINESS_RESTRICTED 
+                            "Microsoft Small Business Server - Restrictive Client License"
+    IDS_SUITE_TERMINAL      "Terminal Server"
+    IDS_SUITE_PERSONAL      "Workstation Personal "
+    IDS_WINDOWS_ME          "Windows ME"
+END
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    IDS_WINDOWS_WHISTLER    "Windows Whistler"
+    IDS_WINDOWS_XP          "Windows XP"
+    IDS_NT_51               "5.1"
+    IDS_WHISTLER_PROF       "Windows Whistler Professional"
+    IDS_WHISTLER_SERVER     "Windows Whistler Server"
+END
+
+#endif    // English (U.S.) resources
+/////////////////////////////////////////////////////////////////////////////
+
+
+
+#ifndef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 3 resource.
+//
+//1 TYPELIB "SystemOS.tlb"
+
+/////////////////////////////////////////////////////////////////////////////
+#endif    // not APSTUDIO_INVOKED
+
