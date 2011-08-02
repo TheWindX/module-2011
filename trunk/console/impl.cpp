@@ -434,7 +434,7 @@ namespace ns_base
 			//ÊäÈë
 			if(item.m_input)
 			{
-				hc->set_text_color(green);
+				hc->set_text_color(light_green);
 				printf("<<< ");
 				hc->set_text_color(item.m_fc, item.m_bc);
 				printf(item.m_item.c_str() );
@@ -452,7 +452,7 @@ namespace ns_base
 
 		if(m_input_stat)
 		{
-			hc->set_text_color(green);
+			hc->set_text_color(light_green);
 			printf("<<< ");
 			hc->set_text_color(white);
 		}
@@ -466,7 +466,7 @@ namespace ns_base
 		//ÇåÆÁ
 		system("cls");
 		this->m_items.clear();
-		hc->set_text_color(green);
+		hc->set_text_color(light_green);
 		printf("<<< ");
 		hc->set_text_color(white);
 	}
