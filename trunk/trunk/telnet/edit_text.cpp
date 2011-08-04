@@ -48,8 +48,17 @@ namespace ns_base
 
 		void st_edit_text::on_action(char ch)
 		{
+			gen_lines();
 			//ÕâÀïedit, ²¢refresh
-			if(ch == VK_UP)
+			if(ch == 12)//ctrl+j
+			{
+				this->set_str(pre_history() );
+			}
+			else if(ch == 11)//ctrl+k
+			{
+				this->set_str(post_history() );
+			}
+			else if(ch == VK_UP)
 			{
 				if(m_y == 0) return;
 				m_y--;
@@ -79,28 +88,30 @@ namespace ns_base
 			{
 				insert_char('\n');
 			}
-			else if( isalnum(ch) )
-			{
-				insert_char(ch);
-			}
 			else if( ch == VK_BACK)
 			{
-				if(m_pos == 0) return;
-				m_pos--;
-				m_str.erase(m_pos, 1);
+				if(m_pos != 0)
+				{
+					m_pos--;
+					m_str.erase(m_pos, 1);
+				}
 			}
-			else if(ch == VK_DELETE)
+			else if(ch == 127)//DEL
 			{
 				if(m_pos == m_str.length() ) return;
 				m_str.erase(m_pos, 1);
 			}
+
 			gen_lines();
 			m_fsm->refresh();
 		}
 
 		void st_edit_text::on_char(char ch)
-		{
-			on_action(ch);
+		{	
+			gen_lines();
+			insert_char(ch);
+			gen_lines();
+			m_fsm->refresh();
 		}
 
 
@@ -120,14 +131,14 @@ namespace ns_base
 				getline(ss, line, '\n');
 				m_lines.push_back(line);
 				size_t right = ss.tellg();
-				size_t left = right - line.length();
+				size_t left = pos;
+				pos = right;
 				if(m_str == "")
 				{
 					right = 1;
 					left = 0;
 				}
-
-				if(m_pos>=left&&m_pos<=right)
+				if(m_pos>=left)
 				{	
 					m_y = m_lines.size()-1;
 					m_x = m_pos-left;

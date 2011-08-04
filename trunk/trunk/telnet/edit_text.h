@@ -14,6 +14,28 @@ namespace ns_base
 
 		struct st_edit_text
 		{
+			static const size_t max_his = 5;
+
+			std::string m_his[max_his];
+			size_t m_his_idx;
+			void push_history(const std::string& str)
+			{
+				m_his_idx = m_his_idx+1%max_his;
+				m_his[m_his_idx] = str;
+			}
+			const std::string& pre_history()
+			{
+				if(m_his_idx == 0) m_his_idx = max_his-1;
+				else m_his_idx--;
+				return m_his[m_his_idx];
+			}
+			const std::string& post_history()
+			{
+				if(m_his_idx == max_his-1) m_his_idx = 0;
+				else m_his_idx++;
+				return m_his[m_his_idx];
+			}
+			
 			st_fsm* m_fsm;
 			//π‚±ÍŒª÷√
 			int get_posx();
@@ -51,6 +73,7 @@ namespace ns_base
 			st_edit_text(st_fsm* fsm, size_t x, size_t y)
 				:m_fsm(fsm),
 				m_str(""),
+				m_his_idx(0),
 				m_pos(0),
 				m_title("<<< "),
 				m_start_x(x),

@@ -11,9 +11,11 @@
 
 #include "edit_text.h"
 
+
+
 namespace ns_base
 {
-
+	struct i_telnet;
 	namespace ns_telnet
 	{
 		const int IAC = 255;
@@ -53,16 +55,19 @@ namespace ns_base
 		const std::string& erase_from_line(int r);
 		
 		struct st_fsm
-		{
-			ns_delegate::Delegate<void(int, const char*)> s_command;
+		{	
 			i_session* m_sess;//TODO, 改成id
+			i_telnet* m_command;
 			
 			void on_recv_buff(long sz);
-			st_fsm(ns_base::i_session* s);
+			st_fsm(ns_base::i_session* s, i_telnet* tel);
 
 			
 			void output(const std::string& str1);
 			void input(const std::string& str1);
+			void clear();
+
+
 
 			st_edit_text m_str;
 			//wait状态下刷新
@@ -83,7 +88,6 @@ namespace ns_base
 			int m_status;
 			std::string m_col;
 			std::string m_row;
-			void on_edit(char c);
 
 			void on_recv(char c);
 		};
@@ -92,26 +96,27 @@ namespace ns_base
 	};
 
 	//接口导出 
-	struct impl_telnet_commander : public i_telnet_commander, public virtual ns_common::impl_ref_counter
+	struct impl_telnet : public i_telnet, public virtual ns_common::impl_ref_counter
 	{	
 		std::map<long, ns_telnet::st_fsm*> m_fsms;
 
 
-		impl_telnet_commander(ns_base::i_server* serv)
+		impl_telnet(ns_base::i_server* serv)
 		{
 			m_status = e_close;
 			m_server = serv;
+			m_max_line = 15;
 
-			m_server->s_accept += std::make_pair(this, impl_telnet_commander::on_accept);
-			m_server->s_listen_error += std::make_pair(this, impl_telnet_commander::on_except);
-			m_server->s_session_error += std::make_pair(this, impl_telnet_commander::on_session_break);
+			m_server->s_accept += std::make_pair(this, impl_telnet::on_accept);
+			m_server->s_listen_error += std::make_pair(this, impl_telnet::on_except);
+			m_server->s_session_error += std::make_pair(this, impl_telnet::on_session_break);
 		}
 
 		void on_accept(long id)
 		{
 			s_accept(id);
 			i_session* sess = m_server->get_session(id);
-			ns_telnet::st_fsm* pfsm = new ns_telnet::st_fsm(sess);
+			ns_telnet::st_fsm* pfsm = new ns_telnet::st_fsm(sess, this);
 			m_fsms[id] = pfsm;
 		}
 
@@ -193,19 +198,42 @@ namespace ns_base
 			}
 			pfsm->input(str);
 		}
+
+		void clear(unsigned int id)
+		{
+			ns_telnet::st_fsm* pfsm = m_fsms[id];
+			if(!pfsm)
+			{
+				RAISE_EXCEPTION("");
+				return;
+			}
+
+			pfsm->clear();
+		}
+
+		size_t m_max_line;
+		void set_max_line(unsigned int ln)
+		{
+			m_max_line = ln;
+		}
+
+		size_t get_max_line()
+		{
+			return m_max_line;
+		}
 	};
 
 
 	struct h_impl_telnet : h_telnet
 	{
-		i_telnet_commander* create_telnet()
+		i_telnet* create_telnet()
 		{
 			ns_base::h_asio_net* han;
 			get(han);
 
 
 			i_server* serv = han->create_server();
-			impl_telnet_commander* ret = new impl_telnet_commander(serv);
+			impl_telnet* ret = new impl_telnet(serv);
 			return ret;
 		}
 	};

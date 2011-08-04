@@ -79,19 +79,21 @@ namespace ns_base
 		}
 		void st_fsm::on_recv_buff(long sz)
 		{
-			static char buff[8092];
-			std::printf(buff);
+			static char buff[256];
+			memset(buff, 0, 256);
 			m_sess->recv(buff, 8092);
+			printf(buff);
 			for(size_t i = 0; i<sz; ++i)
 			{
 				on_recv(buff[i]);
 			}
 		}
 
-		st_fsm::st_fsm(i_session* s)
+		st_fsm::st_fsm(i_session* s, i_telnet* tel)
 			:m_str(this, 1, 1)
 		{	
 			m_sess = s;
+			m_command = tel;
 			m_status = e_init;
 			m_col = "";
 			m_row = "";
@@ -153,6 +155,13 @@ namespace ns_base
 			m_sess->send(str.c_str(), str.size() );
 		}
 
+		void st_fsm::clear()
+		{
+			m_str.set_str("");
+			m_str.set_start_pos(1, 1);
+			refresh();
+		}
+
 
 		//wait×´Ì¬ÏÂË¢ÐÂ
 		void st_fsm::refresh()
@@ -161,20 +170,12 @@ namespace ns_base
 			int y = m_str.get_start_posy();
 			int x = m_str.get_start_posx();
 			cmd = erase_from_line(y);
-
-			cmd += set_console_pos(1, y);
-			cmd += set_input_title();
-			cmd += set_normal_text();
-			cmd += m_str.get_str();
-			
-			//cursorÎ»ÖÃ
-			x += m_str.get_posx();
-			if(m_str.get_posy() == 0)
-			{
-				x += m_str.m_title.length();
-			}
-			y += m_str.get_posy();
-			cmd += set_console_pos(x, y);
+			m_sess->send(cmd.c_str(), cmd.size() );
+			cmd = set_input_title();
+			m_sess->send(cmd.c_str(), cmd.size() );
+			cmd = set_normal_text();
+			m_sess->send(cmd.c_str(), cmd.size() );
+			cmd = m_str.get_str();
 			std::string cmd1 = "";
 			for(size_t i = 0; i<cmd.length(); ++i)
 			{
@@ -186,29 +187,36 @@ namespace ns_base
 				cmd1.push_back(cmd[i]);
 			}
 			m_sess->send(cmd1.c_str(), cmd1.size() );
-		}
-
-		void st_fsm::on_edit(char c)
-		{
-			//TODO
-			m_str.on_char(c);
+			
+			//cursorÎ»ÖÃ
+			x += m_str.get_posx();
+			if(m_str.get_posy() == 0)
+			{
+				x += m_str.m_title.length();
+			}
+			y += m_str.get_posy();
+			cmd = set_console_pos(x, y);
+			m_sess->send(cmd.c_str(), cmd.size() );
+			
 		}
 
 		void st_fsm::on_recv(char c)
 		{
 			if(m_status == e_init)
 			{
-				if(c == char(27) )
+				if(c == char(27) )//<ESC>
 				{
 					m_status = e_command_esc;
 				}
 				else if(c == 10)//'\n'
 				{
 					//Êä³ö
-					//s_command(m_sess->get_id(), m_str.m_str.c_str() );//TODO
+					int id = m_sess->get_id();
+					const char* str = m_str.m_str.c_str();
+					m_command->s_command_from_client(m_sess->get_id(), str);
 					input(m_str.m_str);
-					m_str.m_str = "";
-					m_str.m_pos = 0;
+					m_str.push_history(m_str.m_str);
+					m_str.set_str("");
 					return;
 				}
 				else if(c == 13)//'\r'
@@ -218,8 +226,10 @@ namespace ns_base
 				}
 				else
 				{
-					//±à¼­
-					m_str.on_char(c);
+					if(isprint(c) )
+						m_str.on_char(c);
+					else
+						m_str.on_action(c);
 				}
 				return ;
 			}
@@ -227,7 +237,7 @@ namespace ns_base
 			{
 				if(c == 10)
 				{
-					m_str.on_char(VK_RETURN);
+					m_str.on_action(VK_RETURN);
 					m_status = e_init;
 				}
 			}
@@ -246,22 +256,22 @@ namespace ns_base
 				if(c == 'A')//up
 				{
 					m_status = e_init;
-					m_str.on_char(VK_UP);
+					m_str.on_action(VK_UP);
 				}
 				else if(c == 'B')
 				{
 					m_status = e_init;
-					m_str.on_char(VK_DOWN);
+					m_str.on_action(VK_DOWN);
 				}
 				else if(c == 'C')
 				{
 					m_status = e_init;
-					m_str.on_char(VK_RIGHT);
+					m_str.on_action(VK_RIGHT);
 				}
 				else if(c == 'D')
 				{
 					m_status = e_init;
-					m_str.on_char(VK_LEFT);
+					m_str.on_action(VK_LEFT);
 				}
 				else if(c == char(';') )
 				{
@@ -281,7 +291,17 @@ namespace ns_base
 					m_str.set_str("");
 					int x = atoi(m_col.c_str() );
 					int y = atoi(m_row.c_str() );
-					m_str.set_start_pos(1, y);
+
+					int dely = y - this->m_command->get_max_line();
+					if(dely > 0)
+					{
+						m_command->clear(m_sess->get_id() );
+						m_str.set_start_pos(1, 1);
+					}
+					else
+					{
+						m_str.set_start_pos(1, y);
+					}
 					m_str.gen_lines();
 					refresh();
 				}
@@ -291,8 +311,6 @@ namespace ns_base
 				RAISE_EXCEPTION("");
 			}
 		}
-
-
 	}
 }
 
