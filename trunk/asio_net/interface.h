@@ -48,6 +48,9 @@ namespace ns_base
 		};
 		virtual int statu() = 0;
 		virtual void close() = 0;
+
+
+		virtual int get_id() = 0;
 	};
 
 	struct i_client : public virtual ns_common::i_ref_counter
