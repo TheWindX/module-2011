@@ -48,17 +48,19 @@ namespace ns_base
 
 		const std::string& set_console_pos(int x, int y);
 
-		const std::string& get_console_pos(int r, int c);
+		const std::string& get_console_pos();
 
 		const std::string& erase_from_line(int r);
 		
 		struct st_fsm
 		{
+			ns_delegate::Delegate<void(int, const char*)> s_command;
+			i_session* m_sess;//TODO, 改成id
+			
 			void on_recv_buff(long sz);
 			st_fsm(ns_base::i_session* s);
 
-			ns_delegate::Delegate<void(int, const char*)> s_command;
-			i_session* m_sess;//TODO, 改成id
+			
 			void output(const std::string& str1);
 			void input(const std::string& str1);
 
@@ -69,6 +71,7 @@ namespace ns_base
 			enum
 			{
 				e_init = 0,
+				e_new_line,
 				e_command_esc,
 				e_command_esc1,//'['
 				e_row,

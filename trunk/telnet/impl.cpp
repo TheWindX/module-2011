@@ -17,6 +17,7 @@ namespace ns_base
 			buff = "";
 			buff.push_back(char(27) );
 			buff += "[1;31;40m";
+			buff += "<<< ";
 			return buff;
 		}
 
@@ -26,7 +27,7 @@ namespace ns_base
 			buff = "";
 			buff.push_back(char(27) );
 			buff += "[1;33;40m";
-
+			buff += ">>> ";
 			return buff;
 		}
 
@@ -43,6 +44,7 @@ namespace ns_base
 		const std::string& set_console_pos(int x, int y)
 		{
 			static std::string buff;
+			buff.clear();
 
 			char cbuff[256] = {0};
 			cbuff[0] = 27;
@@ -53,9 +55,11 @@ namespace ns_base
 			return buff;
 		}
 
-		const std::string& get_console_pos(int r, int c)
+		const std::string& get_console_pos()
 		{
 			static std::string buff;
+
+			buff.clear();
 
 			buff.push_back(char(27) );
 			buff += "[6n";
@@ -67,7 +71,7 @@ namespace ns_base
 		{
 			static std::string buff;
 
-			buff = set_console_pos(r, 0);
+			buff = set_console_pos(0, r);
 
 			buff.push_back(char(27) );
 			buff += "[J";
@@ -76,17 +80,17 @@ namespace ns_base
 		void st_fsm::on_recv_buff(long sz)
 		{
 			static char buff[8092];
-			size_t sz1 = m_sess->recv(buff, 8092);
 			std::printf(buff);
-			for(size_t i = 0; i<sz1; ++i)
+			m_sess->recv(buff, 8092);
+			for(size_t i = 0; i<sz; ++i)
 			{
 				on_recv(buff[i]);
 			}
 		}
 
-		st_fsm::st_fsm(ns_base::i_session* s)
+		st_fsm::st_fsm(i_session* s)
 			:m_str(this, 1, 1)
-		{
+		{	
 			m_sess = s;
 			m_status = e_init;
 			m_col = "";
@@ -98,20 +102,55 @@ namespace ns_base
 
 		void st_fsm::output(const std::string& str1)
 		{
-			std::string str = set_output_title();
+			int x = m_str.get_start_posx();
+			int y = m_str.get_start_posy();
+			std::string str = set_console_pos(x, y);
+			m_sess->send(str.c_str(), str.size() );
+			str = set_output_title();
 			m_sess->send(str.c_str(), str.size() );
 			str = set_normal_text();
 			m_sess->send(str.c_str(), str.size() );
-			m_sess->send(str1.c_str(), str1.size() );
+			
+			str = "";
+			for(size_t i = 0; i<str1.size(); ++i)
+			{
+				char ch = str1[i];
+				if(ch == '\n')
+				{
+					str.push_back('\r');
+				}
+				str.push_back(ch);
+			}
+			m_sess->send(str.c_str(), str.size() );
+			m_sess->send("\r\n", 2);
+			str = get_console_pos();
+			m_sess->send(str.c_str(), str.size() );
 		}
 
 		void st_fsm::input(const std::string& str1)
 		{
-			std::string str = set_input_title();
+			int x = m_str.get_start_posx();
+			int y = m_str.get_start_posy();
+			std::string str = set_console_pos(x, y);
+			m_sess->send(str.c_str(), str.size() );
+			str = set_input_title();
 			m_sess->send(str.c_str(), str.size() );
 			str = set_normal_text();
 			m_sess->send(str.c_str(), str.size() );
-			m_sess->send(str1.c_str(), str1.size() );
+			str = "";
+			for(size_t i = 0; i<str1.size(); ++i)
+			{
+				char ch = str1[i];
+				if(ch == '\n')
+				{
+					str.push_back('\r');
+				}
+				str.push_back(ch);
+			}
+			m_sess->send(str.c_str(), str.size() );
+			m_sess->send("\r\n", 2);
+			str = get_console_pos();
+			m_sess->send(str.c_str(), str.size() );
 		}
 
 
@@ -125,7 +164,6 @@ namespace ns_base
 
 			cmd += set_console_pos(1, y);
 			cmd += set_input_title();
-			cmd += m_str.m_title;
 			cmd += set_normal_text();
 			cmd += m_str.get_str();
 			
@@ -164,13 +202,19 @@ namespace ns_base
 				{
 					m_status = e_command_esc;
 				}
-				else if( c== 10)//NL
+				else if(c == 10)//'\n'
 				{
+					//Êä³ö
+					//s_command(m_sess->get_id(), m_str.m_str.c_str() );//TODO
+					input(m_str.m_str);
+					m_str.m_str = "";
+					m_str.m_pos = 0;
 					return;
 				}
-				else if(c == 13)
+				else if(c == 13)//'\r'
 				{
-					m_str.on_char(VK_RETURN);
+					m_status = e_new_line;
+					return;	
 				}
 				else
 				{
@@ -178,6 +222,14 @@ namespace ns_base
 					m_str.on_char(c);
 				}
 				return ;
+			}
+			else if(m_status == e_new_line)
+			{
+				if(c == 10)
+				{
+					m_str.on_char(VK_RETURN);
+					m_status = e_init;
+				}
 			}
 			else if(m_status == e_command_esc)
 			{
@@ -229,7 +281,8 @@ namespace ns_base
 					m_str.set_str("");
 					int x = atoi(m_col.c_str() );
 					int y = atoi(m_row.c_str() );
-					m_str.set_start_pos(x, y);
+					m_str.set_start_pos(1, y);
+					m_str.gen_lines();
 					refresh();
 				}
 			}
