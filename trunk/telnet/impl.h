@@ -1,6 +1,7 @@
 #pragma once
 
 #include <map>
+#include <deque>
 
 #include "interface.h"
 #include "../head/ref_counter.h"
@@ -12,6 +13,7 @@
 #include "edit_text.h"
 
 
+#pragma comment(lib,"lua5.1.lib")
 
 namespace ns_base
 {
@@ -59,6 +61,10 @@ namespace ns_base
 			i_session* m_sess;//TODO, 改成id
 			i_telnet* m_command;
 			
+			
+			std::deque<std::pair<bool, std::string> > m_outputs;
+
+
 			void on_recv_buff(long sz);
 			st_fsm(ns_base::i_session* s, i_telnet* tel);
 
@@ -82,8 +88,6 @@ namespace ns_base
 				e_row,
 				e_col,
 				e_command_end,
-				
-
 			};
 			int m_status;
 			std::string m_col;
@@ -96,20 +100,24 @@ namespace ns_base
 	};
 
 	//接口导出 
-	struct impl_telnet : public i_telnet, public virtual ns_common::impl_ref_counter
+	struct impl_telnet : public virtual i_telnet, public virtual ns_common::impl_ref_counter
 	{	
-		std::map<long, ns_telnet::st_fsm*> m_fsms;
+		static std::map<long, ns_telnet::st_fsm*> m_fsms;
 
 
 		impl_telnet(ns_base::i_server* serv)
 		{
 			m_status = e_close;
 			m_server = serv;
-			m_max_line = 15;
+			m_max_line = 120;
 
 			m_server->s_accept += std::make_pair(this, impl_telnet::on_accept);
 			m_server->s_listen_error += std::make_pair(this, impl_telnet::on_except);
 			m_server->s_session_error += std::make_pair(this, impl_telnet::on_session_break);
+		}
+
+		virtual ~impl_telnet()
+		{
 		}
 
 		void on_accept(long id)
@@ -129,7 +137,7 @@ namespace ns_base
 		void on_session_break(long id, long ec)
 		{
 			s_session_break(id, ec);
-			m_server->remove_session(id);
+			remove(id);
 		}
 
 		void bind(unsigned short port)
@@ -151,7 +159,7 @@ namespace ns_base
 
 		i_server* m_server;
 		//遍历
-		bool first(unsigned int& id)
+		bool first(long& id)
 		{
 			i_session* s = m_server->first_session();
 			if(!s) return false;
@@ -160,7 +168,7 @@ namespace ns_base
 			return true;
 		}
 
-		virtual bool next(unsigned int& id)
+		virtual bool next(long& id)
 		{
 			i_session* s = m_server->next_session();
 			if(!s) return false;
@@ -169,15 +177,25 @@ namespace ns_base
 			return true;
 		}
 
-		virtual bool exist(unsigned int id)
+		bool exist(long id)
 		{
 			i_session* s = m_server->get_session(id);
 			if(s) return true;
 			return false;
 		}
 
+		void remove(long id)
+		{
+			m_server->remove_session(id);
+			std::map<long, ns_telnet::st_fsm*>::iterator it = m_fsms.find(id);
+			if(it != m_fsms.end() )
+			{
+				delete it->second;
+			}
+		}
+
 		//terminor print
-		void output_ostr(unsigned int id, const char* str)
+		void output_ostr(long id, const char* str)
 		{
 			ns_telnet::st_fsm* pfsm = m_fsms[id];
 			if(!pfsm)
@@ -188,7 +206,7 @@ namespace ns_base
 			pfsm->output(str);
 		}
 
-		void output_istr(unsigned int id, const char* str)
+		void output_istr(long id, const char* str)
 		{
 			ns_telnet::st_fsm* pfsm = m_fsms[id];
 			if(!pfsm)
@@ -199,7 +217,7 @@ namespace ns_base
 			pfsm->input(str);
 		}
 
-		void clear(unsigned int id)
+		void clear(long id)
 		{
 			ns_telnet::st_fsm* pfsm = m_fsms[id];
 			if(!pfsm)
@@ -212,7 +230,7 @@ namespace ns_base
 		}
 
 		size_t m_max_line;
-		void set_max_line(unsigned int ln)
+		void set_max_line(long ln)
 		{
 			m_max_line = ln;
 		}
@@ -220,6 +238,55 @@ namespace ns_base
 		size_t get_max_line()
 		{
 			return m_max_line;
+		}
+	};
+
+
+
+	struct  impl_telnet_srcipt : public i_telnet_srcipt, public impl_telnet
+	{	
+		std::map<long, i_lua*> m_luas;
+
+		void on_accept(long id);
+
+		void on_command(int id, const char* cmd)
+		{
+			i_lua* pl = get_script(id);
+			if(pl)
+			{
+				pl->do_string(cmd);
+			}
+			else
+				RAISE_EXCEPTION("");
+		}
+
+		impl_telnet_srcipt(i_server* serv) : impl_telnet(serv)
+		{	
+			s_accept += std::make_pair(this, impl_telnet_srcipt::on_accept);
+			s_command_from_client += std::make_pair(this, impl_telnet_srcipt::on_command);
+		}
+
+		i_lua* get_script(long id)
+		{
+			std::map<long, i_lua*>::iterator it = m_luas.find(id);
+
+			if(it != m_luas.end() )
+			{
+				i_lua* pl = it->second;
+				return pl;
+			}
+			return 0;
+		}
+
+		virtual ~impl_telnet_srcipt()
+		{
+			//std::map<long, i_lua*>::iterator it = m_luas->begin();
+
+			//for(; it != m_luas.end(); ++it)
+			//{
+			//	i_lua* l = it->second;
+			//	l->release();
+			//}
 		}
 	};
 
@@ -234,6 +301,17 @@ namespace ns_base
 
 			i_server* serv = han->create_server();
 			impl_telnet* ret = new impl_telnet(serv);
+			return ret;
+		}
+
+		i_telnet_srcipt* create_telnet_script()
+		{
+			ns_base::h_asio_net* han;
+			get(han);
+
+
+			i_server* serv = han->create_server();
+			impl_telnet_srcipt* ret = new impl_telnet_srcipt(serv);
 			return ret;
 		}
 	};

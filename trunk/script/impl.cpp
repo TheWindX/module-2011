@@ -25,6 +25,12 @@ namespace ns_base
 		return m_state;
 	}
 
+	void impl_lua::do_string(const char* cmd)
+	{
+		load_string(cmd);
+		do_script();
+	}
+
 	const std::string& getLuaErrorString( int aiErr )
 	{
 		static std::string aErrString;

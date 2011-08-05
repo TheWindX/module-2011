@@ -16,6 +16,8 @@ namespace ns_base
 
 		lua_State* get_state();
 
+		void do_string(const char* cmd);
+
 		//生成一个function放到栈顶
 		void load_string(const char* str);
 		void load_file(const char* fname);

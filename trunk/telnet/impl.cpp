@@ -5,6 +5,7 @@
 
 #include "impl.h"
 
+#include "../head/exception.h"
 
 namespace ns_base
 {
@@ -79,11 +80,11 @@ namespace ns_base
 		}
 		void st_fsm::on_recv_buff(long sz)
 		{
-			static char buff[256];
-			memset(buff, 0, 256);
-			m_sess->recv(buff, 8092);
-			printf(buff);
-			for(size_t i = 0; i<sz; ++i)
+			static char buff[8092];
+			memset(buff, 0, 8092);
+			size_t sz1 = m_sess->recv(buff, 8092);
+			
+			for(size_t i = 0; i<sz1; ++i)
 			{
 				on_recv(buff[i]);
 			}
@@ -106,14 +107,11 @@ namespace ns_base
 		{
 			int x = m_str.get_start_posx();
 			int y = m_str.get_start_posy();
-			std::string str = set_console_pos(x, y);
-			m_sess->send(str.c_str(), str.size() );
-			str = set_output_title();
-			m_sess->send(str.c_str(), str.size() );
-			str = set_normal_text();
-			m_sess->send(str.c_str(), str.size() );
 			
-			str = "";
+			std::string str = set_console_pos(x, y);
+			str += set_output_title();
+			str += set_normal_text();
+			
 			for(size_t i = 0; i<str1.size(); ++i)
 			{
 				char ch = str1[i];
@@ -123,9 +121,10 @@ namespace ns_base
 				}
 				str.push_back(ch);
 			}
-			m_sess->send(str.c_str(), str.size() );
-			m_sess->send("\r\n", 2);
-			str = get_console_pos();
+			
+			str += "\r\n";
+			str += get_console_pos();
+
 			m_sess->send(str.c_str(), str.size() );
 		}
 
@@ -133,13 +132,11 @@ namespace ns_base
 		{
 			int x = m_str.get_start_posx();
 			int y = m_str.get_start_posy();
+
 			std::string str = set_console_pos(x, y);
-			m_sess->send(str.c_str(), str.size() );
-			str = set_input_title();
-			m_sess->send(str.c_str(), str.size() );
-			str = set_normal_text();
-			m_sess->send(str.c_str(), str.size() );
-			str = "";
+			str += set_input_title();
+			str += set_normal_text();
+
 			for(size_t i = 0; i<str1.size(); ++i)
 			{
 				char ch = str1[i];
@@ -149,9 +146,10 @@ namespace ns_base
 				}
 				str.push_back(ch);
 			}
-			m_sess->send(str.c_str(), str.size() );
-			m_sess->send("\r\n", 2);
-			str = get_console_pos();
+
+			str += "\r\n";
+			str += get_console_pos();
+
 			m_sess->send(str.c_str(), str.size() );
 		}
 
@@ -170,12 +168,9 @@ namespace ns_base
 			int y = m_str.get_start_posy();
 			int x = m_str.get_start_posx();
 			cmd = erase_from_line(y);
-			m_sess->send(cmd.c_str(), cmd.size() );
-			cmd = set_input_title();
-			m_sess->send(cmd.c_str(), cmd.size() );
-			cmd = set_normal_text();
-			m_sess->send(cmd.c_str(), cmd.size() );
-			cmd = m_str.get_str();
+			cmd += set_input_title();
+			cmd += set_normal_text();
+			cmd += m_str.get_str();
 			std::string cmd1 = "";
 			for(size_t i = 0; i<cmd.length(); ++i)
 			{
@@ -186,7 +181,7 @@ namespace ns_base
 				}
 				cmd1.push_back(cmd[i]);
 			}
-			m_sess->send(cmd1.c_str(), cmd1.size() );
+			cmd.swap(cmd1);
 			
 			//cursor位置
 			x += m_str.get_posx();
@@ -195,9 +190,9 @@ namespace ns_base
 				x += m_str.m_title.length();
 			}
 			y += m_str.get_posy();
-			cmd = set_console_pos(x, y);
-			m_sess->send(cmd.c_str(), cmd.size() );
+			cmd += set_console_pos(x, y);
 			
+			m_sess->send(cmd.c_str() , cmd.length() );
 		}
 
 		void st_fsm::on_recv(char c)
@@ -213,8 +208,26 @@ namespace ns_base
 					//输出
 					int id = m_sess->get_id();
 					const char* str = m_str.m_str.c_str();
-					m_command->s_command_from_client(m_sess->get_id(), str);
-					input(m_str.m_str);
+					try
+					{
+						if(std::string("__clear()") == str)
+						{
+							clear();
+						}
+						else
+						{
+							std::string cmd = set_console_pos(m_str.m_start_x, m_str.m_start_y);
+							cmd += get_console_pos();
+							m_sess->send(cmd.c_str(), cmd.size() );
+							m_outputs.push_back(std::make_pair(true, str) );
+							m_command->s_command_from_client(m_sess->get_id(), str);
+						}
+
+					}
+					catch(ns_common::st_exception& ex)
+					{
+						m_outputs.push_back(std::make_pair(false, std::string(ex.what() ) ) );
+					}
 					m_str.push_history(m_str.m_str);
 					m_str.set_str("");
 					return;
@@ -287,6 +300,7 @@ namespace ns_base
 					m_col.push_back(c);
 				else
 				{
+					//获得位置
 					m_status = e_init;
 					m_str.set_str("");
 					int x = atoi(m_col.c_str() );
@@ -303,7 +317,24 @@ namespace ns_base
 						m_str.set_start_pos(1, y);
 					}
 					m_str.gen_lines();
-					refresh();
+					
+					if(m_outputs.size() != 0)
+					{
+						std::pair<bool, std::string> cmd = m_outputs.front();
+						m_outputs.pop_front();
+						if(cmd.first)
+						{
+							input(cmd.second);
+						}
+						else
+						{
+							output(cmd.second);
+						}
+					}
+					else
+					{
+						refresh();
+					}
 				}
 			}
 			else
@@ -311,6 +342,49 @@ namespace ns_base
 				RAISE_EXCEPTION("");
 			}
 		}
+
+
+
+
+	}
+	std::map<long, ns_telnet::st_fsm*> impl_telnet::m_fsms;
+
+	static _lua_print(lua_State* st)
+	{
+		std::string str = lua_tostring(st, 1);
+		lua_getglobal(st, "__session_id");
+		int id = lua_tonumber(st, -1);
+		std::map<long, ns_telnet::st_fsm*>::iterator it = impl_telnet::m_fsms.find(id);
+		if(it == impl_telnet::m_fsms.end() ) return 0;
+
+		ns_telnet::st_fsm* pf = it->second;
+		
+		pf->m_outputs.push_back(std::make_pair(false, str) );
+		return 0;
+	}
+
+
+	void impl_telnet_srcipt::on_accept(long id)
+	{
+		h_script* hs;get(hs);
+		i_lua* pl = hs->create_lua();
+		m_luas[id] = pl;
+
+		pl->reg_func("__print", _lua_print);
+
+		char buff[256];
+		sprintf(buff, "__session_id = %d", id);
+		pl->do_string(buff);
+
+		pl->do_string(
+			"function print(...)\n\
+			local paras = {...};\n\
+			local str = \"\";\n\
+			for i, v in ipairs(paras) do\n\
+			str = str..tostring(v)..\"\t\"\n\
+			end\n\
+			__print(str)\n\
+			end");
 	}
 }
 
