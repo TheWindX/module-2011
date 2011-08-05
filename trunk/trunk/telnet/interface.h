@@ -33,24 +33,34 @@ namespace ns_base
 		virtual int get_status() = 0;
 
 		//遍历
-		virtual bool first(unsigned int& id) = 0;
-		virtual bool next(unsigned int& id) = 0;
+		virtual bool first(long& id) = 0;
+		virtual bool next(long& id) = 0;
 
-		virtual bool exist(unsigned int id) = 0;
+		virtual bool exist(long id) = 0;
+		virtual void remove(long id) = 0;
 
 		//terminor print
-		virtual void output_ostr(unsigned int id, const char* str) = 0;
-		virtual void output_istr(unsigned int id, const char* str) = 0;
+		virtual void output_ostr(long id, const char* str) = 0;
+		virtual void output_istr(long id, const char* str) = 0;
 
-		virtual void clear(unsigned int id) = 0;
+		virtual void clear(long id) = 0;
 
-		virtual void set_max_line(unsigned int ln) = 0;
+		//回显行数
+		virtual void set_max_line(long ln) = 0;
 		virtual size_t get_max_line() = 0;
 	};
+
+
+	struct  i_telnet_srcipt : public virtual i_telnet
+	{	
+		virtual i_lua* get_script(long id) = 0;
+	};
+
 
 	struct h_telnet
 	{
 		virtual i_telnet* create_telnet() = 0;
+		virtual i_telnet_srcipt* create_telnet_script() = 0;
 	};
 }
 

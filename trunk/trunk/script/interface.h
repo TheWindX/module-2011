@@ -18,6 +18,8 @@ namespace ns_base
 	{
 		virtual lua_State* get_state() = 0;
 
+		virtual void do_string(const char* cmd) = 0;
+
 		//生成一个function放到栈顶
 		virtual void load_string(const char* str) = 0;
 		virtual void load_file(const char* fname) = 0;

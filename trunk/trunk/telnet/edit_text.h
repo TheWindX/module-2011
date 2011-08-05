@@ -20,7 +20,7 @@ namespace ns_base
 			size_t m_his_idx;
 			void push_history(const std::string& str)
 			{
-				m_his_idx = m_his_idx+1%max_his;
+				m_his_idx = (m_his_idx+1)%max_his;
 				m_his[m_his_idx] = str;
 			}
 			const std::string& pre_history()
