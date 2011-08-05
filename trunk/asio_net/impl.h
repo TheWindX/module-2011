@@ -59,6 +59,15 @@ namespace ns_base
 		int statu();
 		void close();
 
+		int get_id()
+		{
+			if(m_bclient_or_server)
+			{
+				return 0;//客户端的session id 永远为0;
+			}
+			return m_server_id;
+		}
+
 		boost::asio::ip::tcp::socket m_socket;
 		ns_common::st_dequeue m_buffer;//recv_buffer
 
