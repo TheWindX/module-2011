@@ -628,7 +628,7 @@ YY_RULE_SETUP
 case 3:
 YY_RULE_SETUP
 #line 23 "d:\\frame\\package\\module\\trunk\\flex_bison\\flex\\2\\test.l"
-{memcpy(yylval.m_id, yytext, yyleng); printf("ID = %s\n", yytext); return ID; }
+{memcpy(yylval.m_id, yytext, yyleng); return ID; }
 	YY_BREAK
 case 4:
 YY_RULE_SETUP

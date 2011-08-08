@@ -18,6 +18,8 @@ struct i_flex_use
 	//µ±«∞Œª÷√
 	size_t get_cur_pos();
 
+	size_t get_left();
+	size_t get_right();
 
 	//////////////////////////////////////////////////////////////////////////
 	//for flex use

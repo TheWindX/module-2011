@@ -20,7 +20,7 @@ ID	[a-zA-Z]
 
 {BLANK}+	{/*eat up*/;}
 
-{ID}+({ID}|{DIGIT})*	{memcpy(yylval.m_id, yytext, yyleng); printf("ID = %s\n", yytext); return ID; }
+{ID}+({ID}|{DIGIT})*	{memcpy(yylval.m_id, yytext, yyleng); return ID; }
 
 ";"		{return yytext[0];}
 "+"		{return yytext[0];}

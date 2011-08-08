@@ -154,7 +154,7 @@
 				Name="Debug|Win32">
 				<Tool
 					Name="VCCustomBuildTool"
-					CommandLine="bison.exe -d -v -o&quot;$(InputDir)\$(InputName).tab.cpp&quot; $(InputPath)
+					CommandLine="bison.exe -d -g -v -o&quot;$(InputDir)\$(InputName).tab.cpp&quot; $(InputPath)
 "
 					AdditionalDependencies=""
 					Outputs="$(InputName).tab.cpp"/>
