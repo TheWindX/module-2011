@@ -1,12 +1,13 @@
 %{
 #include "flex_user.h"
 #include "bison_header.h"
+#include <string>
 %}
 
 %union
 {
-	std::string m_id;
-	int m_number;
+	char m_id[1024];
+	double m_number;
 }
 
 %token <m_number> NUMBER
@@ -31,6 +32,7 @@ statments :
 	;
 	
 statment :
+	|
 	assignment |
 	expr
 	;

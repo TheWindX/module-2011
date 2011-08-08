@@ -17,10 +17,10 @@ extern void yyrestart(FILE*);
 
 //这个flex用来取buff
 #undef YY_INPUT
-#define  YY_INPUT(b, r, ms){r = g_flex_use.copy_buffer(b, ms);}
+#define  YY_INPUT(b, r, ms){r = g_flex_user.copy_buffer(b, ms);}
 
 //每个token action之前调用
-#define YY_USER_ACTION	g_flex_use.new_token();
+#define YY_USER_ACTION	g_flex_user.new_token();
 
 
 
