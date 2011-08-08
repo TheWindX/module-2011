@@ -56,6 +56,17 @@ size_t i_flex_use::get_cur_pos()
 }
 
 
+size_t i_flex_use::get_left()
+{
+	return m_impl->m_pos_count-yyleng;
+}
+
+size_t i_flex_use::get_right()
+{
+	return m_impl->m_pos_count;
+}
+
+
 //////////////////////////////////////////////////////////////////////////
 //for flex use
 
