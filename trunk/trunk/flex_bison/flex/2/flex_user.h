@@ -29,6 +29,11 @@ struct i_flex_use
 	//token.length
 	size_t get_length();
 
+	//当前行
+	const char* get_current_line();
+	//行到当前位置
+	const char* get_current_line_segment();
+
 	
 	int copy_buffer(char* buff, int max_size);
 	
@@ -38,5 +43,5 @@ struct i_flex_use
 	virtual ~i_flex_use();
 };
 
-extern i_flex_use g_flex_use;
+extern i_flex_use g_flex_user;
 

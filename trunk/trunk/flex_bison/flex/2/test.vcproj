@@ -111,6 +111,15 @@
 	</References>
 	<Files>
 		<File
+			RelativePath=".\bison_header.h">
+		</File>
+		<File
+			RelativePath=".\bison_user.cpp">
+		</File>
+		<File
+			RelativePath=".\bison_user.h">
+		</File>
+		<File
 			RelativePath=".\flex_header.h">
 		</File>
 		<File
@@ -132,6 +141,12 @@
 "
 					Outputs="$(InputName).yy.cpp"/>
 			</FileConfiguration>
+		</File>
+		<File
+			RelativePath=".\test.tab.cpp">
+		</File>
+		<File
+			RelativePath=".\test.tab.hpp">
 		</File>
 		<File
 			RelativePath=".\test.y">

@@ -1,26 +1,24 @@
 
 
-#include "flex_user.h"
+#include "bison_user.h"
 
 #include <string>
 #include <iostream>
 
 int main(int argc, char** argv)
 {
-	std::string str = "abc,-123.01 abc";
-	g_flex_use.reset_buffer(str.c_str(), str.size() );
+	FILE* fin = fopen("test.txt", "rb");
+	std::string str = "";
+	fseek(fin, 0, SEEK_END);
+	long sz = ftell(fin);
+	fseek(fin, 0, SEEK_SET);
 
-	int r = 0;
-	do
-	{
-		r = g_flex_use.lex();
-		std::cout<<g_flex_use.get_cur_pos()<<std::endl;
-
-	}while(r != 0);
-
+	str.resize(sz);
+	fread(&str[0], 1, sz, fin);
+	fclose(fin);
 
 
-	
-
+	g_bison_use.reset_buffer(str.c_str(), str.size() );
+	g_bison_use.parse();
 	return 0;
 }
