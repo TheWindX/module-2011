@@ -9,9 +9,13 @@ DIGIT_NZERO [1-9]
 INTERGER {DIGIT_NZERO}+{DIGIT}*
 FLOAT \.{DIGIT}+
 
-%%
--?{INTERGER}{FLOAT}?	{std::cout<<"match! "<<atof(yytext)+2000.0<<std::endl; return 1;} /* Æ¥ÅäÊý×Ö */
+BLANK [ \t\n\r]
 
-. /* eat up */
+%%
+-?{INTERGER}{FLOAT}?	{return 1;} /* Æ¥ÅäÊý×Ö */
+
+BLANK+	{return 1;}
+
+.	return 0;
 %%
 int yywrap(){return 1;}

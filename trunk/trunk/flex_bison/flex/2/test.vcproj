@@ -4,6 +4,7 @@
 	Version="7.10"
 	Name="test"
 	ProjectGUID="{40995ECB-F7FF-47DA-B89A-635811F6A5D0}"
+	RootNamespace="test"
 	Keyword="Win32Proj">
 	<Platforms>
 		<Platform
@@ -129,7 +130,19 @@
 					Name="VCCustomBuildTool"
 					CommandLine="&quot;flex.exe&quot; -o&quot;$(InputDir)\$(InputName).yy.cpp&quot; &quot;$(InputPath)&quot;
 "
-					Outputs="xx"/>
+					Outputs="$(InputName).yy.cpp"/>
+			</FileConfiguration>
+		</File>
+		<File
+			RelativePath=".\test.y">
+			<FileConfiguration
+				Name="Debug|Win32">
+				<Tool
+					Name="VCCustomBuildTool"
+					CommandLine="bison.exe -d -v -o&quot;$(InputDir)\$(InputName).tab.cpp&quot; $(InputPath)
+"
+					AdditionalDependencies=""
+					Outputs="$(InputName).tab.cpp"/>
 			</FileConfiguration>
 		</File>
 		<File
