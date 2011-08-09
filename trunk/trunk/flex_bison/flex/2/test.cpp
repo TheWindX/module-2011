@@ -5,29 +5,6 @@
 #include <string>
 #include <iostream>
 
-#include <windows.h>
-
-#include <iostream>
-#include <conio.h>
-#include <wincon.h>
-#include <fcntl.h>
-#include <io.h>
-
-
-
-void set_color()
-{
-	HANDLE consolehwnd; 
-	consolehwnd = GetStdHandle(STD_OUTPUT_HANDLE); 
-	SetConsoleTextAttribute(consolehwnd,FOREGROUND_RED|FOREGROUND_INTENSITY); 
-}
-void set_normal()
-{
-	HANDLE consolehwnd; 
-	consolehwnd = GetStdHandle(STD_OUTPUT_HANDLE); 
-	SetConsoleTextAttribute(consolehwnd,FOREGROUND_INTENSITY); 
-}
-
 int main(int argc, char** argv)
 {
 
