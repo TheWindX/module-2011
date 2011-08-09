@@ -18,8 +18,9 @@ struct i_flex_use
 	//当前位置
 	size_t get_cur_pos();
 
-	size_t get_left();
-	size_t get_right();
+	//取字串段
+	const char* get_segment(int pos1, int pos2);
+
 
 	//////////////////////////////////////////////////////////////////////////
 	//for flex use
@@ -32,10 +33,8 @@ struct i_flex_use
 	size_t get_length();
 
 	//当前行
-	const char* get_current_line();
-	//行到当前位置
-	const char* get_current_line_segment();
-
+	const char* get_line(int ln);
+	
 	
 	int copy_buffer(char* buff, int max_size);
 	

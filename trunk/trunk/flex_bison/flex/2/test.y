@@ -2,6 +2,9 @@
 #include "flex_user.h"
 #include "bison_header.h"
 #include <string>
+
+void set_color();
+void set_normal();
 %}
 
 %union
@@ -23,43 +26,42 @@
 %%
 
 root : 
-	statments
+	statments	{system("cls");set_normal();printf("%s",g_flex_user.get_segment(0, @$.pos) );set_color();printf("%s\n\n",g_flex_user.get_segment(@$.pos, @$.len) );set_normal();system("pause");}
 	;
 
 statments :
-	statment |
-	statments ';' statment
+	statment	{system("cls");set_normal();printf("%s",g_flex_user.get_segment(0, @$.pos) );set_color();printf("%s\n\n",g_flex_user.get_segment(@$.pos, @$.len) );set_normal();system("pause");}
+	| statments ';' statment {system("cls");set_normal();printf("%s",g_flex_user.get_segment(0, @$.pos) );set_color();printf("%s\n\n",g_flex_user.get_segment(@$.pos, @$.len) );set_normal();system("pause");}
 	;
 	
 statment :
-	|
-	assignment |
-	expr
+	| assignment {system("cls");set_normal();printf("%s",g_flex_user.get_segment(0, @$.pos) );set_color();printf("%s\n\n",g_flex_user.get_segment(@$.pos, @$.len) );set_normal();system("pause");}
+	| expr {system("cls");set_normal();printf("%s",g_flex_user.get_segment(0, @$.pos) );set_color();printf("%s\n\n",g_flex_user.get_segment(@$.pos, @$.len) );set_normal();system("pause");}
 	;
 
 assignment :
-	ID '=' expr
+	ID '=' expr {system("cls");set_normal();printf("%s",g_flex_user.get_segment(0, @$.pos) );set_color();printf("%s\n\n",g_flex_user.get_segment(@$.pos, @$.len) );set_normal();system("pause");}
 	;
 
 expr :
-	expr_multi |
-	expr '+' expr %prec E_PLUS_E
+	expr_multi {system("cls");set_normal();printf("%s",g_flex_user.get_segment(0, @$.pos) );set_color();printf("%s\n\n",g_flex_user.get_segment(@$.pos, @$.len) );set_normal();system("pause");}
+	| expr '+' expr %prec E_PLUS_E {system("cls");set_normal();printf("%s",g_flex_user.get_segment(0, @$.pos) );set_color();printf("%s\n\n",g_flex_user.get_segment(@$.pos, @$.len) );set_normal();system("pause");}
 	;
 	
 expr_multi :
-	expr_apply |
-	expr_inner |
-	ID |
-	NUMBER |
-	expr '*' expr %prec E_MULTI_E
+	expr_apply {system("cls");set_normal();printf("%s",g_flex_user.get_segment(0, @$.pos) );set_color();printf("%s\n\n",g_flex_user.get_segment(@$.pos, @$.len) );set_normal();system("pause");}
+	| expr_inner {system("cls");set_normal();printf("%s",g_flex_user.get_segment(0, @$.pos) );set_color();printf("%s\n\n",g_flex_user.get_segment(@$.pos, @$.len) );set_normal();system("pause");}
+	| ID
+	| NUMBER {system("cls");set_normal();printf("%s",g_flex_user.get_segment(0, @$.pos) );set_color();printf("%s\n\n",g_flex_user.get_segment(@$.pos, @$.len) );set_normal();system("pause");}
+	| expr '*' expr %prec E_MULTI_E {system("cls");set_normal();printf("%s",g_flex_user.get_segment(0, @$.pos) );set_color();printf("%s\n\n",g_flex_user.get_segment(@$.pos, @$.len) );set_normal();system("pause");}
 	;
 	
 expr_apply :
-	func_name '(' para_list ')'
-	;
+	func_name '(' para_list ')' {system("cls");set_normal();printf("%s",g_flex_user.get_segment(0, @$.pos) );set_color();printf("%s\n\n",g_flex_user.get_segment(@$.pos, @$.len) );set_normal();system("pause");}
+	; 
 	
 expr_inner :
-	'(' expr ')'
+	'(' expr ')' {system("cls");set_normal();printf("%s",g_flex_user.get_segment(0, @$.pos) );set_color();printf("%s\n\n",g_flex_user.get_segment(@$.pos, @$.len) );set_normal();system("pause");}
 	;
 	
 func_name :
@@ -67,12 +69,11 @@ func_name :
 	;
 	
 para_list :
-	|
-	para |
-	para_list ',' para
+	| para {system("cls");set_normal();printf("%s",g_flex_user.get_segment(0, @$.pos) );set_color();printf("%s\n\n",g_flex_user.get_segment(@$.pos, @$.len) );set_normal();system("pause");}
+	| para_list ',' para {system("cls");set_normal();printf("%s",g_flex_user.get_segment(0, @$.pos) );set_color();printf("%s\n\n",g_flex_user.get_segment(@$.pos, @$.len) );set_normal();system("pause");}
 	;
 	
 para :
-	expr
+	expr {system("cls");set_normal();printf("%s",g_flex_user.get_segment(0, @$.pos) );set_color();printf("%s\n\n",g_flex_user.get_segment(@$.pos, @$.len) );set_normal();system("pause");}
 	;
 %%
