@@ -15,7 +15,7 @@ extern void yyrestart(FILE*);
 
 #include "flex_user.h"
 
-//这个flex用来取buff
+//用来取str 的 buffer
 #undef YY_INPUT
 #define  YY_INPUT(b, r, ms){r = g_flex_user.copy_buffer(b, ms);}
 
@@ -23,4 +23,16 @@ extern void yyrestart(FILE*);
 #define YY_USER_ACTION	g_flex_user.new_token();
 
 
+//YYLTYPE 定义
+struct YYLTYPE
+{
+	int first_line;
+	int first_column;
+	int last_line;
+	int last_column;
+	int pos;
+	int len;
+};
+#define  YYLTYPE YYLTYPE
+extern YYLTYPE yylloc;
 

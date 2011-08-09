@@ -61,7 +61,7 @@
 #define YYPULL 1
 
 /* Using locations.  */
-#define YYLSP_NEEDED 0
+#define YYLSP_NEEDED 1
 
 
 
@@ -74,9 +74,12 @@
 #include "bison_header.h"
 #include <string>
 
+void set_color();
+void set_normal();
+
 
 /* Line 189 of yacc.c  */
-#line 80 "d:\\frame\\package\\module\\trunk\\flex_bison\\flex\\2\\\\test.tab.cpp"
+#line 83 "d:\\frame\\package\\module\\trunk\\flex_bison\\flex\\2\\\\test.tab.cpp"
 
 /* Enabling traces.  */
 #ifndef YYDEBUG
@@ -117,7 +120,7 @@ typedef union YYSTYPE
 {
 
 /* Line 214 of yacc.c  */
-#line 8 "d:\\frame\\package\\module\\trunk\\flex_bison\\flex\\2\\test.y"
+#line 11 "d:\\frame\\package\\module\\trunk\\flex_bison\\flex\\2\\test.y"
 
 	char m_id[1024];
 	double m_number;
@@ -125,11 +128,24 @@ typedef union YYSTYPE
 
 
 /* Line 214 of yacc.c  */
-#line 129 "d:\\frame\\package\\module\\trunk\\flex_bison\\flex\\2\\\\test.tab.cpp"
+#line 132 "d:\\frame\\package\\module\\trunk\\flex_bison\\flex\\2\\\\test.tab.cpp"
 } YYSTYPE;
 # define YYSTYPE_IS_TRIVIAL 1
 # define yystype YYSTYPE /* obsolescent; will be withdrawn */
 # define YYSTYPE_IS_DECLARED 1
+#endif
+
+#if ! defined YYLTYPE && ! defined YYLTYPE_IS_DECLARED
+typedef struct YYLTYPE
+{
+  int first_line;
+  int first_column;
+  int last_line;
+  int last_column;
+} YYLTYPE;
+# define yyltype YYLTYPE /* obsolescent; will be withdrawn */
+# define YYLTYPE_IS_DECLARED 1
+# define YYLTYPE_IS_TRIVIAL 1
 #endif
 
 
@@ -137,7 +153,7 @@ typedef union YYSTYPE
 
 
 /* Line 264 of yacc.c  */
-#line 141 "d:\\frame\\package\\module\\trunk\\flex_bison\\flex\\2\\\\test.tab.cpp"
+#line 157 "d:\\frame\\package\\module\\trunk\\flex_bison\\flex\\2\\\\test.tab.cpp"
 
 #ifdef short
 # undef short
@@ -295,13 +311,15 @@ void free (void *); /* INFRINGES ON USER NAME SPACE */
 
 #if (! defined yyoverflow \
      && (! defined __cplusplus \
-	 || (defined YYSTYPE_IS_TRIVIAL && YYSTYPE_IS_TRIVIAL)))
+	 || (defined YYLTYPE_IS_TRIVIAL && YYLTYPE_IS_TRIVIAL \
+	     && defined YYSTYPE_IS_TRIVIAL && YYSTYPE_IS_TRIVIAL)))
 
 /* A type that is properly aligned for any stack member.  */
 union yyalloc
 {
   yytype_int16 yyss_alloc;
   YYSTYPE yyvs_alloc;
+  YYLTYPE yyls_alloc;
 };
 
 /* The size of the maximum gap between one aligned stack and the next.  */
@@ -310,8 +328,8 @@ union yyalloc
 /* The size of an array large to enough to hold all stacks, each with
    N elements.  */
 # define YYSTACK_BYTES(N) \
-     ((N) * (sizeof (yytype_int16) + sizeof (YYSTYPE)) \
-      + YYSTACK_GAP_MAXIMUM)
+     ((N) * (sizeof (yytype_int16) + sizeof (YYSTYPE) + sizeof (YYLTYPE)) \
+      + 2 * YYSTACK_GAP_MAXIMUM)
 
 /* Copy COUNT objects from FROM to TO.  The source and destination do
    not overlap.  */
@@ -426,9 +444,9 @@ static const yytype_int8 yyrhs[] =
 /* YYRLINE[YYN] -- source line where rule number YYN was defined.  */
 static const yytype_uint8 yyrline[] =
 {
-       0,    26,    26,    30,    31,    34,    36,    37,    41,    45,
-      46,    50,    51,    52,    53,    54,    58,    62,    66,    69,
-      71,    72,    76
+       0,    29,    29,    33,    34,    37,    38,    39,    43,    47,
+      48,    52,    53,    54,    55,    56,    60,    64,    68,    71,
+      72,    73,    77
 };
 #endif
 
@@ -645,7 +663,7 @@ do {									  \
     {									  \
       YYFPRINTF (stderr, "%s ", Title);					  \
       yy_symbol_print (stderr,						  \
-		  Type, Value); \
+		  Type, Value, Location); \
       YYFPRINTF (stderr, "\n");						  \
     }									  \
 } while (YYID (0))
@@ -659,17 +677,19 @@ do {									  \
 #if (defined __STDC__ || defined __C99__FUNC__ \
      || defined __cplusplus || defined _MSC_VER)
 static void
-yy_symbol_value_print (FILE *yyoutput, int yytype, YYSTYPE const * const yyvaluep)
+yy_symbol_value_print (FILE *yyoutput, int yytype, YYSTYPE const * const yyvaluep, YYLTYPE const * const yylocationp)
 #else
 static void
-yy_symbol_value_print (yyoutput, yytype, yyvaluep)
+yy_symbol_value_print (yyoutput, yytype, yyvaluep, yylocationp)
     FILE *yyoutput;
     int yytype;
     YYSTYPE const * const yyvaluep;
+    YYLTYPE const * const yylocationp;
 #endif
 {
   if (!yyvaluep)
     return;
+  YYUSE (yylocationp);
 # ifdef YYPRINT
   if (yytype < YYNTOKENS)
     YYPRINT (yyoutput, yytoknum[yytype], *yyvaluep);
@@ -691,13 +711,14 @@ yy_symbol_value_print (yyoutput, yytype, yyvaluep)
 #if (defined __STDC__ || defined __C99__FUNC__ \
      || defined __cplusplus || defined _MSC_VER)
 static void
-yy_symbol_print (FILE *yyoutput, int yytype, YYSTYPE const * const yyvaluep)
+yy_symbol_print (FILE *yyoutput, int yytype, YYSTYPE const * const yyvaluep, YYLTYPE const * const yylocationp)
 #else
 static void
-yy_symbol_print (yyoutput, yytype, yyvaluep)
+yy_symbol_print (yyoutput, yytype, yyvaluep, yylocationp)
     FILE *yyoutput;
     int yytype;
     YYSTYPE const * const yyvaluep;
+    YYLTYPE const * const yylocationp;
 #endif
 {
   if (yytype < YYNTOKENS)
@@ -705,7 +726,9 @@ yy_symbol_print (yyoutput, yytype, yyvaluep)
   else
     YYFPRINTF (yyoutput, "nterm %s (", yytname[yytype]);
 
-  yy_symbol_value_print (yyoutput, yytype, yyvaluep);
+  YY_LOCATION_PRINT (yyoutput, *yylocationp);
+  YYFPRINTF (yyoutput, ": ");
+  yy_symbol_value_print (yyoutput, yytype, yyvaluep, yylocationp);
   YYFPRINTF (yyoutput, ")");
 }
 
@@ -748,11 +771,12 @@ do {								\
 #if (defined __STDC__ || defined __C99__FUNC__ \
      || defined __cplusplus || defined _MSC_VER)
 static void
-yy_reduce_print (YYSTYPE *yyvsp, int yyrule)
+yy_reduce_print (YYSTYPE *yyvsp, YYLTYPE *yylsp, int yyrule)
 #else
 static void
-yy_reduce_print (yyvsp, yyrule)
+yy_reduce_print (yyvsp, yylsp, yyrule)
     YYSTYPE *yyvsp;
+    YYLTYPE *yylsp;
     int yyrule;
 #endif
 {
@@ -767,7 +791,7 @@ yy_reduce_print (yyvsp, yyrule)
       YYFPRINTF (stderr, "   $%d = ", yyi + 1);
       yy_symbol_print (stderr, yyrhs[yyprhs[yyrule] + yyi],
 		       &(yyvsp[(yyi + 1) - (yynrhs)])
-		       		       );
+		       , &(yylsp[(yyi + 1) - (yynrhs)])		       );
       YYFPRINTF (stderr, "\n");
     }
 }
@@ -775,7 +799,7 @@ yy_reduce_print (yyvsp, yyrule)
 # define YY_REDUCE_PRINT(Rule)		\
 do {					\
   if (yydebug)				\
-    yy_reduce_print (yyvsp, Rule); \
+    yy_reduce_print (yyvsp, yylsp, Rule); \
 } while (YYID (0))
 
 /* Nonzero means print parse trace.  It is left uninitialized so that
@@ -1026,16 +1050,18 @@ yysyntax_error (char *yyresult, int yystate, int yychar)
 #if (defined __STDC__ || defined __C99__FUNC__ \
      || defined __cplusplus || defined _MSC_VER)
 static void
-yydestruct (const char *yymsg, int yytype, YYSTYPE *yyvaluep)
+yydestruct (const char *yymsg, int yytype, YYSTYPE *yyvaluep, YYLTYPE *yylocationp)
 #else
 static void
-yydestruct (yymsg, yytype, yyvaluep)
+yydestruct (yymsg, yytype, yyvaluep, yylocationp)
     const char *yymsg;
     int yytype;
     YYSTYPE *yyvaluep;
+    YYLTYPE *yylocationp;
 #endif
 {
   YYUSE (yyvaluep);
+  YYUSE (yylocationp);
 
   if (!yymsg)
     yymsg = "Deleting";
@@ -1070,6 +1096,9 @@ int yychar;
 
 /* The semantic value of the lookahead symbol.  */
 YYSTYPE yylval;
+
+/* Location data for the lookahead symbol.  */
+YYLTYPE yylloc;
 
 /* Number of syntax errors so far.  */
 int yynerrs;
@@ -1111,6 +1140,7 @@ yyparse ()
     /* The stacks and their tools:
        `yyss': related to states.
        `yyvs': related to semantic values.
+       `yyls': related to locations.
 
        Refer to the stacks thru separate pointers, to allow yyoverflow
        to reallocate them elsewhere.  */
@@ -1125,6 +1155,14 @@ yyparse ()
     YYSTYPE *yyvs;
     YYSTYPE *yyvsp;
 
+    /* The location stack.  */
+    YYLTYPE yylsa[YYINITDEPTH];
+    YYLTYPE *yyls;
+    YYLTYPE *yylsp;
+
+    /* The locations where the error started and ended.  */
+    YYLTYPE yyerror_range[2];
+
     YYSIZE_T yystacksize;
 
   int yyn;
@@ -1134,6 +1172,7 @@ yyparse ()
   /* The variables used to return semantic value and location from the
      action routines.  */
   YYSTYPE yyval;
+  YYLTYPE yyloc;
 
 #if YYERROR_VERBOSE
   /* Buffer for error messages, and its allocated size.  */
@@ -1142,7 +1181,7 @@ yyparse ()
   YYSIZE_T yymsg_alloc = sizeof yymsgbuf;
 #endif
 
-#define YYPOPSTACK(N)   (yyvsp -= (N), yyssp -= (N))
+#define YYPOPSTACK(N)   (yyvsp -= (N), yyssp -= (N), yylsp -= (N))
 
   /* The number of symbols on the RHS of the reduced rule.
      Keep to zero when no symbol should be popped.  */
@@ -1151,6 +1190,7 @@ yyparse ()
   yytoken = 0;
   yyss = yyssa;
   yyvs = yyvsa;
+  yyls = yylsa;
   yystacksize = YYINITDEPTH;
 
   YYDPRINTF ((stderr, "Starting parse\n"));
@@ -1166,6 +1206,13 @@ yyparse ()
      The wasted elements are never initialized.  */
   yyssp = yyss;
   yyvsp = yyvs;
+  yylsp = yyls;
+
+#if YYLTYPE_IS_TRIVIAL
+  /* Initialize the default location before parsing starts.  */
+  yylloc.first_line   = yylloc.last_line   = 1;
+  yylloc.first_column = yylloc.last_column = 1;
+#endif
 
   goto yysetstate;
 
@@ -1192,6 +1239,7 @@ yyparse ()
 	   memory.  */
 	YYSTYPE *yyvs1 = yyvs;
 	yytype_int16 *yyss1 = yyss;
+	YYLTYPE *yyls1 = yyls;
 
 	/* Each stack pointer address is followed by the size of the
 	   data in use in that stack, in bytes.  This used to be a
@@ -1200,8 +1248,10 @@ yyparse ()
 	yyoverflow (YY_("memory exhausted"),
 		    &yyss1, yysize * sizeof (*yyssp),
 		    &yyvs1, yysize * sizeof (*yyvsp),
+		    &yyls1, yysize * sizeof (*yylsp),
 		    &yystacksize);
 
+	yyls = yyls1;
 	yyss = yyss1;
 	yyvs = yyvs1;
       }
@@ -1224,6 +1274,7 @@ yyparse ()
 	  goto yyexhaustedlab;
 	YYSTACK_RELOCATE (yyss_alloc, yyss);
 	YYSTACK_RELOCATE (yyvs_alloc, yyvs);
+	YYSTACK_RELOCATE (yyls_alloc, yyls);
 #  undef YYSTACK_RELOCATE
 	if (yyss1 != yyssa)
 	  YYSTACK_FREE (yyss1);
@@ -1233,6 +1284,7 @@ yyparse ()
 
       yyssp = yyss + yysize - 1;
       yyvsp = yyvs + yysize - 1;
+      yylsp = yyls + yysize - 1;
 
       YYDPRINTF ((stderr, "Stack size increased to %lu\n",
 		  (unsigned long int) yystacksize));
@@ -1308,7 +1360,7 @@ yybackup:
 
   yystate = yyn;
   *++yyvsp = yylval;
-
+  *++yylsp = yylloc;
   goto yynewstate;
 
 
@@ -1339,14 +1391,134 @@ yyreduce:
      GCC warning that YYVAL may be used uninitialized.  */
   yyval = yyvsp[1-yylen];
 
-
+  /* Default location.  */
+  YYLLOC_DEFAULT (yyloc, (yylsp - yylen), yylen);
   YY_REDUCE_PRINT (yyn);
   switch (yyn)
     {
-      
+        case 2:
 
 /* Line 1455 of yacc.c  */
-#line 1350 "d:\\frame\\package\\module\\trunk\\flex_bison\\flex\\2\\\\test.tab.cpp"
+#line 29 "d:\\frame\\package\\module\\trunk\\flex_bison\\flex\\2\\test.y"
+    {system("cls");set_normal();printf("%s",g_flex_user.get_segment(0, (yyloc).pos) );set_color();printf("%s\n\n",g_flex_user.get_segment((yyloc).pos, (yyloc).len) );set_normal();system("pause");;}
+    break;
+
+  case 3:
+
+/* Line 1455 of yacc.c  */
+#line 33 "d:\\frame\\package\\module\\trunk\\flex_bison\\flex\\2\\test.y"
+    {system("cls");set_normal();printf("%s",g_flex_user.get_segment(0, (yyloc).pos) );set_color();printf("%s\n\n",g_flex_user.get_segment((yyloc).pos, (yyloc).len) );set_normal();system("pause");;}
+    break;
+
+  case 4:
+
+/* Line 1455 of yacc.c  */
+#line 34 "d:\\frame\\package\\module\\trunk\\flex_bison\\flex\\2\\test.y"
+    {system("cls");set_normal();printf("%s",g_flex_user.get_segment(0, (yyloc).pos) );set_color();printf("%s\n\n",g_flex_user.get_segment((yyloc).pos, (yyloc).len) );set_normal();system("pause");;}
+    break;
+
+  case 6:
+
+/* Line 1455 of yacc.c  */
+#line 38 "d:\\frame\\package\\module\\trunk\\flex_bison\\flex\\2\\test.y"
+    {system("cls");set_normal();printf("%s",g_flex_user.get_segment(0, (yyloc).pos) );set_color();printf("%s\n\n",g_flex_user.get_segment((yyloc).pos, (yyloc).len) );set_normal();system("pause");;}
+    break;
+
+  case 7:
+
+/* Line 1455 of yacc.c  */
+#line 39 "d:\\frame\\package\\module\\trunk\\flex_bison\\flex\\2\\test.y"
+    {system("cls");set_normal();printf("%s",g_flex_user.get_segment(0, (yyloc).pos) );set_color();printf("%s\n\n",g_flex_user.get_segment((yyloc).pos, (yyloc).len) );set_normal();system("pause");;}
+    break;
+
+  case 8:
+
+/* Line 1455 of yacc.c  */
+#line 43 "d:\\frame\\package\\module\\trunk\\flex_bison\\flex\\2\\test.y"
+    {system("cls");set_normal();printf("%s",g_flex_user.get_segment(0, (yyloc).pos) );set_color();printf("%s\n\n",g_flex_user.get_segment((yyloc).pos, (yyloc).len) );set_normal();system("pause");;}
+    break;
+
+  case 9:
+
+/* Line 1455 of yacc.c  */
+#line 47 "d:\\frame\\package\\module\\trunk\\flex_bison\\flex\\2\\test.y"
+    {system("cls");set_normal();printf("%s",g_flex_user.get_segment(0, (yyloc).pos) );set_color();printf("%s\n\n",g_flex_user.get_segment((yyloc).pos, (yyloc).len) );set_normal();system("pause");;}
+    break;
+
+  case 10:
+
+/* Line 1455 of yacc.c  */
+#line 48 "d:\\frame\\package\\module\\trunk\\flex_bison\\flex\\2\\test.y"
+    {system("cls");set_normal();printf("%s",g_flex_user.get_segment(0, (yyloc).pos) );set_color();printf("%s\n\n",g_flex_user.get_segment((yyloc).pos, (yyloc).len) );set_normal();system("pause");;}
+    break;
+
+  case 11:
+
+/* Line 1455 of yacc.c  */
+#line 52 "d:\\frame\\package\\module\\trunk\\flex_bison\\flex\\2\\test.y"
+    {system("cls");set_normal();printf("%s",g_flex_user.get_segment(0, (yyloc).pos) );set_color();printf("%s\n\n",g_flex_user.get_segment((yyloc).pos, (yyloc).len) );set_normal();system("pause");;}
+    break;
+
+  case 12:
+
+/* Line 1455 of yacc.c  */
+#line 53 "d:\\frame\\package\\module\\trunk\\flex_bison\\flex\\2\\test.y"
+    {system("cls");set_normal();printf("%s",g_flex_user.get_segment(0, (yyloc).pos) );set_color();printf("%s\n\n",g_flex_user.get_segment((yyloc).pos, (yyloc).len) );set_normal();system("pause");;}
+    break;
+
+  case 14:
+
+/* Line 1455 of yacc.c  */
+#line 55 "d:\\frame\\package\\module\\trunk\\flex_bison\\flex\\2\\test.y"
+    {system("cls");set_normal();printf("%s",g_flex_user.get_segment(0, (yyloc).pos) );set_color();printf("%s\n\n",g_flex_user.get_segment((yyloc).pos, (yyloc).len) );set_normal();system("pause");;}
+    break;
+
+  case 15:
+
+/* Line 1455 of yacc.c  */
+#line 56 "d:\\frame\\package\\module\\trunk\\flex_bison\\flex\\2\\test.y"
+    {system("cls");set_normal();printf("%s",g_flex_user.get_segment(0, (yyloc).pos) );set_color();printf("%s\n\n",g_flex_user.get_segment((yyloc).pos, (yyloc).len) );set_normal();system("pause");;}
+    break;
+
+  case 16:
+
+/* Line 1455 of yacc.c  */
+#line 60 "d:\\frame\\package\\module\\trunk\\flex_bison\\flex\\2\\test.y"
+    {system("cls");set_normal();printf("%s",g_flex_user.get_segment(0, (yyloc).pos) );set_color();printf("%s\n\n",g_flex_user.get_segment((yyloc).pos, (yyloc).len) );set_normal();system("pause");;}
+    break;
+
+  case 17:
+
+/* Line 1455 of yacc.c  */
+#line 64 "d:\\frame\\package\\module\\trunk\\flex_bison\\flex\\2\\test.y"
+    {system("cls");set_normal();printf("%s",g_flex_user.get_segment(0, (yyloc).pos) );set_color();printf("%s\n\n",g_flex_user.get_segment((yyloc).pos, (yyloc).len) );set_normal();system("pause");;}
+    break;
+
+  case 20:
+
+/* Line 1455 of yacc.c  */
+#line 72 "d:\\frame\\package\\module\\trunk\\flex_bison\\flex\\2\\test.y"
+    {system("cls");set_normal();printf("%s",g_flex_user.get_segment(0, (yyloc).pos) );set_color();printf("%s\n\n",g_flex_user.get_segment((yyloc).pos, (yyloc).len) );set_normal();system("pause");;}
+    break;
+
+  case 21:
+
+/* Line 1455 of yacc.c  */
+#line 73 "d:\\frame\\package\\module\\trunk\\flex_bison\\flex\\2\\test.y"
+    {system("cls");set_normal();printf("%s",g_flex_user.get_segment(0, (yyloc).pos) );set_color();printf("%s\n\n",g_flex_user.get_segment((yyloc).pos, (yyloc).len) );set_normal();system("pause");;}
+    break;
+
+  case 22:
+
+/* Line 1455 of yacc.c  */
+#line 77 "d:\\frame\\package\\module\\trunk\\flex_bison\\flex\\2\\test.y"
+    {system("cls");set_normal();printf("%s",g_flex_user.get_segment(0, (yyloc).pos) );set_color();printf("%s\n\n",g_flex_user.get_segment((yyloc).pos, (yyloc).len) );set_normal();system("pause");;}
+    break;
+
+
+
+/* Line 1455 of yacc.c  */
+#line 1522 "d:\\frame\\package\\module\\trunk\\flex_bison\\flex\\2\\\\test.tab.cpp"
       default: break;
     }
   YY_SYMBOL_PRINT ("-> $$ =", yyr1[yyn], &yyval, &yyloc);
@@ -1356,6 +1528,7 @@ yyreduce:
   YY_STACK_PRINT (yyss, yyssp);
 
   *++yyvsp = yyval;
+  *++yylsp = yyloc;
 
   /* Now `shift' the result of the reduction.  Determine what state
      that goes to, based on the state we popped back to and the rule
@@ -1417,7 +1590,7 @@ yyerrlab:
 #endif
     }
 
-
+  yyerror_range[0] = yylloc;
 
   if (yyerrstatus == 3)
     {
@@ -1433,7 +1606,7 @@ yyerrlab:
       else
 	{
 	  yydestruct ("Error: discarding",
-		      yytoken, &yylval);
+		      yytoken, &yylval, &yylloc);
 	  yychar = YYEMPTY;
 	}
     }
@@ -1454,6 +1627,7 @@ yyerrorlab:
   if (/*CONSTCOND*/ 0)
      goto yyerrorlab;
 
+  yyerror_range[0] = yylsp[1-yylen];
   /* Do not reclaim the symbols of the rule which action triggered
      this YYERROR.  */
   YYPOPSTACK (yylen);
@@ -1487,9 +1661,9 @@ yyerrlab1:
       if (yyssp == yyss)
 	YYABORT;
 
-
+      yyerror_range[0] = *yylsp;
       yydestruct ("Error: popping",
-		  yystos[yystate], yyvsp);
+		  yystos[yystate], yyvsp, yylsp);
       YYPOPSTACK (1);
       yystate = *yyssp;
       YY_STACK_PRINT (yyss, yyssp);
@@ -1497,6 +1671,11 @@ yyerrlab1:
 
   *++yyvsp = yylval;
 
+  yyerror_range[1] = yylloc;
+  /* Using YYLLOC is tempting, but would change the location of
+     the lookahead.  YYLOC is available though.  */
+  YYLLOC_DEFAULT (yyloc, (yyerror_range - 1), 2);
+  *++yylsp = yyloc;
 
   /* Shift the error token.  */
   YY_SYMBOL_PRINT ("Shifting", yystos[yyn], yyvsp, yylsp);
@@ -1532,7 +1711,7 @@ yyexhaustedlab:
 yyreturn:
   if (yychar != YYEMPTY)
      yydestruct ("Cleanup: discarding lookahead",
-		 yytoken, &yylval);
+		 yytoken, &yylval, &yylloc);
   /* Do not reclaim the symbols of the rule which action triggered
      this YYABORT or YYACCEPT.  */
   YYPOPSTACK (yylen);
@@ -1540,7 +1719,7 @@ yyreturn:
   while (yyssp != yyss)
     {
       yydestruct ("Cleanup: popping",
-		  yystos[*yyssp], yyvsp);
+		  yystos[*yyssp], yyvsp, yylsp);
       YYPOPSTACK (1);
     }
 #ifndef yyoverflow
@@ -1558,6 +1737,6 @@ yyreturn:
 
 
 /* Line 1675 of yacc.c  */
-#line 78 "d:\\frame\\package\\module\\trunk\\flex_bison\\flex\\2\\test.y"
+#line 79 "d:\\frame\\package\\module\\trunk\\flex_bison\\flex\\2\\test.y"
 
 

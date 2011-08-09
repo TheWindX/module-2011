@@ -53,7 +53,7 @@ typedef union YYSTYPE
 {
 
 /* Line 1676 of yacc.c  */
-#line 8 "d:\\frame\\package\\module\\trunk\\flex_bison\\flex\\2\\test.y"
+#line 11 "d:\\frame\\package\\module\\trunk\\flex_bison\\flex\\2\\test.y"
 
 	char m_id[1024];
 	double m_number;
@@ -70,4 +70,18 @@ typedef union YYSTYPE
 
 extern YYSTYPE yylval;
 
+#if ! defined YYLTYPE && ! defined YYLTYPE_IS_DECLARED
+typedef struct YYLTYPE
+{
+  int first_line;
+  int first_column;
+  int last_line;
+  int last_column;
+} YYLTYPE;
+# define yyltype YYLTYPE /* obsolescent; will be withdrawn */
+# define YYLTYPE_IS_DECLARED 1
+# define YYLTYPE_IS_TRIVIAL 1
+#endif
+
+extern YYLTYPE yylloc;
 

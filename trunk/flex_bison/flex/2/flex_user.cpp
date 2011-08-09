@@ -1,35 +1,44 @@
 
 #include "flex_header.h"
 
+#include <vector>
 #include <string>
 
 
 struct st_flex_use
 {
-	size_t m_column_count;
-	size_t m_row_count;
-	size_t m_pos_count;
-
-	size_t m_idx;
+	//for yylex buffer use
 	std::string	m_str;
+	int m_idx;
 	
-	size_t m_line_pos;//当前行在整个字串的位置
-};
+	//for yylloc use
+	int m_pos;
+	int m_col;
+	int m_row;
 
+	std::vector<int> m_line_pos;
+
+	void set(const char* buff, size_t sz)
+	{
+		std::string str_tmp(buff, buff+sz);
+		m_str.swap(str_tmp);
+		m_idx = 0;
+
+		m_pos = 0;
+		m_col = 0;
+		m_row = 1;
+		m_line_pos.clear();
+		m_line_pos.push_back(0);
+	}
+
+	
+};
 
 
 void i_flex_use::reset_buffer(const char* buff, size_t sz)
 {
-	std::string str_tmp(buff, buff+sz);
-	m_impl->m_str.swap(str_tmp);
-	m_impl->m_idx = 0;
-
-	m_impl->m_column_count = 0;
-	m_impl->m_row_count = 0;
-	m_impl->m_pos_count = 0;
-	m_impl->m_line_pos = 0;
-
-	//yyrestart
+	m_impl->set(buff, sz);
+	
 	yyrestart(0);
 }
 
@@ -42,28 +51,25 @@ int i_flex_use::lex()
 //当前行
 size_t i_flex_use::get_cur_row()
 {
-	return m_impl->m_row_count;
+	return m_impl->m_row;
 }
 //当前列
 size_t i_flex_use::get_cur_col()
 {
-	return m_impl->m_column_count;
+	return m_impl->m_col;
 }
 //当前位置
 size_t i_flex_use::get_cur_pos()
 {
-	return m_impl->m_pos_count;
+	return yylloc.pos;
 }
 
 
-size_t i_flex_use::get_left()
+const char* i_flex_use::get_segment(int pos1, int len)
 {
-	return m_impl->m_pos_count-yyleng;
-}
-
-size_t i_flex_use::get_right()
-{
-	return m_impl->m_pos_count;
+	static std::string ret;
+	ret = m_impl->m_str.substr(pos1, len);
+	return ret.c_str();
 }
 
 
@@ -72,21 +78,28 @@ size_t i_flex_use::get_right()
 
 void i_flex_use::new_token()//在flex里调用, 每一个token使用
 {
-	m_impl->m_pos_count += yyleng;
-
-	for(size_t i = 0; i<yyleng; ++i)
+	yylloc.pos = m_impl->m_pos;
+	yylloc.first_column = m_impl->m_col;
+	yylloc.first_line = m_impl->m_row;
+	
+	for(int i = 0; i<yyleng; ++i)
 	{
+		m_impl->m_pos++;
 		if(yytext[i] == '\n')
-		{
-			m_impl->m_row_count++;
-			m_impl->m_column_count = 0;
-			m_impl->m_line_pos = m_impl->m_pos_count;
+		{	
+			m_impl->m_row++;
+			m_impl->m_col = 0;
+			m_impl->m_line_pos.push_back(m_impl->m_pos);
 		}
 		else
 		{
-			m_impl->m_column_count++;
+			m_impl->m_col++;
 		}
 	}
+
+	yylloc.last_line = m_impl->m_row;
+	yylloc.last_column = m_impl->m_col;
+	yylloc.len = yyleng;
 }
 
 //token.text
@@ -100,32 +113,31 @@ size_t i_flex_use::get_length()
 	return yyleng;
 }
 
-const char* i_flex_use::get_current_line_segment()
-{
-	static std::string ret;
-	ret = m_impl->m_str.substr(m_impl->m_line_pos, m_impl->m_pos_count-m_impl->m_line_pos+1);
-	return ret.c_str();
-}
-
-const char* i_flex_use::get_current_line()
+const char* i_flex_use::get_line(int ln)
 {
 	static std::string ret;
 	ret = "";
-	for(size_t i = m_impl->m_line_pos; i<m_impl->m_str.size(); ++i)
-	{	
-		if(m_impl->m_str[i] != '\n')
-		{
-			ret.push_back(m_impl->m_str[i]);
-		}
-	}
 	
+	std::vector<int>& lines = m_impl->m_line_pos;
+	
+	int sz = (int)lines.size();
+	if(ln>=sz)
+		return "";
+
+	char ch;
+	for(size_t i = lines[ln]; i<m_impl->m_str.size()&&(ch = m_impl->m_str[i]) != '\n'; ++i)
+	{
+		ret.push_back(ch);
+	}
+
 	return ret.c_str();
+
 }
 
 
 int i_flex_use::copy_buffer(char* buff, int max_size)
 {
-	int left_sz = m_impl->m_str.size()-m_impl->m_idx;
+	int left_sz = (int)(m_impl->m_str.size() )-m_impl->m_idx;
 	int n = max_size < left_sz ? max_size:left_sz;
 
 	if(n>0)
@@ -149,3 +161,5 @@ i_flex_use::~i_flex_use()
 }
 
 i_flex_use g_flex_user;
+
+//YYLTYPE yylloc;

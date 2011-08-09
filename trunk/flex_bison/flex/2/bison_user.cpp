@@ -44,7 +44,7 @@ void yyerror (char const * error_info)
 	}
 
 	std::cout<<str_err.c_str()<<" at line: "<<g_flex_user.get_cur_row()<<"  col: "<<g_flex_user.get_cur_col()<<std::endl;
-	std::string err_line = g_flex_user.get_current_line();
+	std::string err_line = g_flex_user.get_line(yylloc.first_line-1 );
 	std::cout<<err_line.c_str()<<std::endl;
 
 	int col = g_flex_user.get_cur_col()-g_flex_user.get_length()+1;
