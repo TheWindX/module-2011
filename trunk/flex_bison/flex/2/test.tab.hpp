@@ -53,7 +53,7 @@ typedef union YYSTYPE
 {
 
 /* Line 1676 of yacc.c  */
-#line 11 "d:\\frame\\package\\module\\trunk\\flex_bison\\flex\\2\\test.y"
+#line 8 "d:\\frame\\package\\module\\trunk\\flex_bison\\flex\\2\\test.y"
 
 	char m_id[1024];
 	double m_number;

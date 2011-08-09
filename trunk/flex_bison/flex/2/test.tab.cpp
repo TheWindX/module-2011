@@ -74,12 +74,9 @@
 #include "bison_header.h"
 #include <string>
 
-void set_color();
-void set_normal();
-
 
 /* Line 189 of yacc.c  */
-#line 83 "d:\\frame\\package\\module\\trunk\\flex_bison\\flex\\2\\\\test.tab.cpp"
+#line 80 "d:\\frame\\package\\module\\trunk\\flex_bison\\flex\\2\\\\test.tab.cpp"
 
 /* Enabling traces.  */
 #ifndef YYDEBUG
@@ -120,7 +117,7 @@ typedef union YYSTYPE
 {
 
 /* Line 214 of yacc.c  */
-#line 11 "d:\\frame\\package\\module\\trunk\\flex_bison\\flex\\2\\test.y"
+#line 8 "d:\\frame\\package\\module\\trunk\\flex_bison\\flex\\2\\test.y"
 
 	char m_id[1024];
 	double m_number;
@@ -128,7 +125,7 @@ typedef union YYSTYPE
 
 
 /* Line 214 of yacc.c  */
-#line 132 "d:\\frame\\package\\module\\trunk\\flex_bison\\flex\\2\\\\test.tab.cpp"
+#line 129 "d:\\frame\\package\\module\\trunk\\flex_bison\\flex\\2\\\\test.tab.cpp"
 } YYSTYPE;
 # define YYSTYPE_IS_TRIVIAL 1
 # define yystype YYSTYPE /* obsolescent; will be withdrawn */
@@ -153,7 +150,7 @@ typedef struct YYLTYPE
 
 
 /* Line 264 of yacc.c  */
-#line 157 "d:\\frame\\package\\module\\trunk\\flex_bison\\flex\\2\\\\test.tab.cpp"
+#line 154 "d:\\frame\\package\\module\\trunk\\flex_bison\\flex\\2\\\\test.tab.cpp"
 
 #ifdef short
 # undef short
@@ -444,9 +441,9 @@ static const yytype_int8 yyrhs[] =
 /* YYRLINE[YYN] -- source line where rule number YYN was defined.  */
 static const yytype_uint8 yyrline[] =
 {
-       0,    29,    29,    33,    34,    37,    38,    39,    43,    47,
-      48,    52,    53,    54,    55,    56,    60,    64,    68,    71,
-      72,    73,    77
+       0,    26,    26,    30,    31,    34,    35,    36,    40,    44,
+      45,    49,    50,    51,    52,    53,    57,    61,    65,    68,
+      69,    70,    74
 };
 #endif
 
@@ -1396,129 +1393,80 @@ yyreduce:
   YY_REDUCE_PRINT (yyn);
   switch (yyn)
     {
-        case 2:
+        case 8:
 
 /* Line 1455 of yacc.c  */
-#line 29 "d:\\frame\\package\\module\\trunk\\flex_bison\\flex\\2\\test.y"
-    {system("cls");set_normal();printf("%s",g_flex_user.get_segment(0, (yyloc).pos) );set_color();printf("%s\n\n",g_flex_user.get_segment((yyloc).pos, (yyloc).len) );set_normal();system("pause");;}
-    break;
-
-  case 3:
-
-/* Line 1455 of yacc.c  */
-#line 33 "d:\\frame\\package\\module\\trunk\\flex_bison\\flex\\2\\test.y"
-    {system("cls");set_normal();printf("%s",g_flex_user.get_segment(0, (yyloc).pos) );set_color();printf("%s\n\n",g_flex_user.get_segment((yyloc).pos, (yyloc).len) );set_normal();system("pause");;}
-    break;
-
-  case 4:
-
-/* Line 1455 of yacc.c  */
-#line 34 "d:\\frame\\package\\module\\trunk\\flex_bison\\flex\\2\\test.y"
-    {system("cls");set_normal();printf("%s",g_flex_user.get_segment(0, (yyloc).pos) );set_color();printf("%s\n\n",g_flex_user.get_segment((yyloc).pos, (yyloc).len) );set_normal();system("pause");;}
-    break;
-
-  case 6:
-
-/* Line 1455 of yacc.c  */
-#line 38 "d:\\frame\\package\\module\\trunk\\flex_bison\\flex\\2\\test.y"
-    {system("cls");set_normal();printf("%s",g_flex_user.get_segment(0, (yyloc).pos) );set_color();printf("%s\n\n",g_flex_user.get_segment((yyloc).pos, (yyloc).len) );set_normal();system("pause");;}
-    break;
-
-  case 7:
-
-/* Line 1455 of yacc.c  */
-#line 39 "d:\\frame\\package\\module\\trunk\\flex_bison\\flex\\2\\test.y"
-    {system("cls");set_normal();printf("%s",g_flex_user.get_segment(0, (yyloc).pos) );set_color();printf("%s\n\n",g_flex_user.get_segment((yyloc).pos, (yyloc).len) );set_normal();system("pause");;}
-    break;
-
-  case 8:
-
-/* Line 1455 of yacc.c  */
-#line 43 "d:\\frame\\package\\module\\trunk\\flex_bison\\flex\\2\\test.y"
-    {system("cls");set_normal();printf("%s",g_flex_user.get_segment(0, (yyloc).pos) );set_color();printf("%s\n\n",g_flex_user.get_segment((yyloc).pos, (yyloc).len) );set_normal();system("pause");;}
-    break;
-
-  case 9:
-
-/* Line 1455 of yacc.c  */
-#line 47 "d:\\frame\\package\\module\\trunk\\flex_bison\\flex\\2\\test.y"
-    {system("cls");set_normal();printf("%s",g_flex_user.get_segment(0, (yyloc).pos) );set_color();printf("%s\n\n",g_flex_user.get_segment((yyloc).pos, (yyloc).len) );set_normal();system("pause");;}
+#line 40 "d:\\frame\\package\\module\\trunk\\flex_bison\\flex\\2\\test.y"
+    {system("cls");set_text_normal();printf("%s",g_flex_user.get_segment(0, (yyloc).pos) );set_text_red();printf("%s\n\n",g_flex_user.get_segment((yyloc).pos, (yyloc).len) );set_text_normal();system("pause");;}
     break;
 
   case 10:
 
 /* Line 1455 of yacc.c  */
-#line 48 "d:\\frame\\package\\module\\trunk\\flex_bison\\flex\\2\\test.y"
-    {system("cls");set_normal();printf("%s",g_flex_user.get_segment(0, (yyloc).pos) );set_color();printf("%s\n\n",g_flex_user.get_segment((yyloc).pos, (yyloc).len) );set_normal();system("pause");;}
+#line 45 "d:\\frame\\package\\module\\trunk\\flex_bison\\flex\\2\\test.y"
+    {system("cls");set_text_normal();printf("%s",g_flex_user.get_segment(0, (yyloc).pos) );set_text_red();printf("%s\n\n",g_flex_user.get_segment((yyloc).pos, (yyloc).len) );set_text_normal();system("pause");;}
     break;
 
-  case 11:
+  case 13:
 
 /* Line 1455 of yacc.c  */
-#line 52 "d:\\frame\\package\\module\\trunk\\flex_bison\\flex\\2\\test.y"
-    {system("cls");set_normal();printf("%s",g_flex_user.get_segment(0, (yyloc).pos) );set_color();printf("%s\n\n",g_flex_user.get_segment((yyloc).pos, (yyloc).len) );set_normal();system("pause");;}
-    break;
-
-  case 12:
-
-/* Line 1455 of yacc.c  */
-#line 53 "d:\\frame\\package\\module\\trunk\\flex_bison\\flex\\2\\test.y"
-    {system("cls");set_normal();printf("%s",g_flex_user.get_segment(0, (yyloc).pos) );set_color();printf("%s\n\n",g_flex_user.get_segment((yyloc).pos, (yyloc).len) );set_normal();system("pause");;}
+#line 51 "d:\\frame\\package\\module\\trunk\\flex_bison\\flex\\2\\test.y"
+    {system("cls");set_text_normal();printf("%s",g_flex_user.get_segment(0, (yyloc).pos) );set_text_red();printf("%s\n\n",g_flex_user.get_segment((yyloc).pos, (yyloc).len) );set_text_normal();system("pause");;}
     break;
 
   case 14:
 
 /* Line 1455 of yacc.c  */
-#line 55 "d:\\frame\\package\\module\\trunk\\flex_bison\\flex\\2\\test.y"
-    {system("cls");set_normal();printf("%s",g_flex_user.get_segment(0, (yyloc).pos) );set_color();printf("%s\n\n",g_flex_user.get_segment((yyloc).pos, (yyloc).len) );set_normal();system("pause");;}
+#line 52 "d:\\frame\\package\\module\\trunk\\flex_bison\\flex\\2\\test.y"
+    {system("cls");set_text_normal();printf("%s",g_flex_user.get_segment(0, (yyloc).pos) );set_text_red();printf("%s\n\n",g_flex_user.get_segment((yyloc).pos, (yyloc).len) );set_text_normal();system("pause");;}
     break;
 
   case 15:
 
 /* Line 1455 of yacc.c  */
-#line 56 "d:\\frame\\package\\module\\trunk\\flex_bison\\flex\\2\\test.y"
-    {system("cls");set_normal();printf("%s",g_flex_user.get_segment(0, (yyloc).pos) );set_color();printf("%s\n\n",g_flex_user.get_segment((yyloc).pos, (yyloc).len) );set_normal();system("pause");;}
+#line 53 "d:\\frame\\package\\module\\trunk\\flex_bison\\flex\\2\\test.y"
+    {system("cls");set_text_normal();printf("%s",g_flex_user.get_segment(0, (yyloc).pos) );set_text_red();printf("%s\n\n",g_flex_user.get_segment((yyloc).pos, (yyloc).len) );set_text_normal();system("pause");;}
     break;
 
   case 16:
 
 /* Line 1455 of yacc.c  */
-#line 60 "d:\\frame\\package\\module\\trunk\\flex_bison\\flex\\2\\test.y"
-    {system("cls");set_normal();printf("%s",g_flex_user.get_segment(0, (yyloc).pos) );set_color();printf("%s\n\n",g_flex_user.get_segment((yyloc).pos, (yyloc).len) );set_normal();system("pause");;}
+#line 57 "d:\\frame\\package\\module\\trunk\\flex_bison\\flex\\2\\test.y"
+    {system("cls");set_text_normal();printf("%s",g_flex_user.get_segment(0, (yyloc).pos) );set_text_red();printf("%s\n\n",g_flex_user.get_segment((yyloc).pos, (yyloc).len) );set_text_normal();system("pause");;}
     break;
 
   case 17:
 
 /* Line 1455 of yacc.c  */
-#line 64 "d:\\frame\\package\\module\\trunk\\flex_bison\\flex\\2\\test.y"
-    {system("cls");set_normal();printf("%s",g_flex_user.get_segment(0, (yyloc).pos) );set_color();printf("%s\n\n",g_flex_user.get_segment((yyloc).pos, (yyloc).len) );set_normal();system("pause");;}
+#line 61 "d:\\frame\\package\\module\\trunk\\flex_bison\\flex\\2\\test.y"
+    {system("cls");set_text_normal();printf("%s",g_flex_user.get_segment(0, (yyloc).pos) );set_text_red();printf("%s\n\n",g_flex_user.get_segment((yyloc).pos, (yyloc).len) );set_text_normal();system("pause");;}
     break;
 
-  case 20:
+  case 18:
 
 /* Line 1455 of yacc.c  */
-#line 72 "d:\\frame\\package\\module\\trunk\\flex_bison\\flex\\2\\test.y"
-    {system("cls");set_normal();printf("%s",g_flex_user.get_segment(0, (yyloc).pos) );set_color();printf("%s\n\n",g_flex_user.get_segment((yyloc).pos, (yyloc).len) );set_normal();system("pause");;}
+#line 65 "d:\\frame\\package\\module\\trunk\\flex_bison\\flex\\2\\test.y"
+    {system("cls");set_text_normal();printf("%s",g_flex_user.get_segment(0, (yyloc).pos) );set_text_red();printf("%s\n\n",g_flex_user.get_segment((yyloc).pos, (yyloc).len) );set_text_normal();system("pause");;}
     break;
 
   case 21:
 
 /* Line 1455 of yacc.c  */
-#line 73 "d:\\frame\\package\\module\\trunk\\flex_bison\\flex\\2\\test.y"
-    {system("cls");set_normal();printf("%s",g_flex_user.get_segment(0, (yyloc).pos) );set_color();printf("%s\n\n",g_flex_user.get_segment((yyloc).pos, (yyloc).len) );set_normal();system("pause");;}
+#line 70 "d:\\frame\\package\\module\\trunk\\flex_bison\\flex\\2\\test.y"
+    {system("cls");set_text_normal();printf("%s",g_flex_user.get_segment(0, (yyloc).pos) );set_text_red();printf("%s\n\n",g_flex_user.get_segment((yyloc).pos, (yyloc).len) );set_text_normal();system("pause");;}
     break;
 
   case 22:
 
 /* Line 1455 of yacc.c  */
-#line 77 "d:\\frame\\package\\module\\trunk\\flex_bison\\flex\\2\\test.y"
-    {system("cls");set_normal();printf("%s",g_flex_user.get_segment(0, (yyloc).pos) );set_color();printf("%s\n\n",g_flex_user.get_segment((yyloc).pos, (yyloc).len) );set_normal();system("pause");;}
+#line 74 "d:\\frame\\package\\module\\trunk\\flex_bison\\flex\\2\\test.y"
+    {system("cls");set_text_normal();printf("%s",g_flex_user.get_segment(0, (yyloc).pos) );set_text_red();printf("%s\n\n",g_flex_user.get_segment((yyloc).pos, (yyloc).len) );set_text_normal();system("pause");;}
     break;
 
 
 
 /* Line 1455 of yacc.c  */
-#line 1522 "d:\\frame\\package\\module\\trunk\\flex_bison\\flex\\2\\\\test.tab.cpp"
+#line 1470 "d:\\frame\\package\\module\\trunk\\flex_bison\\flex\\2\\\\test.tab.cpp"
       default: break;
     }
   YY_SYMBOL_PRINT ("-> $$ =", yyr1[yyn], &yyval, &yyloc);
@@ -1737,6 +1685,6 @@ yyreturn:
 
 
 /* Line 1675 of yacc.c  */
-#line 79 "d:\\frame\\package\\module\\trunk\\flex_bison\\flex\\2\\test.y"
+#line 76 "d:\\frame\\package\\module\\trunk\\flex_bison\\flex\\2\\test.y"
 
 

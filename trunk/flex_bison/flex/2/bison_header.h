@@ -36,3 +36,11 @@ extern void yyerror (char const *);//错误处理
 	(Current).len = 0;\
 }                                                               \
 	while (0)
+
+
+
+//debug
+void set_text_red();
+void set_text_normal();
+//用于reduce测试
+//{system("cls");set_text_normal();printf("%s",g_flex_user.get_segment(0, @$.pos) );set_text_red();printf("%s\n\n",g_flex_user.get_segment(@$.pos, @$.len) );set_text_normal();system("pause");}

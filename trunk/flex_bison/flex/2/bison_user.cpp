@@ -47,7 +47,7 @@ void yyerror (char const * error_info)
 	std::string err_line = g_flex_user.get_line(yylloc.first_line-1 );
 	std::cout<<err_line.c_str()<<std::endl;
 
-	int col = g_flex_user.get_cur_col()-g_flex_user.get_length()+1;
+	size_t col = g_flex_user.get_cur_col()-g_flex_user.get_length()+1;
 	for(size_t i=0; i<col-1; ++i)
 	{
 		if(err_line[i] != '\t')
@@ -57,3 +57,25 @@ void yyerror (char const * error_info)
 	}
 	std::cout<<"^\n";
 };
+
+
+#include <windows.h>
+//#include <conio.h>
+//#include <wincon.h>
+//#include <fcntl.h>
+//#include <io.h>
+
+
+
+void set_text_red()
+{
+	HANDLE consolehwnd; 
+	consolehwnd = GetStdHandle(STD_OUTPUT_HANDLE); 
+	SetConsoleTextAttribute(consolehwnd,FOREGROUND_RED|FOREGROUND_INTENSITY); 
+}
+void set_text_normal()
+{
+	HANDLE consolehwnd; 
+	consolehwnd = GetStdHandle(STD_OUTPUT_HANDLE); 
+	SetConsoleTextAttribute(consolehwnd,FOREGROUND_INTENSITY); 
+}
