@@ -3,7 +3,7 @@
 #include <windows.h>
 
 #include <iostream>
-#include "conio.h"
+#include <conio.h>
 #include <wincon.h>
 #include <fcntl.h>
 #include <io.h>
