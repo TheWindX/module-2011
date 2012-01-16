@@ -99,6 +99,9 @@ namespace ns_base
 
 		//将目录作为一个pak使用
 		virtual i_pak* create_pak(const char* location) = 0;
+
+		//模块资源释放
+		virtual void release() = 0;
 	};
 }
 

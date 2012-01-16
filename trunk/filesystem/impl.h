@@ -130,5 +130,8 @@ namespace ns_base
 
 		//将目录作为一个pak使用
 		i_pak* create_pak(const char* location);
+
+		//模块资源释放
+		void release();
 	};
 }
