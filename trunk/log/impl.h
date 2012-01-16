@@ -204,8 +204,7 @@ namespace ns_base
 			using namespace ns_base;
 			ns_base::h_filesystem* p_fs = 0;
 			ns_base::get(p_fs);
-			smart_ptr<i_path> p_path = p_fs->create_path();
-
+			
 			ns_base::h_datetime* p_dt = 0;
 			ns_base::get(p_dt);
 
@@ -213,12 +212,12 @@ namespace ns_base
 			//文件名称
 			const char* fname = p_dt->now_local_format("%Y_%M_%D_%h_%m.txt");
 			//路径
-			std::string str_path = p_fs->create_module_path();
-			str_path = p_path->parent_path(str_path.c_str() );
-			str_path = p_path->append(str_path.c_str(), "log");
-			str_path = p_path->append(str_path.c_str(), m_name.c_str() );
+			std::string str_path = p_fs->get_module_path();
+			str_path = p_fs->parent_path(str_path.c_str() );
+			str_path = p_fs->append(str_path.c_str(), "log");
+			str_path = p_fs->append(str_path.c_str(), m_name.c_str() );
 			p_fs->make_directories(str_path.c_str() );
-			str_path = p_path->append(str_path.c_str(), fname);
+			str_path = p_fs->append(str_path.c_str(), fname);
 
 			ns_base::i_write_file* p_file = p_fs->create_write_file(str_path.c_str(), true);
 			m_file.reset(p_file);

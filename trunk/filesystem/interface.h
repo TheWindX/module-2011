@@ -7,35 +7,15 @@ namespace ns_base
 
 	struct i_file;
 
-
-	struct i_path : public virtual i_ref_counter
-	{
-		/* 路径计算*/
-		virtual const char* append(const char* path, const char* branch) = 0;
-
-		//解析
-		virtual const char* extension(const char* path) = 0;//后缀
-		virtual const char* leaf(const char* path) = 0;//文件名
-		virtual const char* stem(const char* path) = 0;//文件名, 去掉后缀
-		virtual const char* parent_path(const char* path) = 0;
-
-		virtual const char* normalize(const char* path) = 0;
-
-
-		/* 作为系统文件*/
-
-		//转为完整路径
-		virtual const char* system_complete(const char* path) = 0;
-		//是否存在
-		virtual bool exists(const char* path) = 0;
+	struct i_path_iter: public virtual i_ref_counter
+	{	
+		//返回当前路径
+		virtual const char* get_path() = 0;
+		//如果返回 0, 迭代完成
+		virtual void next() = 0;
 		//是否目录
-		virtual bool is_directory(const char* path) = 0;
-		//目录迭代
-		virtual const char* first(const char* path) = 0;
-		virtual const char* next() = 0;
+		virtual bool is_directory() = 0;
 	};
-
-
 
 	struct i_buffer : public virtual i_ref_counter
 	{	
@@ -80,13 +60,12 @@ namespace ns_base
 	//接口导出
 	struct h_filesystem
 	{
-		//创造路径
-		virtual i_path* create_path() = 0;
-
 		//模块所在的路径
-		virtual const char* create_module_path() = 0;
+		virtual const char* get_module_path() = 0;
 		//工作路径
-		virtual const char* create_work_directory() = 0;
+		virtual const char* get_work_directory() = 0;
+		//路径迭代
+		virtual i_path_iter* create_path_iter(const char* path) = 0;
 		//创造buff
 		virtual i_buffer* create_buff(const char* buff, long sz) = 0;
 		//创建目录
@@ -100,6 +79,26 @@ namespace ns_base
 		//将目录作为一个pak使用
 		virtual i_pak* create_pak(const char* location) = 0;
 
+
+		//path 操作
+		/* 路径计算*/
+		//字串
+		virtual const char* append(const char* path, const char* branch) = 0;
+		//转为完整路径
+		virtual const char* system_complete(const char* path) = 0;
+		//是否存在
+		virtual bool exists(const char* path) = 0;
+		//是否目录
+		virtual bool is_directory(const char* path) = 0;
+
+		//解析
+		virtual const char* extension(const char* path) = 0;//后缀
+		virtual const char* leaf(const char* path) = 0;//文件名
+		virtual const char* stem(const char* path) = 0;//文件名, 去掉后缀
+		virtual const char* parent_path(const char* path) = 0;
+		virtual const char* normalize(const char* path) = 0;
+
+		
 		//模块资源释放
 		virtual void release() = 0;
 	};

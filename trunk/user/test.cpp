@@ -7,127 +7,16 @@
 #include "../data/interface.h"
 #include "../compress/interface.h"
 #include "../windows/interface.h"
+#include "../image/interface.h"
 
 #include "../head/smart_ptr.h"
 #include "../head/exception.h"
 
 
-int test1(int argc, char** argv)
-{	
-	using namespace ns_common;
-	using namespace ns_base;
-	
-	h_filesystem* p_fs;//接口指针，不需要释放
-	ns_base::get(p_fs);
-	
-	smart_ptr<i_path> p_path = p_fs->create_path();
-
-	std::string str_path;
-	str_path = p_fs->create_work_directory();
-	str_path = p_path->system_complete(str_path.c_str() );
-
-	
-	const char* psz_path = p_path->first(str_path.c_str() );
-	for(;psz_path;psz_path = p_path->next() )
-	{
-		if(p_path->is_directory(psz_path) )
-			std::cout<<"dir:"<<std::string(psz_path)<<std::endl;
-		else
-		{
-
-			smart_ptr<i_read_file> p_file = p_fs->create_read_file(psz_path );
-			size_t sz = p_file->size();
-			std::cout<<"file:"<<str_path<<"	sz:"<<sz<<std::endl;
-		}
-	}
-	
-	
-
-	h_data* p_data;//接口指针，不需要释放
-	ns_base::get(p_data);
-
-	smart_ptr<i_hash> h = p_data->create_hasher();
-	std::cout<<h->get_value()<<std::endl;
-	h->process_long(1000);
-	std::cout<<h->get_value()<<std::endl;
-
-
-
-	smart_ptr<i_vector> p_vec = p_data->create_vector();
-
-	struct st_cmp1
-	{
-		static bool cmp(void* l, void* r)
-		{
-			return *(std::string*)l<*(std::string*)r;
-		}
-	};
-
-	p_vec->s_cmp += &st_cmp1::cmp;
-
-
-	std::string a("32341234");
-	std::string b("22341234");
-	std::string c("3");
-	std::string d("2341234");
-	std::string e("02341234");
-	std::string f("80");
-	p_vec->push(&a);
-	p_vec->push(&b);
-	p_vec->push(&c);
-	p_vec->push(&d);
-	p_vec->push(&e);
-	p_vec->push(&f);
-	
-	p_vec->sort();
-	
-	for(void* ret = p_vec->first(); ret; ret = p_vec->next() )
-	{
-		std::cout<<*(std::string*)ret<<std::endl;
-	}
-	std::string g("2341234");
-	long idx = p_vec->lower_bound(&g);
-	if(idx != -1)
-	{
-		std::cout<<*(std::string*)p_vec->get_at(idx)<<std::endl;
-	}
-
-
-	smart_ptr<i_map> m = p_data->create_map();
-
-	struct st_cmp2
-	{
-		static bool cmp(void* l, void* r)
-		{
-			return *(int*)l>*(int*)r;
-		}
-	};
-	m->s_cmp += &st_cmp2::cmp;
-
-	int i1 = 1; int i2 = 2; int i3 = 333; int i4 = 44; int i5 = 5;
-
-	m->insert(&i4, &i4);
-	m->insert(&i2, &i4);
-	m->insert(&i3, &i1);
-	m->insert(&i1, &i3);
-
-	void* k = m->first();
-	for(; k; k = m->next() )
-	{
-		std::cout<<"key:"<<*(int*)k<<std::endl;
-		std::cout<<"value:"<<*(int*)m->get_value()<<std::endl<<std::endl;
-	}
-
-	if(m->find_key(&i5) )
-	{
-		std::cout<<"get_value:"<<*(int*)m->get_value()<<std::endl;
-	}
-	return 0;
-}
-
-
 #include "../head/utility_new.h"
 
+
+using namespace ns_base;
 
 int test2(int argc, char** argv)
 {	
@@ -164,7 +53,7 @@ int test3(int argc, char** argv)
 
 	try
 	{
-		fs->create_work_directory();
+		fs->get_work_directory();
 	}
 	catch(int err)
 	{
@@ -292,49 +181,6 @@ int test6(int argc, char** argv)
 	return 0;
 }
 
-
-int test7(int argc, char** argv)
-{	
-	using namespace ns_base;
-	using ns_common::smart_ptr;
-
-	h_driver* p_drv;
-	ns_base::get(p_drv);
-
-
-	struct st_evt
-	{
-		static void report(long now, long last)
-		{
-			std::cout<<"time is fire:"<<now<<"\t"<<last<<std::endl;
-			h_driver* p_drv;
-			ns_base::get(p_drv);
-		}
-	};
-	smart_ptr<i_timer> t = p_drv->create_timer();
-	handler<st_time_evt> evt = t->get_evt(1000);
-	evt.get()->s_evt += &st_evt::report;
-
-	evt = t->get_evt(1200);
-	evt.get()->s_evt += &st_evt::report;
-
-	evt = t->get_evt(80);
-	evt.get()->s_evt += &st_evt::report;
-
-	evt = t->get_evt(180);
-	evt.get()->s_evt += &st_evt::report;
-
-	evt = t->get_evt(2280);
-	evt.get()->s_evt += &st_evt::report;
-
-
-	p_drv->reset();
-	while(1)
-	{
-		p_drv->run_once();
-	}
-	return 0;
-}
 
 
 #include "../log/interface.h"
@@ -481,7 +327,7 @@ struct st_scope
 {
 	ns_base::i_window* m_win;
 	int m_x, m_y;
-	i_image* m_img;
+	ns_base::i_image* m_img;
 	st_scope():m_x(0),m_y(0),m_img(0){};
 	~st_scope()
 	{
@@ -509,7 +355,7 @@ struct st_scope
 			m_y += 5;
 		}
 	}
-	void erase(i_window*)
+	void erase(ns_base::i_window*)
 	{
 
 	}
@@ -618,13 +464,14 @@ int test14(int argc, char** argv)
 }
 
 
+
 struct st_test15
 {
-	i_window* w1;
-	i_window* w2;
-	i_window* w3;
+	ns_base::i_window* w1;
+	ns_base::i_window* w2;
+	ns_base::i_window* w3;
 
-	void on_drop_files(i_window* pw, i_drop_files* pd)
+	void on_drop_files(ns_base::i_window* pw, i_drop_files* pd)
 	{
 		const char* fname = pd->first();
 		while(fname)
@@ -1171,35 +1018,6 @@ using namespace ns_common;
 std::vector<std::string> g_files;
 
 //将目录下的全部文件放入列表
-void find_file_all(const char* path, std::vector<std::string>& files)
-{	
-	h_filesystem* hf;
-	get(hf);
-	smart_ptr<i_path> p_path = hf->create_path();
-
-	const char* cur_path = p_path->first(path);
-	for(;cur_path;)
-	{
-		std::vector<std::string> dirs;
-		if(p_path->is_directory(cur_path) )
-		{
-			dirs.push_back(std::string(cur_path) );
-		}
-		else
-		{
-			files.push_back(cur_path);
-		}
-
-		for(size_t i = 0; i<dirs.size(); ++i)
-		{
-			find_file_all(dirs[i].c_str(), files);
-		}
-	}
-
-}
-
-
-
 #include "../file_transfer/interface.h"
 int test24(int argc, char** argv)
 {
