@@ -997,8 +997,7 @@ end:
 			h_filesystem* hf;
 			get(hf);
 
-			ns_common::smart_ptr<i_path> np = hf->create_path();
-			std::string interface_name = np->stem(path_out.c_str() );
+			std::string interface_name = hf->stem(path_out.c_str() );
 			interface_name = std::string("luaopen_")+interface_name;
 
 			HMODULE m = LoadLibrary(path_out.c_str() );
@@ -1102,8 +1101,7 @@ end:
 		//smart_ptr<i_path> ncp = cp->clone();
 		//ncp->append(path);
 
-		i_path* p_path = hf->create_path();
-		std::string str_path = p_path->append(cpath.c_str(), path);
+		std::string str_path = hf->append(cpath.c_str(), path);
 
 		if(cpak->exist(str_path.c_str() ) )
 		{
@@ -1120,7 +1118,7 @@ end:
 			for(size_t ii = 0; ii<m_includes.size(); ++ii)
 			{
 				std::string str_path = m_includes[ii];
-				str_path = p_path->append(str_path.c_str(), path);
+				str_path = hf->append(str_path.c_str(), path);
 				
 				if(cpak->exist(str_path.c_str() ) )
 				{
@@ -1156,15 +1154,13 @@ end:
 		h_filesystem* hf;
 		get(hf);
 		
-		ns_base::i_path* p_path = hf->create_path();
-
 		for(size_t i = 0; i<m_libs.size(); ++i)
 		{
 			std::string str_path = m_libs[i];
 			
-			path_out = p_path->append(str_path.c_str(), path);
+			path_out = hf->append(str_path.c_str(), path);
 
-			if(p_path->exists(path_out.c_str() ) )
+			if(hf->exists(path_out.c_str() ) )
 			{
 				return true;
 			}
@@ -1172,7 +1168,7 @@ end:
 
 		//在绝对路径查找;
 		path_out = path;
-		if(p_path->exists(path_out.c_str() ) )
+		if(hf->exists(path_out.c_str() ) )
 		{
 			return true;
 		}

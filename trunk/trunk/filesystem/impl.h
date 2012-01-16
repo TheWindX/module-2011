@@ -13,31 +13,17 @@ namespace ns_base
 	using ns_common::impl_ref_counter;
 
 	namespace fs = boost::filesystem;
-	struct impl_path : public i_path, public virtual impl_ref_counter
+	struct impl_path_iter : public i_path_iter, public virtual impl_ref_counter
 	{
-		//字串
-		const char* append(const char* path, const char* branch);
+		impl_path_iter(fs::directory_iterator it):m_it(it){}
 
+		//返回当前路径
+		const char* get_path();
 
-		//转为完整路径
-		const char* system_complete(const char* path);
-		//是否存在
-		bool exists(const char* path);
-		//是否目录
-		bool is_directory(const char* path);
-		
-		//目录迭代
-		const char* first(const char* path);
-		const char* next();
+		//如果返回 0, 迭代完成
+		void next();
 
-		//解析
-		const char* extension(const char* path);//扩展名
-		const char* leaf(const char* path);//文件或目录名
-		const char* stem(const char* path);//文件名, 去掉后缀
-		const char* parent_path(const char* path);//父目录名
-
-		i_path* clone(const char* path);
-		const char* normalize(const char* path);
+		bool is_directory();
 		
 		//member
 		fs::directory_iterator m_it;
@@ -113,11 +99,12 @@ namespace ns_base
 	struct impl_filesystem : public h_filesystem
 	{
 		//模块所在的路径
-		const char* create_module_path();
+		const char* get_module_path();
 		//工作路径
-		const char* create_work_directory();
-		//创造路径
-		i_path* create_path();
+		const char* get_work_directory();
+		//路径迭代
+		i_path_iter* create_path_iter(const char* path);
+
 		//创造buff
 		i_buffer* create_buff(const char* buff, long sz);
 		//创建目录
@@ -130,6 +117,28 @@ namespace ns_base
 
 		//将目录作为一个pak使用
 		i_pak* create_pak(const char* location);
+
+
+		//字串
+		const char* append(const char* path, const char* branch);
+
+
+		//转为完整路径
+		const char* system_complete(const char* path);
+		//是否存在
+		bool exists(const char* path);
+		//是否目录
+		bool is_directory(const char* path);
+
+		//解析
+		const char* extension(const char* path);//扩展名
+		const char* leaf(const char* path);//文件或目录名
+		const char* stem(const char* path);//文件名, 去掉后缀
+		const char* parent_path(const char* path);//父目录名
+		
+		const char* normalize(const char* path);
+
+
 
 		//模块资源释放
 		void release();
