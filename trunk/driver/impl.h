@@ -6,6 +6,7 @@
 
 #include <vector>
 #include <map>
+#include <boost/unordered_map.hpp>
 #include "../data/interface.h"
 
 namespace ns_base
@@ -26,42 +27,10 @@ namespace ns_base
 		
 		unsigned int get_ms();
 
-		ns_base::i_heap* m_evt_heap;
-		st_heap_run* m_runner;
-		
-		handler<st_time_evt> get_evt(long last);
-
 		impl_timer();
 		~impl_timer();
 	};
 	
-	//for timer heap
-	struct st_heap_run
-	{
-		impl_timer* m_time;
-		void run()
-		{
-			void* p_evt = m_time->m_evt_heap->top();
-			for(; p_evt; p_evt = m_time->m_evt_heap->top() )
-			{
-				st_time_evt* p_time_evt = (st_time_evt*)p_evt;
-				unsigned int now = m_time->get_ms();
-				if(p_time_evt->m_begin+p_time_evt->m_till<m_time->get_ms() )
-				{
-					//计时到
-					p_time_evt->s_evt(m_time->get_ms(), now-p_time_evt->m_begin);
-					//释放
-					m_time->m_evt_heap->pop();
-					delete p_time_evt;
-				}
-				else
-				{
-					break;
-				}
-			}
-		}
-	};
-
 	struct st_stage
 	{	
 		ns_delegate::Delegate<void(void) > pre_stage;
@@ -95,8 +64,6 @@ namespace ns_base
 		bool is_exit();
 
 		
-
-		
 		long m_fps_counter;
 		double m_fps_time_counter;
 		long m_fps;
@@ -118,6 +85,17 @@ namespace ns_base
 		i_timer* create_timer();
 
 		i_handler_service* get_handler_service();
+
+		//@return: timer_trigger id
+		long set_time_out(st_on_time* handler, long last);
+		//@return: is timer_trigger id exist
+		bool is_time_out_exist(long id);
+
+		void run_time_out();
+
+		boost::unordered_map<long ,st_on_time*> m_timeouts;
+		long m_timeout_id_count;//TODO, init
+		i_heap* m_timeout_heap;
 
 		impl_driver();
 	};

@@ -19,7 +19,7 @@ namespace ns_base
 		//draw
 		virtual void draw_line(long color, float x1, float y1, float x2, float y2) = 0;
 		virtual void draw_rect(bool solid, long color, float x1, float y1, float wid, float height) = 0;
-		virtual void draw_text(const char* text, const char* str_font, long sz, long color, float x1, float y1) = 0;
+		virtual void draw_text(const char* text, const char* str_font, long sz, long color, float x1, float y1) = 0;//str_font 查看系统字体名称
 		virtual void draw_image(i_image* img, float x, float y) = 0;
 
 
