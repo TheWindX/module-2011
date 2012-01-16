@@ -79,6 +79,7 @@ namespace ns_base
 	{
 		m_stages.clear();
 		m_fps_interval = 0;
+		if(m_timeout_heap) m_timeout_heap->release();
 	}
 
 	void impl_driver::pre_run_once()
@@ -205,19 +206,7 @@ namespace ns_base
 	}
 
 
-	handler<st_time_evt> impl_timer::get_evt(long last)
-	{
-		st_time_evt* p_time = new st_time_evt;
-		p_time->m_begin = get_ms();
-		p_time->m_till = last;
-		m_evt_heap->push(p_time);//生命周期交由i_timer管理
-		h_driver* p;
-		ns_base::get(p);
 
-		handler<st_time_evt> ret;
-		ret.id = p->get_handler_service()->reg(p_time);
-		return ret;
-	}
 
 
 	impl_driver::impl_driver()
@@ -233,56 +222,86 @@ namespace ns_base
 		m_time_count = 0;
 
 		m_fps_interval = 0;
+
+		m_timeout_heap = 0;
+		m_timeout_id_count = 0;
 	}
+
+	impl_driver::~impl_driver()
+	{	
+	}
+	
 
 	impl_timer::impl_timer()
 	{
 		restart();
-		ns_base::h_data* p_data;
-		ns_base::get(p_data);
-		m_evt_heap = p_data->create_heap();
-
-		struct st_cmp
-		{
-			static bool less(void* l, void* r)
-			{
-				st_time_evt* t1 = (st_time_evt*)l;
-				st_time_evt* t2 = (st_time_evt*)r;
-				return t1->m_till<t2->m_till;
-			}
-		};
-		m_evt_heap->s_cmp += &st_cmp::less;
-		m_runner = new st_heap_run;
-		m_runner->m_time = this;
-		h_driver* drv;
-		ns_base::get(drv);
-		drv->get_on_delegate(2) += std::make_pair(m_runner, &st_heap_run::run);
 	}
 
 	impl_timer::~impl_timer()
 	{
-		h_driver* drv;
-		ns_base::get(drv);
 		
-		for(bool good = m_evt_heap->first();good;good = m_evt_heap->next() )
-		{
-			void* p = m_evt_heap->get();
-			st_time_evt* p_time_evt = (st_time_evt*)p;
-			delete p_time_evt;
-		}
-		
-		delete m_runner;
-		delete m_evt_heap;
-		
-		drv->get_on_delegate(2) -= std::make_pair(m_runner, &st_heap_run::run);//todo 有问题?
 	}
 
-	IMPL_HANDLER_SEVICE(impl_handler_service);
-	i_handler_service* impl_driver::get_handler_service()
+	void impl_driver::run_time_out()
 	{
-		return &_impl_handler_service;
+		if(m_timeout_heap->size() == 0) return;
+		st_on_time* time = (st_on_time*)m_timeout_heap->top();
+		
+		if(time->m_till<m_time_count)
+		{
+			long next = time->handle(m_time_count-time->m_start);
+			if(next > 0)
+			{
+				m_timeout_heap->pop();
+				time->m_start = m_time_count;
+				time->m_till = m_time_count+next;
+				m_timeout_heap->push(time);
+			}
+			else
+			{
+				m_timeout_heap->pop();
+				m_timeouts.erase(time->m_id);
+			}
+		}
 	}
 
+	long impl_driver::set_time_out(st_on_time* time_out, long last)
+	{	
+		if(!m_timeout_heap)
+		{	
+			ns_base::h_data* hd;
+			ns_base::get(hd);
+			m_timeout_heap = hd->create_heap();
+
+			struct st_cmp
+			{
+				static bool less(void* l, void* r)
+				{
+					st_on_time* timeinfo1 = (st_on_time*) l;
+					st_on_time* timeinfo2 = (st_on_time*) r;
+					
+					return timeinfo1->m_till<timeinfo2->m_till;
+				}
+			};
+			m_timeout_heap->s_cmp += &st_cmp::less;
+			this->get_on_delegate(1000) += std::make_pair(this, &impl_driver::run_time_out);
+		}
+
+		time_out->m_start = m_time_count;
+		time_out->m_till = m_time_count+last;
+		m_timeouts.insert(std::make_pair(m_timeout_id_count, time_out) );
+		time_out->m_id = m_timeout_id_count;
+		
+		m_timeout_heap->push(time_out);
+		return m_timeout_id_count++;
+	}
+
+	bool impl_driver::is_time_out_exist(long id)
+	{
+		boost::unordered_map<long ,st_on_time* /* time_out */ >::iterator it = m_timeouts.find(id);
+		if(it != m_timeouts.end() )return true;
+		return false;
+	}
 }
 BOOL APIENTRY DllMain(HANDLE hModule, DWORD ul_reason_for_call, LPVOID lpReserved)
 {

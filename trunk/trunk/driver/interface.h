@@ -10,13 +10,6 @@ namespace ns_base
 	using ns_common::i_handler_service;
 	using ns_common::handler;
 	
-	struct st_time_evt
-	{
-		ns_delegate::Delegate<void(long/*time*/, long/*elaps*/)> s_evt;
-		long m_begin;
-		long m_till;
-	};
-
 	struct i_timer : public virtual i_ref_counter
 	{
 		virtual void restart() = 0;
@@ -24,7 +17,16 @@ namespace ns_base
 		virtual void resume() = 0;
 		
 		virtual unsigned int get_ms() = 0;
-		virtual handler<st_time_evt> get_evt(long last) = 0;
+	};
+
+	struct st_on_time//to override on time handler
+	{
+		//@para: last: 实际持续时间
+		//@return: -1 停止， others下次定时时间
+		long m_id;
+		long m_start;
+		long m_till;
+		virtual long handle(long last) = 0;
 	};
 
 	struct h_driver 
@@ -35,6 +37,7 @@ namespace ns_base
 
 		
 		virtual void init() = 0;
+
 		virtual void run() = 0;
 		virtual void release() = 0;
 		
@@ -54,21 +57,13 @@ namespace ns_base
 
 		virtual i_timer* create_timer() = 0;
 
-		virtual i_handler_service* get_handler_service() = 0;
+		//@return: timer_trigger id
+		virtual long set_time_out(st_on_time* handler, long last) = 0;
+		//@return: is timer_trigger id exist
+		virtual bool is_time_out_exist(long id) = 0;
 	};
 }
 
-
-namespace ns_common
-{
-	using namespace ns_base;
-	template<> i_handler_service* i_handler_service::instance<st_time_evt>()
-	{
-		h_driver* p_entry;
-		ns_base::get(p_entry);
-		return p_entry->get_handler_service();
-	}
-}
 
 #include "../head/M_interface.h"
 M_DECL(ns_base::h_driver, "driver.dll");
