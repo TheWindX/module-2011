@@ -8,11 +8,23 @@
 
 namespace ns_base
 {
+	std::vector<std::string> m_string_pool;
+
+	std::string& alloc_string(const char* str)
+	{
+		h_filesystem* hf;
+		get(hf);
+
+		m_string_pool.push_back(std::string(str) );
+		return m_string_pool.back();
+	}
+
 	//字串
 	const char* impl_path::append(const char* path, const char* branch)
 	{
 		fs::path m_path = path;
 		m_path /= branch;
+
 		return m_path.string().c_str();
 	}
 
@@ -39,18 +51,20 @@ namespace ns_base
 	const char* impl_path::first(const char* path)
 	{
 		fs::path m_path = path;
-		static std::string g_str_ret;
+		
 		static fs::directory_iterator end_itr;
 		m_it = fs::directory_iterator(m_path);
 		if(m_it == end_itr) return 0;
+
+		std::string& g_str_ret = alloc_string("");
 		g_str_ret = m_it->path().string();
 
 		return g_str_ret.c_str();
 	}
 
 	const char* impl_path::next()
-	{
-		static std::string g_str_ret;
+	{	
+		std::string& g_str_ret = alloc_string("");
 		static fs::directory_iterator end_itr;
 		if(++m_it == end_itr) return 0;
 		g_str_ret = m_it->path().string();
@@ -62,7 +76,7 @@ namespace ns_base
 	const char* impl_path::extension(const char* path)
 	{
 		fs::path m_path = path;
-		static std::string g_str_ret;
+		std::string& g_str_ret = alloc_string("");
 		g_str_ret = m_path.extension();
 		return g_str_ret.c_str();
 	}
@@ -70,7 +84,7 @@ namespace ns_base
 	const char* impl_path::leaf(const char* path)
 	{
 		fs::path m_path = path;
-		static std::string g_str_ret;
+		std::string& g_str_ret = alloc_string("");
 		g_str_ret = m_path.leaf();
 		return g_str_ret.c_str();
 	}
@@ -78,7 +92,7 @@ namespace ns_base
 	const char* impl_path::stem(const char* path)
 	{
 		fs::path m_path = path;
-		static std::string g_str_ret;
+		std::string& g_str_ret = alloc_string("");
 		g_str_ret = m_path.stem();
 		return g_str_ret.c_str();
 	}
@@ -86,7 +100,7 @@ namespace ns_base
 	const char* impl_path::parent_path(const char* path)
 	{
 		fs::path m_path = path;
-		static std::string g_str_ret;
+		std::string& g_str_ret = alloc_string("");
 		g_str_ret = m_path.parent_path().string();
 		return g_str_ret.c_str();
 	}
@@ -315,24 +329,26 @@ namespace ns_base
 	//模块所在的路径
 	const char* impl_filesystem::create_module_path()
 	{
-		static char path[1024];
+		std::string& g_str_ret = alloc_string("");
+		char path[1024];
 		DWORD sz_ret = GetModuleFileName(0, path, 1024);
 		if(ERROR_INSUFFICIENT_BUFFER == sz_ret)
 		{	
 			return 0;
 		}
-		
-		return path;
+		g_str_ret = path;
+		return g_str_ret.c_str();
 	}
 
 	//工作路径
 	const char* impl_filesystem::create_work_directory()
 	{
-		static char path[1024];
+		std::string& g_str_ret = alloc_string("");
+		char path[1024];
 		size_t sz = ::GetCurrentDirectory(1024, path);
 		if(sz == 0) return 0;
-
-		return path;
+		g_str_ret = path;
+		return g_str_ret.c_str();
 	}
 
 	//创造路径
@@ -376,6 +392,12 @@ namespace ns_base
 			RAISE_EXCEPTION("");
 		}
 		return p;
+	}
+
+	//模块资源释放
+	void impl_filesystem::release()
+	{
+		m_string_pool.clear();
 	}
 }
 
