@@ -33,15 +33,20 @@ namespace ns_base
 		virtual ns_delegate::Delegate<void(void)>& get_on_delegate(unsigned char stage) = 0;
 		virtual ns_delegate::Delegate<void(void)>& get_post_delegate(unsigned char stage) = 0;
 
-		virtual void pre_run() = 0;
+		
+		virtual void init() = 0;
 		virtual void run() = 0;
-		virtual void reset() = 0;
-		virtual void post_run() = 0;
+		virtual void release() = 0;
+		
+		virtual void pre_run_once() = 0;
+		virtual void post_run_once() = 0;
 		virtual void run_once() = 0;
+		
 		virtual void exit() = 0;
 		virtual bool is_exit() = 0;
-		virtual void set_fps_interval(long interval) = 0;
+		virtual void set_fix_time_fps(long interval) = 0;
 		virtual long get_fps() = 0;
+		virtual void set_fps_interval(long interval) = 0;
 
 		virtual float get_system_s() = 0;
 		virtual unsigned int get_system_ms() = 0;

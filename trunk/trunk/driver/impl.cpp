@@ -69,12 +69,20 @@ namespace ns_base
 		return m_stages[level];
 	}
 
-
-	void impl_driver::pre_run()
+	void impl_driver::init()
 	{
-		reset();//计时reset
 		m_bexit = false;
-		
+		reset();
+	}
+	
+	void impl_driver::release()
+	{
+		m_stages.clear();
+		m_fps_interval = 0;
+	}
+
+	void impl_driver::pre_run_once()
+	{	
 		std::map<unsigned char, st_stage>::iterator it = m_stages.begin();
 		for(; it != m_stages.end(); ++it)
 		{
@@ -83,7 +91,7 @@ namespace ns_base
 		}
 	}
 
-	void impl_driver::post_run()
+	void impl_driver::post_run_once()
 	{
 		std::map<unsigned char, st_stage>::reverse_iterator it = m_stages.rbegin();
 		for(; it != m_stages.rend(); ++it)
@@ -91,31 +99,31 @@ namespace ns_base
 			st_stage& st = it->second;
 			st.post_stage();
 		}
-
-		reset();//计时reset
-		m_stages.clear();
-		m_bexit = false;
 	}
 
 	void impl_driver::run()
 	{	
-		pre_run();
 		while(!m_bexit)
 		{
+			pre_run_once();
 			run_once();
+			post_run_once();
 		}
-		post_run();
+		
 	}
+	
 	void impl_driver::reset()
 	{
 		m_time_start = g_tick_timer.getElapsedTimeInMilliSec();
 		m_time_count = 0;
 		m_time_delta = 0;
+
+		m_fps_time_counter = 0;
+		m_fps = 0;
 	}
+
 	void impl_driver::run_once()
 	{
-		if(m_bexit) return;
-		
 		std::map<unsigned char, st_stage>::iterator it = m_stages.begin();
 		for(; it != m_stages.end(); ++it)
 		{
@@ -123,20 +131,29 @@ namespace ns_base
 			st.on_stage();
 		}
 
-
 		unsigned int now = g_tick_timer.getElapsedTimeInMilliSec();
-		m_time_delta = now-m_time_start-m_time_count;
+		double old_time_count = m_time_count;
 		m_time_count = now-m_time_start;
+		m_time_delta = m_time_count-old_time_count;
+		m_fix_frame_time_count += m_fps_interval;
 
-		m_time_delta = now-m_time_start-m_time_count;
-		m_time_count = now-m_time_start;
 		m_fps_time_counter += m_time_delta;
 		m_fps_counter++;
-		if(m_fps_time_counter>m_fps_interval)
+		if(m_fps_time_counter>m_fix_time_interval)
 		{
-			m_fps = m_fps_counter/m_fps_time_counter;
+			m_fps = m_fps_counter*1000/m_fps_time_counter;
 			m_fps_time_counter = 0;
 			m_fps_counter = 0;
+		}
+
+		idle();
+	}
+
+	void impl_driver::idle()
+	{
+		if(m_time_count<m_fix_frame_time_count)
+		{ 
+			Sleep(m_fix_frame_time_count-m_time_count);
 		}
 	}
 
@@ -150,15 +167,21 @@ namespace ns_base
 		return m_bexit;
 	}
 
-	void impl_driver::set_fps_interval(long interval)
+	void impl_driver:: set_fps_interval(long interval)
 	{
 		m_fps_interval = interval;
+	}
+
+	void impl_driver::set_fix_time_fps(long interval)
+	{
+		m_fix_time_interval = interval;
 	}
 
 	long impl_driver::get_fps()
 	{
 		return m_fps;
 	}
+
 
 	float impl_driver::get_system_s()
 	{
@@ -200,7 +223,7 @@ namespace ns_base
 	impl_driver::impl_driver()
 	{
 		m_bexit = true;
-		m_fps_interval = 500;//ms
+		m_fix_time_interval = 500;//ms
 		m_fps_counter = 0;
 		m_fps_time_counter = 0;
 		m_fps = 0;
@@ -208,6 +231,8 @@ namespace ns_base
 		m_time_start = 0;
 		m_time_delta = 0;
 		m_time_count = 0;
+
+		m_fps_interval = 0;
 	}
 
 	impl_timer::impl_timer()
