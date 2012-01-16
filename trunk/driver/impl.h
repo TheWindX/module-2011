@@ -80,24 +80,37 @@ namespace ns_base
 
 		st_stage& get_stage(unsigned char level);
 
-		void pre_run();
-		void post_run();
+
+		void init();
+		void release();
+
+		void pre_run_once();
+		void post_run_once();
 		void run();
 		void reset();
 		void run_once();
+		void idle();
+
 		void exit();
 		bool is_exit();
 
-		long m_fps_interval;
+		
+
+		
 		long m_fps_counter;
 		double m_fps_time_counter;
 		long m_fps;
-		void set_fps_interval(long interval);
+		long m_fps_interval;
 		long get_fps();
+		void set_fps_interval(long interval);
+		void set_fix_time_fps(long interval);
 
-		double m_time_start;
-		double m_time_count;
-		double m_time_delta;
+		double m_time_start;//开始时间, 从init开始
+		double m_time_count;//计时
+		double m_time_delta;//每帧时
+		double m_fix_frame_time_count;
+		long m_fix_time_interval;
+
 		float get_system_s();
 		unsigned int get_system_ms();
 		unsigned int get_delta_ms();
