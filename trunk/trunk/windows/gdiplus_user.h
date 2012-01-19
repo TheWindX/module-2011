@@ -11,6 +11,8 @@ namespace ns_gdiplus
 	void init();
 	void release();
 
+	void draw_point(Gdiplus::Graphics& g, unsigned int color, float x, float y);
+
 	void draw_line(Gdiplus::Graphics& g, unsigned int color, float x1, float y1, float x2, float y2);
 
 	void draw_rect(Gdiplus::Graphics& g, bool solid, unsigned int color, float x1, float y1, float wid, float height);

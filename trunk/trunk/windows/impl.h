@@ -62,6 +62,7 @@ namespace ns_base
 		}
 
 		//draw
+		void draw_point(long color, float x, float y);
 		void draw_line(long color, float x1, float y1, float x2, float y2);
 		void draw_rect(bool solid, long color, float x1, float y1, float wid, float height);
 		void draw_text(const char* text, const char* str_font, long sz, long color, float x1, float y1);
