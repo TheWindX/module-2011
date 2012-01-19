@@ -120,6 +120,9 @@
 			<File
 				RelativePath=".\test4.cpp">
 			</File>
+			<File
+				RelativePath=".\test5.cpp">
+			</File>
 		</Filter>
 		<Filter
 			Name="Í·ÎÄ¼þ"

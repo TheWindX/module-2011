@@ -373,6 +373,11 @@ end:
 		m_canvas = new impl_GDI(cx, cy, this);
 	}
 
+	void impl_GDI::draw_point(long color, float x, float y)
+	{
+		ns_gdiplus::draw_point(*m_graph, color, x, y);
+	}
+
 	void impl_GDI::draw_line(long color, float x1, float y1, float x2, float y2)
 	{	
 		ns_gdiplus::draw_line(*m_graph, color, x1, y1, x2, y2);
@@ -865,6 +870,11 @@ end:
 
 			TranslateMessage (&msg) ;
 			DispatchMessage (&msg) ;
+		}
+		else
+		{
+			//your stuff here to process
+			s_on_idle();
 		}
 		return true;
 	}

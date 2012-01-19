@@ -38,6 +38,13 @@ Exit0:
 
 namespace ns_gdiplus
 {
+	void draw_point(Gdiplus::Graphics& g, unsigned int color, float x, float y)
+	{
+		Gdiplus::Color c(color);
+		Gdiplus::SolidBrush b(c );
+		g.FillRectangle(&b, (int)x, (int)y, 1, 1);
+	}
+
 	void draw_line(Gdiplus::Graphics& g, unsigned int color, float x1, float y1, float x2, float y2)
 	{	
 		Gdiplus::Color c(color);

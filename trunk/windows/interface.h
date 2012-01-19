@@ -17,6 +17,7 @@ namespace ns_base
 	struct i_GDI
 	{
 		//draw
+		virtual void draw_point(long color, float x, float y) = 0;
 		virtual void draw_line(long color, float x1, float y1, float x2, float y2) = 0;
 		virtual void draw_rect(bool solid, long color, float x1, float y1, float wid, float height) = 0;
 		virtual void draw_text(const char* text, const char* str_font, long sz, long color, float x1, float y1) = 0;//str_font 查看系统字体名称
@@ -148,8 +149,6 @@ namespace ns_base
 		virtual void get_mouse_pos(long& xout, long& yout) = 0;
 		virtual bool is_key_press(long key) = 0;
 
-		virtual bool run_once() = 0;
-
 		virtual i_window* create_window(i_window* paresent, long x, long y, long cx, long cy, const char* str_title, st_window_style* pstyle = 0) = 0;
 		
 		virtual i_button* create_button(i_window* paresent, long x, long y, long cx, long cy, const char* str_title) = 0;
@@ -157,6 +156,9 @@ namespace ns_base
 		virtual i_static* create_static(i_window* paresent, long x, long y, long cx, long cy, const char* str_title) = 0;
 
 		virtual i_edit* create_edit(i_window* paresent, long x, long y, long cx, long cy, const char* text) = 0;
+
+		virtual bool run_once() = 0;
+		Delegate<void(void)> s_on_idle;//在处理完所有消息后
 	};
 }
 

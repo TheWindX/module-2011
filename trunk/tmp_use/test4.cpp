@@ -35,7 +35,7 @@ void path_iter(i_path_iter* it)
 
 }
 
-int main(int argc, char** argv)
+int main4(int argc, char** argv)
 {
 	h_filesystem* hf;
 	get(hf);
