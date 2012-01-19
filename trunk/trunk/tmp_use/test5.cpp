@@ -30,11 +30,14 @@ std::complex<float> map_plane(float x, float y)
 
 long fade(float scale)
 {
-	long x = 0xff*scale;
-	return (x|x<<8|x<<16|0xff<<24);
+	long r = 0xff*scale;
+	long g = 0xff*scale*0.98;
+	long b = 0xff*scale*0.95;
+	return (g|g<<8|r<<16|0xff<<24);
 }
 
 
+typedef std::complex<float> c_t;
 void on_draw(i_window* w)
 {
 	i_GDI* gdi = w->get_GDI();
@@ -42,17 +45,16 @@ void on_draw(i_window* w)
 	{
 		for(float y = 0; y<512; ++y)
 		{
-			std::complex<float> z = map_plane(x, y);
-			std::complex<float> c = z;
+			c_t z = map_plane(x, y);
+			c_t c = z;
 			int i = 0;
 			for(i = 0; i<100; ++i)
 			{
 				float n = norm(z);
 				if(n == 0) continue;
-				if(n > 2.0 ) break;
+				if(n > 2.5 ) break;
 				z = z*z + c + std::complex<float>(0, -0);
 			}
-
 			gdi->draw_point(fade(1-i/100.0), x, y);
 			;
 		}
