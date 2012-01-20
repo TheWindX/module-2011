@@ -4,6 +4,7 @@
 #include <string>
 
 #include <gdiplus.h>
+#include <GdiPlusColor.h>
 #pragma comment(lib, "gdiplus.lib")
 
 namespace ns_gdiplus
