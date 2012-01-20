@@ -84,6 +84,7 @@ namespace ns_base
 
 		void begin_draw(long color);
 		void end_draw();
+		i_image* create_img();//Êä³öimg;//create!
 
 		void apply();
 	};

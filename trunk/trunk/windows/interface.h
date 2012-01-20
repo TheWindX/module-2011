@@ -40,6 +40,8 @@ namespace ns_base
 
 		virtual void begin_draw(long color) = 0;
 		virtual void end_draw() = 0;
+
+		virtual i_image* create_img() = 0;//Êä³öimg;
 	};
 
 	struct i_window : public virtual i_ref_counter

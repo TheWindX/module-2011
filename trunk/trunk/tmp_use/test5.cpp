@@ -61,10 +61,14 @@ void on_draw(i_window* w)
 	}
 }
 
+i_image* g_img = 0;
 void on_erase(i_window* w)
 {
-	
+	w->get_GDI()->begin_draw(0xff000000);
+	w->get_GDI()->draw_image(g_img, 0, 0);
+	w->get_GDI()->end_draw();
 }
+
 
 int main(int argc, char** argv)
 {
@@ -88,24 +92,28 @@ int main(int argc, char** argv)
 	on_draw(w);
 	gdi->end_draw();
 
+	g_img = gdi->create_img();
+	
+
 	
 
 	w->s_on_erase += &on_erase;
 	
 	hd->set_fix_time_fps(500);
-	hd->set_fps_interval(10);
+	//hd->set_fps_interval(10);
 
 	while(1)
 	{
 		hd->run_once();
-		//gdi->begin_draw(0xff000000);
+		gdi->begin_draw(0xff000000);
 		//gdi->draw_rect(true, 0xffff0000, 64, 64, 256, 256);
 		char strtem[256];
 		sprintf(strtem, "fps:%d", hd->get_fps() );
 		//system("cls");
 		//printf(strtem);
-		//gdi->draw_text(strtem, "Î¢ÈíÑÅºÚ", 24, 0xff00ff00, 0, 0 );
-		//gdi->end_draw();
+		w->get_GDI()->draw_image(g_img, 0, 0);
+		gdi->draw_text(strtem, "Î¢ÈíÑÅºÚ", 24, 0xff00ff00, 0, 0 );
+		gdi->end_draw();
 		hw->run_once();
 	}
 	return 0;

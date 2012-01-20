@@ -1,11 +1,14 @@
+
 #include <iostream>
 #include <map>
 #include <windows.h>
 #include <CommCtrl.h>
 //#include <Ole2.h>
 
+
 #include "impl.h"
 #include "gdiplus_user.h"
+
 #include "../head/utility_new.h"
 
 
@@ -409,7 +412,7 @@ end:
 		long w, h;
 		img->size(w, h);
 
-		static char buff[256*256*4];
+		char* buff = new char[w*h*4];//TODO: OPMISE IT
 		char* idx = buff;
 		for(size_t ih=0;ih<h; ++ih)
 			for(size_t iw=0;iw<w; ++iw)
@@ -420,6 +423,7 @@ end:
 			}
 		Bitmap bmp(w, h, w*4, PixelFormat32bppARGB, (BYTE*)buff);
 		m_graph->DrawImage(&bmp, (int)x, (int)y, (int)w, (int)h);
+		delete[] buff;
 
 		//long w, h;
 		//img->size(w, h);
@@ -606,6 +610,23 @@ end:
 	{
 		Gdiplus::Graphics Graphic(m_window->get_HWND() );
 		Graphic.DrawImage(&m_bmp, 0, 0);
+	}
+
+	i_image* impl_GDI::create_img()//Êä³öimg;
+	{
+		h_image* hi;
+		get(hi);
+		long w = m_bmp.GetWidth();
+		long h = m_bmp.GetHeight();
+		i_image* img = hi->create(w, h);
+		for(long x = 0; x<w; ++x)
+			for(long y = 0; y<h; ++y)
+			{
+				Gdiplus::Color c;
+				m_bmp.GetPixel(x, y, &c);
+				img->set_pixel_argb(x, y, c.GetValue() );
+			}
+		return img;
 	}
 
 	void impl_window::get_pos(long& xout, long& yout)
