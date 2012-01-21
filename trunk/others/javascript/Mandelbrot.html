@@ -1,0 +1,72 @@
+<html>
+	<head>
+		<style type="text/css">
+			#test {
+				border-style: solid;
+				border-width: 1px;
+			}
+		</style>
+		
+		<script type="text/javascript">
+			function col2str(color) {
+						  return 'rgb(' + color[0] + ',' + color[1] + ',' + color[2] + ')';
+						}
+			function complex_mul(c1, c2)
+			{
+				return [c1[0]*c2[0]-c1[1]*c2[1], c1[0]*c2[1]+c1[1]*c2[0] ]
+			}
+			function complex_add(c1, c2)
+			{
+				return [c1[0]+c2[0], c1[1]+c2[1] ]
+			}
+			function complex_normal(c)
+			{
+				return c[0]*c[0]+c[1]*c[1]
+			}
+			function map_complex(x, y)
+			{
+				var t = [(x+50)/200.0-2, (y-35)/200.0-1]
+				return t
+			}
+			//»­µã
+			function dp(c, t)
+			{
+				ctx.fillStyle=c
+				ctx.fillRect(t[0], t[1], 1, 1);	
+			}
+			function paint()
+			{
+				var c=document.getElementById("test");
+				ctx=c.getContext("2d");
+				ctx.fillStyle="#222222";
+				for(var i = 0; i<512; ++i)
+				{
+					for(var j = 0; j<512; ++j)
+					{
+						z = map_complex(i, j)
+						c = z;
+						var k = 0
+						for(k = 0; k<100; ++k)
+						{
+							var tem_m = complex_normal(z)
+							if(tem_m>5) 
+							{
+								break;
+							}
+							z = complex_add(complex_mul(z, z), c )
+						}
+						var v = Math.round( (100-k)*0.01*255);
+						dp(col2str([v, v, v]), [i, j])
+					}
+				}
+			}
+		</script>
+		
+	</head>
+	<body>
+		<canvas id="test" width="512" height="512"></canvas>
+		</br>
+		<button type="button" onclick="paint()">paint it!</button>
+		<p id="log"></p>
+	</body>
+</html>
