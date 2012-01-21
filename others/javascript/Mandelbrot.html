@@ -8,6 +8,14 @@
 		</style>
 		
 		<script type="text/javascript">
+			function color_blend(c1, c2, blend)
+			{
+				var r = (c2[0]-c1[0])*blend+c1[0]
+				var g = (c2[1]-c1[1])*blend+c1[1]
+				var b = (c2[2]-c1[2])*blend+c1[2]
+				return [Math.round(r), Math.round(g), Math.round(b)]
+			}
+			
 			function col2str(color) {
 						  return 'rgb(' + color[0] + ',' + color[1] + ',' + color[2] + ')';
 						}
@@ -55,8 +63,8 @@
 							}
 							z = complex_add(complex_mul(z, z), c )
 						}
-						var v = Math.round( (100-k)*0.01*255);
-						dp(col2str([v, v, v]), [i, j])
+						var c = color_blend([255, 255, 255], [0, 0, 0], k/100)
+						dp(col2str(c), [i, j])
 					}
 				}
 			}
