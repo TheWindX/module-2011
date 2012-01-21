@@ -16,6 +16,15 @@
 				return [Math.round(r), Math.round(g), Math.round(b)]
 			}
 			
+			function str2col(c1)
+			{
+					var r = parseInt(c1.substring(0, 2), 16 )
+					var g = parseInt(c1.substring(2, 4), 16 )
+					var b = parseInt(c1.substring(4, 6), 16 )
+					alert(""+r+g+b)
+					return [r, g, b]
+			}
+			
 			function col2str(color) {
 						  return 'rgb(' + color[0] + ',' + color[1] + ',' + color[2] + ')';
 						}
@@ -31,9 +40,13 @@
 			{
 				return c[0]*c[0]+c[1]*c[1]
 			}
+			
+			var scale;
+			var x_offset;
+			var y_offset;
 			function map_complex(x, y)
 			{
-				var t = [(x+50)/200.0-2, (y-35)/200.0-1]
+				var t = [(x+x_offset)*scale-2, (y+y_offset)*scale-1]
 				return t
 			}
 			//»­µã
@@ -44,6 +57,17 @@
 			}
 			function paint()
 			{
+				var ele_col1=document.getElementById("col1");
+				var ele_col2=document.getElementById("col2");
+				var ele_scale=document.getElementById("scale");
+				var ele_x_offset=document.getElementById("x_offset");
+				var ele_y_offset=document.getElementById("y_offset");
+				var c1 = str2col(ele_col1.value)
+				var c2 = str2col(ele_col2.value)
+				scale = parseFloat(ele_scale.value)
+				x_offset = parseFloat(ele_x_offset.value)
+				y_offset = parseFloat(ele_y_offset.value)
+				
 				var c=document.getElementById("test");
 				ctx=c.getContext("2d");
 				ctx.fillStyle="#222222";
@@ -63,7 +87,7 @@
 							}
 							z = complex_add(complex_mul(z, z), c )
 						}
-						var c = color_blend([255, 255, 255], [0, 0, 0], k/100)
+						var c = color_blend(c1, c2, k/100)
 						dp(col2str(c), [i, j])
 					}
 				}
@@ -75,6 +99,11 @@
 		<canvas id="test" width="512" height="512"></canvas>
 		</br>
 		<button type="button" onclick="paint()">paint it!</button>
-		<p id="log"></p>
+		<p>from color:<input type="text" name="as_q" id="col1" title="" value="ffffff"></p>
+		<p>to_color:<input type="text" name="as_q" id="col2" value="000000"></p>
+		<p>scale:<input type="text" name="as_q" id="scale" title="" value="0.005"></p>
+		<p>x_offset:<input type="text" name="as_q" id="x_offset" value="50"></p>
+		<p>y_offset:<input type="text" name="as_q" id="y_offset" value="-35"></p>
+		
 	</body>
 </html>
