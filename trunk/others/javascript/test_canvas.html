@@ -1,0 +1,46 @@
+<html>
+	<head>
+	<script type="text/javascript">
+	function draw() {  
+	  var ctx = document.getElementById('user_map').getContext('2d'); 
+		
+		ctx.save();
+		drawRect(ctx, 3);
+		
+	}  
+	
+	function drawRect(ctx, lv) {  
+		if(lv == 0) return;
+		ctx.save();
+		ctx.translate(280, 280);
+		ctx.scale(0.5, 0.5);
+		ctx.beginPath()
+		ctx.rect(0,0,512,512);
+		ctx.clip();
+		ctx.beginPath()
+		ctx.fillStyle = "#000000";
+		ctx.rect(0,0,512,512);
+		ctx.fill();
+		ctx.beginPath()
+		ctx.fillStyle = "#ff0000";
+		ctx.arc(256, 256, 270, 0, 360)
+		ctx.fill();
+		ctx.rect(1,1,510,510);
+		ctx.lineWidth = 3.0
+		ctx.strokeStyle = "00ff00";
+		ctx.stroke();
+		drawRect(ctx, lv-1)
+		ctx.restore();
+	}
+	
+	window.onload=function()
+	{
+		draw();
+	}
+	</script>
+	</head>
+	<body>
+		<canvas width="512" height="512" id="user_map">
+		</canvas>
+	</body>
+</html>
