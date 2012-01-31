@@ -1,5 +1,5 @@
 #include <cstdio>
-#include "zlib.h"
+#include "zlib/zlib.h"
 #include "lzo/lzoconf.h"
 #include "lzo/lzo1x.h"
 #include "lzma/LzmaLib.h"

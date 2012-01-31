@@ -4,9 +4,9 @@
 #include "../filesystem/interface.h"
 #include <vector>
 
-#include "../header/utility_new.h"
+#include "../head/utility_new.h"
 
-namespace ns_compress
+namespace ns_base
 {
 	i_buffer* impl_compress::compress(int type, const char* src, size_t sz_src, size_t sz_des_gress)
 	{
@@ -35,9 +35,9 @@ namespace ns_compress
 
 		if(!ret) return 0;
 
-		ns_filesystem::i_filesystem* p_fs;
-		ns_module::get(p_fs);
-		i_buffer* p_buff = p_fs->make_buff(&buff_out[0], sz_ret);
+		ns_base::h_filesystem* p_fs;
+		get(p_fs);
+		i_buffer* p_buff = p_fs->create_buff(&buff_out[0], sz_ret);
 		
 		return p_buff;
 	}
@@ -47,7 +47,7 @@ namespace ns_compress
 		std::vector<char> buff_out;
 		buff_out.resize(sz_des_gress);
 
-		size_t sz_ret = 0;
+		size_t sz_ret = sz_des_gress;
 		bool ret = false;
 		switch (type)
 		{
@@ -69,9 +69,9 @@ namespace ns_compress
 
 		if(!ret) return 0;
 
-		ns_filesystem::i_filesystem* p_fs;
-		ns_module::get(p_fs);
-		i_buffer* p_buff = p_fs->make_buff(&buff_out[0], sz_ret);
+		ns_base::h_filesystem* p_fs;
+		get(p_fs);
+		i_buffer* p_buff = p_fs->create_buff(&buff_out[0], sz_ret);
 
 		return p_buff;
 	}
@@ -101,8 +101,8 @@ BOOL APIENTRY DllMain( HINSTANCE hModule,
 }
 
 
-#include "../header/M_interface.h"
+#include "../head/M_interface.h"
 
-M_IMPL(ns_compress::i_compress, ns_compress::impl_compress);//2. 接口实现
+M_IMPL(ns_base::h_compress, ns_base::impl_compress);//2. 接口实现
 M_OPEN();//3. 模块建立
 
