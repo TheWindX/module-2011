@@ -16,27 +16,30 @@ namespace ns_base
 
 	struct i_GDI
 	{
-		//draw
-		virtual void draw_point(long color, float x, float y) = 0;
-		virtual void draw_line(long color, float x1, float y1, float x2, float y2) = 0;
-		virtual void draw_rect(bool solid, long color, float x1, float y1, float wid, float height) = 0;
-		virtual void draw_text(const char* text, const char* str_font, long sz, long color, float x1, float y1) = 0;//str_font 查看系统字体名称
+		//graphic states
+		virtual void set_pen_color(long color) = 0;
+		virtual void set_pen_width(float wid) = 0;
+		virtual void set_brush(long color) = 0;
+		virtual void set_transform(float x, float y, float zoom) = 0;
+		virtual void set_clip(float x, float y, float wid, float height) = 0;
+
+		virtual void save_state() = 0;
+		virtual void restore_state() = 0;
+
+		//draw & fill
+		virtual void draw_point(float x, float y) = 0;
+		virtual void draw_line(float x1, float y1, float x2, float y2) = 0;
+		virtual void draw_rect(float x1, float y1, float wid, float height) = 0;
+		virtual void fill_rect(float x1, float y1, float wid, float height) = 0;
+
+		virtual void move_to(float x, float y) = 0;
+		virtual void line_to(float x, float y) = 0;
+		virtual void draw_path() = 0;
+		virtual void draw_polygon() = 0;
+		virtual void fill_polygon() = 0;
+
+		virtual void draw_text(const char* text, const char* str_font, long sz, float x1, float y1) = 0;//str_font 查看系统字体名称
 		virtual void draw_image(i_image* img, float x, float y) = 0;
-
-
-		//transform
-		virtual void reset_transform() = 0;
-		virtual void push_transform(float x, float y, float zoom) = 0;
-		virtual void pop_transform() = 0;
-
-		//单纯计算
-		virtual void transform_pt(float lx, float ly, float zoom, float xin, float yin, float& xout, float& yout) = 0;
-		virtual void invert_transform_pt(float lx, float ly, float zoom, float xin, float yin, float& xout, float& yout) = 0;
-
-		//裁剪范围
-		virtual void push_clip(float x, float y, float wid, float height) = 0;
-		virtual void pop_clip() = 0;
-		virtual void reset_clip() = 0;
 
 		virtual void begin_draw(long color) = 0;
 		virtual void end_draw() = 0;

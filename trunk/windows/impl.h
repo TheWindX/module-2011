@@ -3,13 +3,17 @@
 #include <vector>
 #include <string>
 
-#include "gdiplus_user.h"
 #include "interface.h"
 #include "../head/delegate.h"
 
+#include <gdiplus.h>
+#include <GdiPlusColor.h>
+#pragma comment(lib, "gdiplus.lib")
+#include <objidl.h>
 
 namespace ns_base
 {
+	using namespace Gdiplus;
 	struct impl_drop_files : public i_drop_files, public ns_common::impl_ref_counter
 	{
 		std::vector<std::string> m_files;
@@ -32,27 +36,123 @@ namespace ns_base
 
 	struct st_transform
 	{
-		float lx;
-		float ly;
-		float zoom;
-		std::vector<st_rect> rects;
-		st_transform(float _lx, float _ly, float _zoom)
-			:lx(_lx),ly(_ly),zoom(_zoom){}
-		st_transform()
-			:lx(0),ly(0),zoom(1){}
+		float m_offsetx;
+		float m_offsety;
+		float m_zoom;
+		st_transform(float ox, float oy, float z):m_offsetx(ox), m_offsety(oy), m_zoom(z){}
 	};
+
+	struct st_graphic_state
+	{
+		Gdiplus::Pen* m_pen;
+		Gdiplus::SolidBrush* m_brush;
+		
+		st_transform* m_transform;
+		st_rect* m_clip_rect;
+
+		st_graphic_state()
+		{
+			m_pen = new Gdiplus::Pen(0xffffffff);
+			m_brush = new Gdiplus::SolidBrush(0xffffffff);
+			m_transform = new st_transform(0, 0, 1);
+			m_clip_rect = 0;//it may be use
+		}
+
+		~st_graphic_state()
+		{
+			delete m_pen;
+			delete m_brush;
+			delete m_transform;
+			if(m_clip_rect)
+				delete m_clip_rect;
+		}
+	};
+
+	struct st_graphic_state_stk
+	{
+		st_graphic_state* m_cur;
+		std::vector<st_graphic_state*> m_states;
+
+		void reset()
+		{
+			delete m_cur;
+			for(size_t i = 0; i<m_states.size(); ++i)
+			{
+				delete m_states[i];
+			}
+			m_states.clear();
+			m_cur = new st_graphic_state;
+		}
+
+		void save()
+		{
+			m_states.push_back(m_cur);
+			m_cur = new st_graphic_state;
+		}
+		void restore()
+		{
+			if(m_states.size() == 0) return;
+			delete m_cur;
+			m_cur = m_states.back();
+			m_states.pop_back();
+		}
+		st_graphic_state_stk()
+		{
+			m_cur = new st_graphic_state;
+		}
+
+		Gdiplus::Pen* get_pen()
+		{
+			return m_cur->m_pen;
+		}
+
+		Gdiplus::Brush* get_brush()
+		{
+			return m_cur->m_brush;
+		}
+
+		void set_pen_color(long color)
+		{
+			m_cur->m_pen->SetColor(Gdiplus::Color(color) );
+		}
+		
+		void set_pen_width(float wid)
+		{
+			m_cur->m_pen->SetWidth(wid);
+		}
+
+		void set_brush(long color)
+		{
+			m_cur->m_brush->SetColor(Gdiplus::Color(color) );
+		}
+	};
+
 
 	struct impl_GDI : public i_GDI
 	{
+		i_window* m_window;
+
 		Gdiplus::Bitmap m_bmp;
 		Gdiplus::Graphics* m_graph;
-		i_window* m_window;
-		std::vector<st_transform> m_transform;
-
 		unsigned char m_alpha;
 
+		st_graphic_state_stk m_states;
+
+		//graphic states
+		void set_pen_color(long color);
+		void set_pen_width(float width);
+		void set_brush(long color);
+		void set_transform(float x, float y, float zoom);
+		void set_clip(float x, float y, float wid, float height);
+
+		void reset_state();
+		void save_state();
+		void restore_state();
+
+		std::vector<PointF> m_points;
+		
 		impl_GDI(int cx, int cy, i_window* win):m_bmp(cx, cy,PixelFormat32bppARGB), m_window(win), m_alpha(255)
-		{	
+		{
 			m_graph = new Gdiplus::Graphics(&m_bmp);
 		}
 
@@ -62,25 +162,19 @@ namespace ns_base
 		}
 
 		//draw
-		void draw_point(long color, float x, float y);
-		void draw_line(long color, float x1, float y1, float x2, float y2);
-		void draw_rect(bool solid, long color, float x1, float y1, float wid, float height);
-		void draw_text(const char* text, const char* str_font, long sz, long color, float x1, float y1);
+		void draw_point(float x, float y);
+		void draw_line(float x1, float y1, float x2, float y2);
+		void draw_rect(float x1, float y1, float wid, float height);
+		void draw_text(const char* text, const char* str_font, long sz, float x1, float y1);
 		void draw_image(i_image* img, float x, float y);
 
-		//transform
-		void reset_transform();
-		void push_transform(float x, float y, float zoom);
-		void pop_transform();
+		void fill_rect(float x1, float y1, float wid, float height);
 
-		//µ•¥øº∆À„
-		void transform_pt(float lx, float ly, float zoom, float xin, float yin, float& xout, float& yout);
-		void invert_transform_pt(float lx, float ly, float zoom, float xin, float yin, float& xout, float& yout);
-
-		//≤√ºÙ∑∂Œß
-		void push_clip(float x, float y, float wid, float height);
-		void pop_clip();
-		void reset_clip();
+		void move_to(float x, float y);
+		void line_to(float x, float y);
+		void draw_path();
+		void draw_polygon();
+		void fill_polygon();
 
 		void begin_draw(long color);
 		void end_draw();

@@ -4,40 +4,39 @@
 
 using namespace Gdiplus;
 
-std::wstring MtbToWstr( const std::string& str, UINT uCodePage = CP_ACP )   
-{   
-	using namespace std;
-	LPWSTR lpwszWide = NULL;   
-	DWORD cbszWide = 0U;   
-	DWORD dwRet = 0U;   
-	wstring wstrRet;   
-
-	/// calculate the require size   
-	cbszWide = MultiByteToWideChar( uCodePage, 0U, str.c_str(), -1, lpwszWide, 0 );   
-	if ( 0U == cbszWide )   
-		goto Exit0;   
-
-	/// allocate specify size   
-	lpwszWide = (LPWSTR)HeapAlloc( GetProcessHeap(), 0, cbszWide * sizeof( WCHAR ) );   
-	if ( NULL == lpwszWide )   
-		goto Exit0;   
-
-	/// start convert   
-	dwRet = MultiByteToWideChar( uCodePage, 0U, str.c_str(), -1, lpwszWide, cbszWide );   
-	if ( 0 == dwRet )   
-		goto Exit0;   
-	wstrRet = lpwszWide;   
-
-Exit0:   
-	if ( NULL != lpwszWide )   
-		HeapFree( GetProcessHeap(), 0, lpwszWide );   
-	return wstrRet;   
-}  
-
-
 
 namespace ns_gdiplus
 {
+	void move_to(float x, float y)
+	{
+		g_points.clear();
+		g_points.push_back(PointF(x, y) );
+	}
+
+	void line_to(float x, float y)
+	{	
+		g_points.push_back(PointF(x, y) );
+	}
+
+	void draw_path(Gdiplus::Graphics& g, unsigned int color)
+	{
+		Gdiplus::Color c(color);
+		Gdiplus::Pen p(c );
+		g.DrawLines(&p, &g_points[0], g_points.size() );
+	}
+
+	void draw_polygon(Gdiplus::Graphics& g, unsigned int color)
+	{
+		Gdiplus::Color c(color);
+		Gdiplus::Pen p(c );
+		g.DrawPolygon(&p, &g_points[0], g_points.size() );
+	}
+
+	void fill_polygon(Gdiplus::Graphics& g, unsigned int color)
+	{
+
+	}
+
 	void draw_point(Gdiplus::Graphics& g, unsigned int color, float x, float y)
 	{
 		Gdiplus::Color c(color);
@@ -86,11 +85,13 @@ namespace ns_gdiplus
 	{
 		GdiplusStartupInput gdiplusStartupInput;
 		GdiplusStartup(&gdiplusToken, &gdiplusStartupInput, NULL);
+		g_points.clear();
 	}
 
 	void release()
 	{
 		GdiplusShutdown(gdiplusToken);
+		g_points.clear();
 	}
 }
 

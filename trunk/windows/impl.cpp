@@ -7,13 +7,42 @@
 
 
 #include "impl.h"
-#include "gdiplus_user.h"
-
 #include "../head/utility_new.h"
-
 
 namespace ns_base
 {
+	std::wstring MtbToWstr( const std::string& str, UINT uCodePage = CP_ACP )   
+	{   
+		using namespace std;
+		LPWSTR lpwszWide = NULL;   
+		DWORD cbszWide = 0U;   
+		DWORD dwRet = 0U;   
+		wstring wstrRet;   
+
+		/// calculate the require size   
+		cbszWide = MultiByteToWideChar( uCodePage, 0U, str.c_str(), -1, lpwszWide, 0 );   
+		if ( 0U == cbszWide )   
+			goto Exit0;   
+
+		/// allocate specify size   
+		lpwszWide = (LPWSTR)HeapAlloc( GetProcessHeap(), 0, cbszWide * sizeof( WCHAR ) );   
+		if ( NULL == lpwszWide )   
+			goto Exit0;   
+
+		/// start convert   
+		dwRet = MultiByteToWideChar( uCodePage, 0U, str.c_str(), -1, lpwszWide, cbszWide );   
+		if ( 0 == dwRet )   
+			goto Exit0;   
+		wstrRet = lpwszWide;   
+
+Exit0:   
+		if ( NULL != lpwszWide )   
+			HeapFree( GetProcessHeap(), 0, lpwszWide );   
+		return wstrRet;   
+	}  
+
+
+
 	LRESULT CALLBACK wnd_proc
 		(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam);
 	namespace ns_wnd_register
@@ -376,31 +405,85 @@ end:
 		m_canvas = new impl_GDI(cx, cy, this);
 	}
 
-	void impl_GDI::draw_point(long color, float x, float y)
+
+	void impl_GDI::set_pen_color(long color)
 	{
-		ns_gdiplus::draw_point(*m_graph, color, x, y);
+		m_states.set_pen_color(color);
 	}
 
-	void impl_GDI::draw_line(long color, float x1, float y1, float x2, float y2)
-	{	
-		ns_gdiplus::draw_line(*m_graph, color, x1, y1, x2, y2);
-
-		//Gdiplus::Graphics Graphic(m_wnd);
-		//Graphic.DrawImage( &m_canvas->m_bmp, 0, 0);
-	}
-
-	void impl_GDI::draw_rect(bool solid, long color, float x1, float y1, float wid, float height)
-	{	
-		ns_gdiplus::draw_rect(*m_graph, solid, color, x1, y1, wid, height);
-
-		//Gdiplus::Graphics Graphic(m_wnd);
-		//Graphic.DrawImage( &m_canvas->m_bmp, 0, 0);
-	}
-
-	void impl_GDI::draw_text(const char* text, const char* str_font, long sz, long color, float x1, float y1)
+	void impl_GDI::set_pen_width(float width)
 	{
-		ns_gdiplus::draw_text(*m_graph, text, str_font, sz, color, x1, y1);
+		m_states.set_pen_width(width);
+	}
 
+	void impl_GDI::set_brush(long color)
+	{
+		m_states.set_brush(color);
+	}
+
+	void impl_GDI::set_transform(float x, float y, float zoom)
+	{
+		m_states.m_cur->m_transform->m_offsetx = x;
+		m_states.m_cur->m_transform->m_offsety = y;
+		m_states.m_cur->m_transform->m_zoom = zoom;
+		apply();
+	}
+
+	void impl_GDI::set_clip(float x, float y, float wid, float height)
+	{
+		if(!m_states.m_cur->m_clip_rect) m_states.m_cur->m_clip_rect = new st_rect(x, y, wid, height);
+		else
+		{
+			m_states.m_cur->m_clip_rect->x = x;
+			m_states.m_cur->m_clip_rect->y = x;
+			m_states.m_cur->m_clip_rect->wid = wid;
+			m_states.m_cur->m_clip_rect->height = height;
+		}
+		apply();
+	}
+
+	void impl_GDI::reset_state()
+	{
+		m_states.reset();
+		apply();
+	}
+
+	void impl_GDI::save_state()
+	{
+		m_states.save();
+		apply();
+	}
+
+	void impl_GDI::restore_state()
+	{
+		m_states.restore();
+		apply();
+	}
+
+	void impl_GDI::draw_point(float x, float y)
+	{
+		m_graph->DrawLine(m_states.get_pen(), (int)x, (int)y, (int)x+2, (int)y+2);
+	}
+
+	void impl_GDI::draw_line(float x1, float y1, float x2, float y2)
+	{	
+		m_graph->DrawLine(m_states.get_pen(), x1, y1, x2, y2);
+	}
+
+	void impl_GDI::draw_rect(float x1, float y1, float wid, float height)
+	{	
+		m_graph->DrawRectangle(m_states.get_pen(), x1, y1, wid, height);
+	}
+
+	void impl_GDI::draw_text(const char* text, const char* str_font, long sz, float x1, float y1)
+	{
+		Gdiplus::PointF pointF(x1,y1);
+		
+		std::wstring wstr = MtbToWstr(std::string(text) );
+		std::wstring wstr1 = MtbToWstr(std::string(str_font) );
+		Gdiplus::FontFamily fontFamily(wstr1.c_str() );         //选择一种字体
+		Gdiplus::Font font(&fontFamily, sz, Gdiplus::FontStyleRegular,Gdiplus::UnitPixel);
+		m_graph->DrawString(wstr.c_str(), -1, &font, pointF, m_states.get_brush() );
 		//Gdiplus::Graphics Graphic(m_wnd);
 		//Graphic.DrawImage(&m_canvas->m_bmp, 0, 0);
 	}
@@ -497,33 +580,75 @@ end:
 		//bmp.UnlockBits(&bmd);
 		//
 	}
+
+	void impl_GDI::fill_rect(float x1, float y1, float wid, float height)
+	{
+		m_graph->FillRectangle(m_states.get_brush(), x1, y1, wid, height);
+	}
+
+	void impl_GDI::move_to(float x, float y)
+	{
+		m_points.clear();
+		m_points.push_back(PointF(x, y) );
+	}
+
+	void impl_GDI::line_to(float x, float y)
+	{
+		m_points.push_back(PointF(x, y) );
+	}
+
+	void impl_GDI::draw_path()
+	{
+		m_graph->DrawLines(m_states.get_pen(), &m_points[0], m_points.size() );
+	}
+
+	void impl_GDI::draw_polygon()
+	{
+		m_graph->DrawPolygon(m_states.get_pen(), &m_points[0], m_points.size() );
+	}
+
+	void impl_GDI::fill_polygon()
+	{
+		m_graph->FillPolygon(m_states.get_brush(), &m_points[0], m_points.size() );
+	}
 	
 	void impl_GDI::apply()
 	{
 		m_graph->ResetClip();
 		m_graph->ResetTransform();
-		std::vector<st_transform>& trans = m_transform;
-
-
+		
 		Gdiplus::Matrix m1;
 		Gdiplus::Region reg;
 		reg.MakeInfinite();
 
-		for(size_t i=0; i<trans.size(); ++i)
+		for(size_t i=0; i<m_states.m_states.size(); ++i)
 		{
-			st_transform& tran = trans[i];
-			m1.Translate(tran.lx, tran.ly);
-			m1.Scale(tran.zoom, tran.zoom);
+			st_graphic_state* st = m_states.m_states[i];
+			st_transform* tran = st->m_transform;
+			m1.Translate(tran->m_offsetx, tran->m_offsety);
+			m1.Scale(tran->m_zoom, tran->m_zoom);
 
-			for(size_t j = 0; j<tran.rects.size(); ++j)
+			if(st->m_clip_rect)
 			{
-				st_rect& rc = tran.rects[j];
+				st_rect& rc = *(st->m_clip_rect);
 				Gdiplus::Region reg1(Gdiplus::Rect(rc.x, rc.y, rc.wid, rc.height) );
 				reg1.Transform(&m1);
 				reg.Intersect(&reg1);
 			}
 		}
-		//set clip
+
+		st_graphic_state* st = m_states.m_cur;
+		st_transform* tran = st->m_transform;
+		m1.Translate(tran->m_offsetx, tran->m_offsety);
+		m1.Scale(tran->m_zoom, tran->m_zoom);
+
+		if(st->m_clip_rect)
+		{
+			st_rect& rc = *(st->m_clip_rect);
+			Gdiplus::Region reg1(Gdiplus::Rect(rc.x, rc.y, rc.wid, rc.height) );
+			reg1.Transform(&m1);
+			reg.Intersect(&reg1);
+		}
 
 		//HRGN hrng = reg.GetHRGN(get_canvas() );
 		m_graph->SetClip(&reg);
@@ -532,78 +657,10 @@ end:
 		m_graph->SetTransform(&m1);
 	}
 
-	//transform
-	void impl_GDI::reset_transform()
-	{
-		m_transform.resize(1);//第一层需保留
-		m_transform.back().rects.clear();
-		Gdiplus::Matrix m;
-		m_graph->SetTransform(&m );
-	}
-
-	void impl_GDI::push_transform(float x, float y, float zoom)
-	{
-		std::vector<st_transform>& trans = m_transform;
-
-		m_transform.push_back(st_transform(x, y, zoom) );
-		apply();
-	}
-
-	void impl_GDI::pop_transform()
-	{
-		std::vector<st_transform>& trans = m_transform;
-		trans.pop_back();
-		apply();
-	}
-
-	//单纯计算
-	void impl_GDI::transform_pt(float lx, float ly, float zoom, float xin, float yin, float& xout, float& yout)
-	{
-		Gdiplus::Matrix m;
-		m.Translate(lx, ly);
-		m.Scale(zoom, zoom);
-
-		Gdiplus::Point p(xin, yin);
-		m.TransformPoints(&p);
-		xout = p.X;
-		yout = p.Y;
-	}
-
-	void impl_GDI::invert_transform_pt(float lx, float ly, float zoom, float xin, float yin, float& xout, float& yout)
-	{
-		Gdiplus::Matrix m;
-		m.Translate(lx, ly);
-		m.Scale(zoom, zoom);
-		m.Invert();
-
-		Gdiplus::Point p(xin, yin);
-		m.TransformPoints(&p);
-		xout = p.X;
-		yout = p.Y;
-	}
-
-	//裁剪范围
-	void impl_GDI::push_clip(float x, float y, float wid, float height)
-	{
-		Gdiplus::Region region(Gdiplus::Rect(x, y, wid, height) );
-		m_transform.back().rects.push_back(st_rect(x, y, wid, height) );
-		apply();
-	}
-
-	void impl_GDI::pop_clip()
-	{
-		m_transform.back().rects.pop_back();
-		apply();
-	}
-
-	void impl_GDI::reset_clip()
-	{
-		m_graph->ResetClip();
-	}
-
 	void impl_GDI::begin_draw(long color)
 	{
 		this->m_graph->Clear(color);
+		reset_state();
 	}
 
 	void impl_GDI::end_draw()
@@ -619,10 +676,10 @@ end:
 		long w = m_bmp.GetWidth();
 		long h = m_bmp.GetHeight();
 		i_image* img = hi->create(w, h);
+		Gdiplus::Color c;
 		for(long x = 0; x<w; ++x)
 			for(long y = 0; y<h; ++y)
-			{
-				Gdiplus::Color c;
+			{	
 				m_bmp.GetPixel(x, y, &c);
 				img->set_pixel_argb(x, y, c.GetValue() );
 			}
@@ -855,15 +912,16 @@ end:
 	{
 		return m_canvas;
 	}
-
+	ULONG_PTR           gdiplusToken;
 	impl_h_windows::impl_h_windows()
 	{
-		ns_gdiplus::init();
+		GdiplusStartupInput gdiplusStartupInput;
+		GdiplusStartup(&gdiplusToken, &gdiplusStartupInput, NULL);
 	}
 
 	impl_h_windows::~impl_h_windows()
-	{
-		ns_gdiplus::release();
+	{	
+		GdiplusShutdown(gdiplusToken);
 	}
 
 	void impl_h_windows::get_mouse_pos(long& xout, long& yout)

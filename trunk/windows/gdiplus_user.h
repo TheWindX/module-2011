@@ -11,6 +11,16 @@ namespace ns_gdiplus
 {
 	void init();
 	void release();
+	
+	std::vector<PointF> g_points;
+	
+	
+	void move_to(float x, float y);
+	void line_to(float x, float y);
+	void draw_path(Gdiplus::Graphics& g, unsigned int color);
+	void draw_polygon(Gdiplus::Graphics& g, unsigned int color);
+	void fill_polygon(Gdiplus::Graphics& g, unsigned int color);
+
 
 	void draw_point(Gdiplus::Graphics& g, unsigned int color, float x, float y);
 
