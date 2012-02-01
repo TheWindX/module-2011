@@ -8,15 +8,15 @@
 
 namespace ns_base
 {
-	std::vector<std::string> m_string_pool;
+	std::vector<std::string*> m_string_pool;
 
 	std::string& alloc_string(const char* str)
 	{
 		h_filesystem* hf;
 		get(hf);
 
-		m_string_pool.push_back(std::string(str) );
-		return m_string_pool.back();
+		m_string_pool.push_back(new std::string(str) );
+		return *m_string_pool.back();
 	}
 
 	//返回当前路径
@@ -424,7 +424,10 @@ namespace ns_base
 	//模块资源释放
 	void impl_filesystem::release()
 	{
-		m_string_pool.clear();
+		for(size_t i = 0; i<m_string_pool.size(); ++i)
+		{
+			delete m_string_pool[i];
+		}
 	}
 }
 
