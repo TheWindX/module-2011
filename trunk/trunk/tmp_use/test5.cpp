@@ -126,7 +126,8 @@ struct st_m
 					if(n > 2.5 ) break;
 					z = z*z + c + c_t(0, -0);
 				}
-				gdi->draw_point(fade(1-i/100.0), x, y);
+				gdi->set_pen_color(fade(1-i/100.0) );
+				gdi->draw_point(x, y);
 			}
 		}
 		gdi->end_draw();

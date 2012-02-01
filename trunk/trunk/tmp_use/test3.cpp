@@ -29,35 +29,58 @@ struct st_user : public st_on_time
 		return 1200;
 	}
 
+	void on_erase(i_window* w)
+	{
+		i_GDI* pgdi = w->get_GDI();
+		pgdi->begin_draw(0xff000000);
+		pgdi->set_pen_color(0xff00ff00);
+		pgdi->draw_rect(0, 0, 100, 100);
+		pgdi->set_pen_color(0xff00ffff);
+		pgdi->set_brush(0xff00ffff);
+		pgdi->draw_text("ÊÀ½ç", "Î¢ÈíÑÅºÚ", 48, 20, 20);
+		pgdi->end_draw();
+		//w->update_layered();
+	}
+	
+	void on_runonce()
+	{
+		hw->run_once();
+	}
+
 	void main()
 	{
 		
 		get(hd);
 		get(hw);
 		st_window_style sws;
-		sws.m_sizeable = false;
-		sws.m_layered = true;
+		sws.m_sizeable = true;
+		//sws.m_layered = true;
 		sws.m_show = true;
 		m_w = hw->create_window(0, 100, 100, 512, 512, "", &sws );
 		m_w->init_GDI();
 		
 		i_GDI* pgdi = m_w->get_GDI();
-		pgdi->begin_draw(0x00000000);
-		pgdi->draw_rect(true, 0xffff0000, 0, 0, 100, 100);
-		pgdi->draw_text("ÊÀ½ç", "Î¢ÈíÑÅºÚ", 48, 0xff00ff00, 20, 20);
+		pgdi->begin_draw(0xff000000);
+		pgdi->set_pen_color(0xff00ff00);
+		pgdi->set_pen_width(8);
+		pgdi->draw_rect(0, 0, 220, 220);
+		pgdi->set_pen_color(0xff00ffff);
+		pgdi->set_brush(0xff00ffff);
+		pgdi->draw_text("ÊÀ½ç", "Î¢ÈíÑÅºÚ", 48, 20, 20);
 		pgdi->end_draw();
-		m_w->update_layered();
+		//m_w->update_layered();
+		m_w->s_on_erase += std::make_pair(this, st_user::on_erase );
 		//m_w->redraw()
 
 
 		ns_delegate::Delegate<void(void)>& s_on_run0 = hd->get_on_delegate(0);
 		ns_delegate::Delegate<void(void)>& s_on_pre0 = hd->get_pre_delegate(0);
 		ns_delegate::Delegate<void(void)>& s_on_post0 = hd->get_post_delegate(0);
-		s_on_run0 += std::make_pair(this, st_user::test);
+		s_on_run0 += std::make_pair(this, st_user::on_runonce);
 		//s_on_pre0 += std::make_pair(this, st_user::test_pre);
 		//s_on_post0 += std::make_pair(this, st_user::test_post);
 		hd->set_fps_interval(0);
-		hd->set_fix_time_fps(1000);
+		hd->set_fix_time_fps(0);
 		hd->init();
 
 		//hd->set_time_out(this, 2500);
@@ -107,7 +130,7 @@ struct st_user : public st_on_time
 
 
 
-int main3(int argc, char** argv)
+int main(int argc, char** argv)
 {
 	st_user user;
 	user.main();

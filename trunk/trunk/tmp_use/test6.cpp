@@ -22,7 +22,7 @@ using namespace ns_base;
 
 
 
-int main(int argc, char** argv)
+int main6(int argc, char** argv)
 {
 	h_compress* hc;
 	get(hc);
