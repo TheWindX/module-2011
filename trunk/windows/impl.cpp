@@ -462,7 +462,7 @@ end:
 
 	void impl_GDI::draw_point(float x, float y)
 	{
-		m_graph->DrawLine(m_states.get_pen(), (int)x, (int)y, (int)x+2, (int)y+2);
+		m_graph->DrawLine(m_states.get_pen(), (int)x, (int)y, (int)x+1, (int)y+1);
 	}
 
 	void impl_GDI::draw_line(float x1, float y1, float x2, float y2)
