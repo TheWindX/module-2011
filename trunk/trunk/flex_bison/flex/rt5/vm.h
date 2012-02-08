@@ -2,7 +2,7 @@
 #pragma once
 
 #include "data_struct.h"
-#include "symbol.h"
+//#include "symbol.h"
 
 namespace ns_core
 {
@@ -65,6 +65,7 @@ namespace ns_core
 	};
 
 
+	typedef void (*debug_proto_t)(st_vm* vm);
 	struct st_vm
 	{
 		/************************************************************************/
@@ -119,6 +120,8 @@ namespace ns_core
 		i_value_proto* get_value_proto(u32 tag_id);
 		void init();//init all proto for code & value & other init state
 
+		void set_debug(debug_proto_t dbg);
+		void clear_debug();
 		void eval();//求值
 
 		st_vm():m_cur_pc(U32_NA){}
@@ -132,21 +135,21 @@ namespace ns_core
 		void ret(bool byield = false);
 
 		
-		st_symbols m_symbols;
+		//st_symbols m_symbols;
 		
 		//注册到全局符号表和全局变量表
-		u32 reg_function(const char* func_name, f_proto func);
-		ns_util::st_var* reg_global(const char* func_name);
+		//u32 reg_function(const char* func_name, f_proto func);
+		//ns_util::st_var* reg_global(const char* func_name);
 
 		//debugs
-		bool m_dbg;
-		void set_dbg(bool b){m_dbg = b; }
-		bool m_dbg_b_step;
-		void set_dbg_step(bool b){m_dbg_b_step = b; }
-		void dbg_eval();
-		st_set<u32> m_dbg_breaks;
-		void add_break(u32 pc_idx);
-		void clear_break();
+		//bool m_dbg;
+		//void set_dbg(bool b){m_dbg = b; }
+		//bool m_dbg_b_step;
+		//void set_dbg_step(bool b){m_dbg_b_step = b; }
+		//void dbg_eval();
+		//st_set<u32> m_dbg_breaks;
+		//void add_break(u32 pc_idx);
+		//void clear_break();
 	};
 
 	struct st_vm_cor : public st_vm
@@ -166,8 +169,10 @@ namespace ns_core
 		u32 c_goto_true(u32 code_idx, st_code* code = 0);
 		u32 c_goto_false(u32 code_idx, st_code* code = 0);
 
-		u32 c_push_global(const char* name, st_code* code = 0);//TODO, 这里改成global id，与符号表脱离，
-		u32 c_pop_global(const char* name, st_code* code = 0);
+		//u32 c_push_global(const char* name, st_code* code = 0);//TODO, 这里改成global id，与符号表脱离，
+		//u32 c_pop_global(const char* name, st_code* code = 0);
+		u32 c_push_global(u32 gid, st_code* code = 0);//TODO, 这里改成global id，与符号表脱离，
+		u32 c_pop_global(u32 gid, st_code* code = 0);
 
 		u32 c_push_local(u32 idx, st_code* code = 0);
 		u32 c_pop_local(u32 idx, st_code* code = 0);

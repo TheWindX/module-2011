@@ -3,6 +3,7 @@
 #include <string>
 #include <cassert>
 
+#include "symbol.h"
 #include "context.h"
 
 namespace ns_core
@@ -57,15 +58,15 @@ namespace ns_core
 
 		void st_function::gen_var(st_context* ctx)
 		{
-			ctx->get_vm_cor().m_symbols.enter();
+			ctx->m_symbols.enter();
 			array<st_string*>& strs = this->m_args->m_strs;
 			for(u32 i = 0; i<strs.size(); ++i)
 			{
-				ns_util::st_var* v = ctx->get_vm_cor().m_symbols.reg_arg_name(strs[i]->m_str);
+				ns_util::st_var* v = ctx->m_symbols.reg_arg_name(strs[i]->m_str);
 				m_arg_vars.push(v);
 			}
 			this->m_stats->gen_var(ctx);
-			ctx->get_vm_cor().m_symbols.exit();
+			ctx->m_symbols.exit();
 		}
 
 		void st_function::gen_code(st_context* ctx)
@@ -74,7 +75,7 @@ namespace ns_core
 			if(m_function)m_code_id1 = m_function->m_codes.size();
 			else m_code_id1 = U32_NA;
 
-			ctx->get_vm_cor().m_symbols.enter();
+			ctx->m_symbols.enter();
 			ctx->enter_function(this);
 
 			st_code_info code;
@@ -113,7 +114,7 @@ namespace ns_core
 			ctx->exit_function();
 
 			//st_function_code生成
-			ns_util::st_scope* scope = ctx->get_vm_cor().m_symbols.get_cur_scope();
+			ns_util::st_scope* scope = ctx->m_symbols.get_cur_scope();
 			ctx->get_vm_cor().c_push_function(U32_NA, 
 				m_args->m_strs.size(), 
 				scope->m_local_vars.size(),
@@ -132,7 +133,7 @@ namespace ns_core
 
 			if(m_function) m_function->m_codes.push(code);
 
-			ctx->get_vm_cor().m_symbols.exit();
+			ctx->m_symbols.exit();
 
 			if(m_function)m_code_id2 = m_function->m_codes.size();
 			else m_code_id2 = U32_NA;
@@ -193,7 +194,7 @@ namespace ns_core
 			for(u32 i = 0; i<sz; ++i)
 			{
 				st_var* p = m_left->m_vars[i];
-				ns_util::st_var* var = ctx->get_vm_cor().m_symbols.reg_name(p->m_name);
+				ns_util::st_var* var = ctx->m_symbols.reg_name(p->m_name);
 				assert(var);
 				m_left_var.push(var);
 			}
@@ -212,9 +213,9 @@ namespace ns_core
 			{	
 				ns_util::st_var* p = m_left_var[i];
 				if(p->m_type == ns_util::e_global)
-				{
+				{	
 					st_code_info code; 
-					ctx->get_vm_cor().c_pop_global(p->g.path->full_name(), &code.m_code);
+					ctx->get_vm_cor().c_pop_global(p->g.path->get_id(), &code.m_code);
 					m_function->m_codes.push(code);
 				}
 				else if(p->m_type == ns_util::e_local)
@@ -294,10 +295,10 @@ namespace ns_core
 		{
 			if(m_extern)
 			{
-				m_var = ctx->get_vm_cor().reg_global(m_name);//注册在全局符号表和全局变量表里
+				m_var = ctx->reg_global(m_name);//注册在全局符号表和全局变量表里
 			}
 			else
-				m_var = ctx->get_vm_cor().m_symbols.reg_name(m_name);
+				m_var = ctx->m_symbols.reg_name(m_name);
 			assert(m_var);
 		}
 
@@ -309,7 +310,7 @@ namespace ns_core
 			st_code_info code;
 			if(m_var->m_type == ns_util::e_global)
 			{
-				ctx->get_vm_cor().c_push_global(m_var->g.path->full_name(), &code.m_code);
+				ctx->get_vm_cor().c_push_global(m_var->g.path->get_id(), &code.m_code);
 			}
 			else if(m_var->m_type == ns_util::e_local)
 			{

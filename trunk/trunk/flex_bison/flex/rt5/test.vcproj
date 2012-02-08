@@ -2,7 +2,7 @@
 <VisualStudioProject
 	ProjectType="Visual C++"
 	Version="7.10"
-	Name="rt5"
+	Name="c_toy"
 	ProjectGUID="{40995ECB-F7FF-47DA-B89A-635811F6A5D0}"
 	RootNamespace="test"
 	Keyword="Win32Proj">

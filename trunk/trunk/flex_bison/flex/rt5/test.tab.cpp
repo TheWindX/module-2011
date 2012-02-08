@@ -110,7 +110,7 @@
 
 
 /* Copy the first part of user declarations.  */
-#line 1 "d:\\frame\\Package\\module-2011\\trunk\\back\\sources\\flex\\rt5\\test.y"
+#line 1 "d:\\frame\\Package\\module-2011_http\\trunk\\trunk\\flex_bison\\flex\\rt5\\test.y"
 
 #include "flex_user.h"
 #include "bison_header.h"
@@ -137,14 +137,14 @@
 #endif
 
 #if ! defined (YYSTYPE) && ! defined (YYSTYPE_IS_DECLARED)
-#line 9 "d:\\frame\\Package\\module-2011\\trunk\\back\\sources\\flex\\rt5\\test.y"
+#line 9 "d:\\frame\\Package\\module-2011_http\\trunk\\trunk\\flex_bison\\flex\\rt5\\test.y"
 typedef union YYSTYPE {
 	char* m_id;
 	char* m_str;
 	int m_number;
 } YYSTYPE;
 /* Line 196 of yacc.c.  */
-#line 148 "d:\\frame\\Package\\module-2011\\trunk\\back\\sources\\flex\\rt5\\\\test.tab.cpp"
+#line 148 "d:\\frame\\Package\\module-2011_http\\trunk\\trunk\\flex_bison\\flex\\rt5\\\\test.tab.cpp"
 # define yystype YYSTYPE /* obsolescent; will be withdrawn */
 # define YYSTYPE_IS_DECLARED 1
 # define YYSTYPE_IS_TRIVIAL 1
@@ -168,7 +168,7 @@ typedef struct YYLTYPE
 
 
 /* Line 219 of yacc.c.  */
-#line 172 "d:\\frame\\Package\\module-2011\\trunk\\back\\sources\\flex\\rt5\\\\test.tab.cpp"
+#line 172 "d:\\frame\\Package\\module-2011_http\\trunk\\trunk\\flex_bison\\flex\\rt5\\\\test.tab.cpp"
 
 #if ! defined (YYSIZE_T) && defined (__SIZE_TYPE__)
 # define YYSIZE_T __SIZE_TYPE__
@@ -321,7 +321,7 @@ union yyalloc
 /* YYFINAL -- State number of the termination state. */
 #define YYFINAL  3
 /* YYLAST -- Last index in YYTABLE.  */
-#define YYLAST   508
+#define YYLAST   520
 
 /* YYNTOKENS -- Number of terminals. */
 #define YYNTOKENS  45
@@ -348,7 +348,7 @@ static const unsigned char yytranslate[] =
        2,     2,     2,     2,     2,    44,     2,    32,     2,     2,
       33,    40,    30,    28,    39,    29,    38,    31,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,    43,    36,
-      25,    27,    26,     2,     2,     2,     2,     2,     2,     2,
+      26,    25,    27,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,    35,     2,    37,     2,     2,     2,     2,     2,     2,
@@ -399,16 +399,16 @@ static const yysigned_char yyrhs[] =
       46,     0,    -1,    47,    48,    -1,    -1,    49,    -1,    48,
       49,    -1,    51,    -1,    50,    -1,    36,    -1,    55,    -1,
       56,    -1,    57,    -1,    52,    36,    -1,    53,    -1,    61,
-      -1,    63,    -1,    76,    -1,    78,    -1,    63,    54,    27,
+      -1,    63,    -1,    76,    -1,    78,    -1,    63,    54,    25,
       63,    -1,    81,    -1,    95,    -1,    71,    -1,    35,    63,
       37,    -1,     7,    58,    -1,     9,    58,    -1,     8,    60,
       -1,    19,    -1,    58,    38,    19,    -1,    64,    -1,    59,
       39,    64,    -1,    19,    -1,    60,    39,    19,    -1,    -1,
-      59,    27,    62,    67,    -1,    14,    64,    -1,    15,    64,
+      59,    25,    62,    67,    -1,    14,    64,    -1,    15,    64,
       -1,    64,    14,    -1,    64,    15,    -1,    29,    63,    -1,
       63,    28,    63,    -1,    63,    29,    63,    -1,    63,    30,
       63,    -1,    63,    31,    63,    -1,    63,    32,    63,    -1,
-      63,     3,    63,    -1,    63,    25,    63,    -1,    63,    26,
+      63,     3,    63,    -1,    63,    26,    63,    -1,    63,    27,
       63,    -1,    33,    63,    40,    -1,    65,    -1,    68,    -1,
       64,    -1,    17,    -1,    18,    -1,    20,    -1,    21,    -1,
       89,    -1,    91,    -1,    63,    35,    63,    37,    -1,    58,
@@ -426,7 +426,7 @@ static const yysigned_char yyrhs[] =
       -1,    11,    88,    51,    -1,    -1,    35,    37,    -1,    -1,
       35,    90,    67,    37,    -1,    -1,    12,    92,    93,    42,
       -1,    -1,    63,    43,    63,    -1,    93,    39,    63,    43,
-      63,    -1,    -1,    19,    94,    27,    63,    -1,    -1,    -1,
+      63,    -1,    -1,    19,    94,    25,    63,    -1,    -1,    -1,
       -1,    13,    96,    33,   100,    36,    63,    97,    36,   102,
       40,    41,    98,    99,    42,    -1,    -1,    80,    -1,    -1,
       -1,   101,   104,    -1,    -1,    -1,   103,   104,    -1,   105,
@@ -436,19 +436,19 @@ static const yysigned_char yyrhs[] =
 /* YYRLINE[YYN] -- source line where rule number YYN was defined.  */
 static const unsigned short int yyrline[] =
 {
-       0,    43,    43,    47,    51,    52,    56,    57,    58,    62,
-      63,    64,    68,    69,    73,    74,    75,    76,    77,    81,
-      82,    83,    87,    93,    97,   101,   105,   106,   110,   111,
-     116,   117,   121,   121,   126,   127,   128,   129,   130,   131,
-     132,   133,   134,   135,   136,   137,   138,   139,   140,   141,
-     142,   143,   144,   145,   146,   147,   148,   149,   153,   154,
-     158,   158,   160,   164,   165,   171,   172,   170,   178,   179,
-     177,   183,   185,   188,   190,   191,   195,   196,   196,   200,
-     201,   201,   205,   206,   210,   214,   216,   220,   224,   224,
-     226,   226,   231,   232,   234,   239,   243,   244,   244,   249,
-     249,   253,   254,   255,   256,   256,   261,   262,   262,   261,
-     265,   266,   269,   270,   270,   273,   274,   274,   278,   279,
-     283,   284
+       0,    40,    40,    44,    48,    49,    53,    54,    55,    59,
+      60,    61,    65,    66,    70,    71,    72,    73,    74,    78,
+      79,    80,    84,    90,    94,    98,   102,   103,   107,   108,
+     113,   114,   118,   118,   123,   124,   125,   126,   127,   128,
+     129,   130,   131,   132,   133,   134,   135,   136,   137,   138,
+     139,   140,   141,   142,   143,   144,   145,   146,   150,   151,
+     155,   155,   157,   161,   162,   168,   169,   167,   175,   176,
+     174,   180,   182,   185,   187,   188,   192,   193,   193,   197,
+     198,   198,   202,   203,   207,   211,   213,   217,   221,   221,
+     223,   223,   228,   229,   231,   236,   240,   241,   241,   246,
+     246,   250,   251,   252,   253,   253,   258,   259,   259,   258,
+     262,   263,   266,   267,   267,   270,   271,   271,   275,   276,
+     280,   281
 };
 #endif
 
@@ -460,7 +460,7 @@ static const char *const yytname[] =
   "$end", "error", "$undefined", "EQUAL", "YIELD", "RETURN", "FUNCTION",
   "MODULE", "EXPORT", "USING", "IF", "ELSE", "TABLE_HEAD", "FOR",
   "SELF_ADD", "SELF_SUB", "EXTERN", "TRUE", "FALSE", "ID", "NUMBER",
-  "STRING", "EMPTY_ELSE", "ELSE_PRE", "IF_PRE", "'<'", "'>'", "'='", "'+'",
+  "STRING", "EMPTY_ELSE", "ELSE_PRE", "IF_PRE", "'='", "'<'", "'>'", "'+'",
   "'-'", "'*'", "'/'", "'%'", "'('", "INDEX", "'['", "';'", "']'", "'.'",
   "','", "')'", "'{'", "'}'", "':'", "'#'", "$accept", "root", "prepare",
   "sentences", "sentence", "declare", "statement", "sep_statement",
@@ -483,7 +483,7 @@ static const unsigned short int yytoknum[] =
 {
        0,   256,   257,   258,   259,   260,   261,   262,   263,   264,
      265,   266,   267,   268,   269,   270,   271,   272,   273,   274,
-     275,   276,   277,   278,   279,    60,    62,    61,    43,    45,
+     275,   276,   277,   278,   279,    61,    60,    62,    43,    45,
       42,    47,    37,    40,   280,    91,    59,    93,    46,    44,
       41,   123,   125,    58,    35
 };
@@ -569,38 +569,38 @@ static const short int yydefgoto[] =
 #define YYPACT_NINF -168
 static const short int yypact[] =
 {
-    -168,    20,   366,  -168,   -15,    -3,     0,   -12,    16,   -12,
-    -168,  -168,  -168,     0,     0,   -12,  -168,  -168,  -168,  -168,
-    -168,   451,   451,    31,  -168,   366,  -168,  -168,  -168,    15,
-    -168,  -168,  -168,  -168,    34,   -21,  -168,   385,    -5,  -168,
-    -168,  -168,  -168,  -168,  -168,    62,  -168,  -168,  -168,   451,
-     451,  -168,    44,    34,  -168,    46,    34,    54,   473,    55,
-    -168,  -168,    34,  -168,    48,    13,   285,  -168,   451,  -168,
-    -168,    70,  -168,     0,   451,   451,   451,   451,   451,   451,
-     451,   451,    50,   451,    64,  -168,  -168,    83,  -168,   397,
-      56,    56,    63,    79,    81,   451,  -168,    74,    91,   -25,
-      69,   451,  -168,     3,  -168,   451,  -168,   112,   112,   112,
-      48,    48,    10,    10,    10,  -168,   451,   318,   451,    54,
-     266,   451,    79,  -168,     7,  -168,   301,    80,   451,   451,
-    -168,    72,   429,   332,  -168,    56,    14,    84,   397,  -168,
-     429,  -168,   397,    26,    87,  -168,    71,   451,   397,   168,
-     451,  -168,  -168,    85,  -168,  -168,  -168,  -168,   200,  -168,
-    -168,    73,    86,   429,   397,   451,   397,   429,  -168,  -168,
-      92,   366,   429,  -168,   397,    77,  -168,   366,   366,    90,
-     233,    75,    93,  -168,  -168,    96,   429,  -168,    98,    85,
-    -168,   429,   429,    95,  -168
+    -168,     6,   380,  -168,   -22,   -11,     0,    17,    32,    17,
+    -168,  -168,  -168,     0,     0,    17,  -168,  -168,  -168,  -168,
+    -168,   463,   463,   -20,  -168,   380,  -168,  -168,  -168,     9,
+    -168,  -168,  -168,  -168,    30,   -18,  -168,   399,    -5,  -168,
+    -168,  -168,  -168,  -168,  -168,    36,  -168,  -168,  -168,   463,
+     463,  -168,    44,    30,  -168,    46,    30,    54,   485,    55,
+    -168,  -168,    30,  -168,    48,    13,   300,  -168,   463,  -168,
+    -168,    70,  -168,     0,   463,   463,   463,   463,   463,   463,
+     463,   463,    50,   463,    66,  -168,  -168,    83,  -168,   409,
+      56,    56,    61,    77,    79,   463,  -168,    75,   165,    -1,
+      65,   463,  -168,     3,  -168,   463,  -168,    84,    84,    84,
+      48,    48,    11,    11,    11,  -168,   463,   331,   463,    54,
+     281,   463,    77,  -168,    14,  -168,   315,    80,   463,   463,
+    -168,    71,   441,   346,  -168,    56,    26,    81,   409,  -168,
+     441,  -168,   409,    33,    89,  -168,    82,   463,   409,   183,
+     463,  -168,  -168,    67,  -168,  -168,  -168,  -168,   215,  -168,
+    -168,    85,    86,   441,   409,   463,   409,   441,  -168,  -168,
+      88,   380,   441,  -168,   409,    96,  -168,   380,   380,    78,
+     248,    93,    92,  -168,  -168,    95,   441,  -168,    98,    67,
+    -168,   441,   441,    94,  -168
 };
 
 /* YYPGOTO[NTERM-NUM].  */
 static const short int yypgoto[] =
 {
-    -168,  -168,  -168,   123,   -24,  -168,   -88,  -119,  -117,  -168,
-    -168,  -168,  -168,    29,  -168,  -168,  -168,  -168,   -19,    -2,
-    -168,  -168,   -42,  -168,  -168,  -168,  -168,  -168,  -168,   -29,
-      27,  -168,  -168,  -168,  -168,  -167,  -168,  -168,  -168,    32,
+    -168,  -168,  -168,   119,   -24,  -168,   -88,  -119,  -117,  -168,
+    -168,  -168,  -168,    28,  -168,  -168,  -168,  -168,   -19,    -2,
+    -168,  -168,   -42,  -168,  -168,  -168,  -168,  -168,  -168,   -55,
+       2,  -168,  -168,  -168,  -168,  -167,  -168,  -168,  -168,    18,
     -168,  -168,  -168,  -168,  -168,  -168,  -168,  -168,  -168,  -168,
-    -168,  -168,  -168,  -168,  -168,  -168,  -168,  -168,  -168,   -36,
-     -14
+    -168,  -168,  -168,  -168,  -168,  -168,  -168,  -168,  -168,   -61,
+     -27
 };
 
 /* YYTABLE[YYPACT[STATE-NUM]].  What to do in state STATE-NUM.  If
@@ -610,112 +610,116 @@ static const short int yypgoto[] =
 #define YYTABLE_NINF -116
 static const short int yytable[] =
 {
-      38,    69,    64,    66,    51,   180,    72,    18,    91,    85,
-      86,    60,    61,   151,   129,   152,    15,   130,    73,    18,
-       3,   -79,   -28,    38,   192,   -79,   103,    85,    86,   -79,
-      89,    89,   141,   -76,   -28,    54,    53,   -76,    56,    98,
-     134,   -76,   121,    82,    62,   101,   144,   145,   151,    89,
-     152,    70,   157,   121,   156,   107,   108,   109,   110,   111,
-     112,   113,   114,   135,   117,   144,   159,   151,    67,   152,
-     169,   106,    71,    87,   136,   173,   126,    93,    79,    80,
+      38,    69,    64,    66,    51,   180,     3,    72,    91,    85,
+      86,    60,    61,   151,   -79,   152,    15,    67,   -79,    18,
+     -28,    73,   -79,    38,   192,   -76,   103,    85,    86,   -76,
+      89,    89,   141,   -76,   -28,    53,    18,    56,   129,    98,
+     134,   130,   121,    62,    82,    70,   101,    87,   151,    89,
+     152,    54,   157,   144,   145,   107,   108,   109,   110,   111,
+     112,   113,   114,   135,   117,   121,   156,   151,    71,   152,
+     169,   106,   144,   159,   136,   173,   126,    93,    79,    80,
       81,    82,   133,   101,   157,    94,    89,    95,   100,   104,
-     115,   118,   169,   119,    74,   121,   122,    89,   123,   138,
-     125,  -104,   142,   157,   169,  -112,   160,   147,   150,   148,
-     149,   -22,   -88,   181,   171,  -115,    75,    76,    38,    77,
-      78,    79,    80,    81,    82,    25,   101,   172,   164,   167,
-      38,   166,   183,   177,   128,   187,   188,   194,    38,   190,
-      77,    78,    79,    80,    81,    82,   174,   101,   182,   143,
-     189,   139,     0,   176,    69,     0,    38,     0,     0,     0,
-       0,    38,     0,     0,     0,    38,     0,     0,     0,    38,
-      38,    74,     0,     0,     0,    38,    38,     0,    38,     0,
-       0,     0,     0,     0,    38,     0,     0,     0,     0,    38,
-      38,     0,     0,    75,    76,     0,    77,    78,    79,    80,
-      81,    82,     0,   101,     4,     5,     6,     0,     0,     0,
-      10,   165,    11,    12,    13,    14,    15,    16,    17,    18,
-      19,    20,     0,     0,     0,     0,     0,     0,     0,    21,
-       0,     0,     0,    22,     0,    23,     0,     4,     5,     6,
-       0,     0,   168,    10,     0,    11,    12,    13,    14,    15,
-      16,    17,    18,    19,    20,     0,     0,     0,     0,     0,
-       0,     0,    21,     0,     0,     0,    22,     0,    23,     0,
-       4,     5,     6,     0,     0,   184,    10,     0,    11,    12,
-      13,    14,    15,    16,    17,    18,    19,    20,    74,     0,
-       0,     0,     0,     0,     0,    21,     0,     0,     0,    22,
-       0,    23,     0,     0,    74,     0,     0,   140,     0,     0,
-      75,    76,     0,    77,    78,    79,    80,    81,    82,     0,
-     101,    74,     0,     0,     0,   102,    75,    76,     0,    77,
-      78,    79,    80,    81,    82,    74,   101,     0,     0,     0,
-       0,   146,     0,    75,    76,     0,    77,    78,    79,    80,
-      81,    82,     0,   101,     0,   137,     0,    75,    76,     0,
-      77,    78,    79,    80,    81,    82,     0,   101,     0,   155,
-       4,     5,     6,     7,     8,     9,    10,     0,    11,    12,
-      13,    14,    15,    16,    17,    18,    19,    20,    74,     0,
-       0,     0,     0,     0,     0,    21,     0,     0,     0,    22,
-      74,    23,    24,     0,     0,     0,     0,     0,     0,     0,
-      75,    76,     0,    77,    78,    79,    80,    81,    82,     0,
-      83,     0,    75,    76,     0,    77,    78,    79,    80,    81,
-      82,     0,   101,     4,     5,     6,     0,     0,     0,    10,
-       0,    11,    12,    13,    14,    15,    16,    17,    18,    19,
-      20,     0,     0,     0,     0,     0,     0,    63,    21,     0,
-       0,     0,    22,    11,    23,    13,    14,    15,    16,    17,
+     115,   118,   169,   119,   122,   121,   123,    89,   125,   138,
+    -104,  -112,   142,   157,   169,   147,   -22,   150,   160,   148,
+     149,   167,    77,    78,    79,    80,    81,    82,    38,   101,
+     183,    25,   182,   -88,   143,   189,   171,   172,   164,   177,
+      38,   166,   181,  -115,   187,   188,   194,   139,    38,   190,
+     176,     0,     0,     0,     0,     0,   174,     0,     0,     0,
+       0,     0,     0,     0,    69,     0,    38,     0,     0,     0,
+       0,    38,     0,     0,     0,    38,     0,     0,    74,    38,
+      38,     0,     0,     0,     0,    38,    38,     0,    38,     0,
+       0,     0,     0,     0,    38,     0,    74,     0,     0,    38,
+      38,    75,    76,    77,    78,    79,    80,    81,    82,     0,
+     101,     0,     0,     0,     0,     0,     0,     0,   128,    75,
+      76,    77,    78,    79,    80,    81,    82,     0,   101,     4,
+       5,     6,     0,     0,     0,    10,   165,    11,    12,    13,
+      14,    15,    16,    17,    18,    19,    20,     0,     0,     0,
+       0,     0,     0,     0,    21,     0,     0,     0,    22,     0,
+      23,     0,     4,     5,     6,     0,     0,   168,    10,     0,
+      11,    12,    13,    14,    15,    16,    17,    18,    19,    20,
+       0,     0,     0,     0,     0,     0,     0,    21,     0,     0,
+       0,    22,     0,    23,     0,     4,     5,     6,     0,     0,
+     184,    10,     0,    11,    12,    13,    14,    15,    16,    17,
+      18,    19,    20,    74,     0,     0,     0,     0,     0,     0,
+      21,     0,     0,     0,    22,     0,    23,     0,    74,     0,
+       0,     0,   140,     0,     0,     0,    75,    76,    77,    78,
+      79,    80,    81,    82,    74,   101,     0,     0,     0,     0,
+     102,    75,    76,    77,    78,    79,    80,    81,    82,    74,
+     101,     0,     0,     0,     0,   146,     0,    75,    76,    77,
+      78,    79,    80,    81,    82,     0,   101,     0,   137,     0,
+       0,     0,    75,    76,    77,    78,    79,    80,    81,    82,
+       0,   101,     0,   155,     4,     5,     6,     7,     8,     9,
+      10,     0,    11,    12,    13,    14,    15,    16,    17,    18,
+      19,    20,    74,     0,     0,     0,     0,     0,     0,    21,
+       0,     0,    74,    22,     0,    23,    24,     0,     0,     0,
+       0,     0,     0,     0,     0,    75,    76,    77,    78,    79,
+      80,    81,    82,     0,    83,    75,    76,    77,    78,    79,
+      80,    81,    82,     0,   101,     4,     5,     6,     0,     0,
+       0,    10,     0,    11,    12,    13,    14,    15,    16,    17,
       18,    19,    20,     0,     0,     0,     0,     0,     0,    63,
       21,     0,     0,     0,    22,    11,    23,    13,    14,    15,
-      16,    17,    97,    19,    20,     0,     0,     0,     0,     0,
-       0,     0,    21,     0,     0,     0,    22,     0,    23
+      16,    17,    18,    19,    20,     0,     0,     0,     0,     0,
+       0,    63,    21,     0,     0,     0,    22,    11,    23,    13,
+      14,    15,    16,    17,    97,    19,    20,     0,     0,     0,
+       0,     0,     0,     0,    21,     0,     0,     0,    22,     0,
+      23
 };
 
 static const short int yycheck[] =
 {
-       2,    25,    21,    22,     6,   172,    27,    19,    50,    14,
-      15,    13,    14,   132,    39,   132,    16,    42,    39,    19,
-       0,    36,    27,    25,   191,    40,    68,    14,    15,    44,
-      49,    50,   120,    36,    39,    19,     7,    40,     9,    58,
-      37,    44,    39,    33,    15,    35,    39,    40,   167,    68,
-     167,    36,   140,    39,    40,    74,    75,    76,    77,    78,
-      79,    80,    81,   105,    83,    39,    40,   186,    37,   186,
-     158,    73,    38,    11,   116,   163,    95,    33,    30,    31,
+       2,    25,    21,    22,     6,   172,     0,    25,    50,    14,
+      15,    13,    14,   132,    36,   132,    16,    37,    40,    19,
+      25,    39,    44,    25,   191,    36,    68,    14,    15,    40,
+      49,    50,   120,    44,    39,     7,    19,     9,    39,    58,
+      37,    42,    39,    15,    33,    36,    35,    11,   167,    68,
+     167,    19,   140,    39,    40,    74,    75,    76,    77,    78,
+      79,    80,    81,   105,    83,    39,    40,   186,    38,   186,
+     158,    73,    39,    40,   116,   163,    95,    33,    30,    31,
       32,    33,   101,    35,   172,    39,   105,    33,    33,    19,
-      40,    27,   180,    10,     3,    39,    33,   116,    19,   118,
-      19,    27,   121,   191,   192,    36,    19,    27,    36,   128,
-     129,    27,    41,    36,    41,    40,    25,    26,   120,    28,
-      29,    30,    31,    32,    33,     2,    35,    41,   147,    44,
-     132,   150,    42,    41,    43,    42,    40,    42,   140,    41,
-      28,    29,    30,    31,    32,    33,   165,    35,   177,   122,
-     186,   119,    -1,   167,   178,    -1,   158,    -1,    -1,    -1,
-      -1,   163,    -1,    -1,    -1,   167,    -1,    -1,    -1,   171,
-     172,     3,    -1,    -1,    -1,   177,   178,    -1,   180,    -1,
-      -1,    -1,    -1,    -1,   186,    -1,    -1,    -1,    -1,   191,
-     192,    -1,    -1,    25,    26,    -1,    28,    29,    30,    31,
-      32,    33,    -1,    35,     4,     5,     6,    -1,    -1,    -1,
-      10,    43,    12,    13,    14,    15,    16,    17,    18,    19,
-      20,    21,    -1,    -1,    -1,    -1,    -1,    -1,    -1,    29,
-      -1,    -1,    -1,    33,    -1,    35,    -1,     4,     5,     6,
-      -1,    -1,    42,    10,    -1,    12,    13,    14,    15,    16,
-      17,    18,    19,    20,    21,    -1,    -1,    -1,    -1,    -1,
-      -1,    -1,    29,    -1,    -1,    -1,    33,    -1,    35,    -1,
-       4,     5,     6,    -1,    -1,    42,    10,    -1,    12,    13,
-      14,    15,    16,    17,    18,    19,    20,    21,     3,    -1,
-      -1,    -1,    -1,    -1,    -1,    29,    -1,    -1,    -1,    33,
-      -1,    35,    -1,    -1,     3,    -1,    -1,    41,    -1,    -1,
-      25,    26,    -1,    28,    29,    30,    31,    32,    33,    -1,
-      35,     3,    -1,    -1,    -1,    40,    25,    26,    -1,    28,
-      29,    30,    31,    32,    33,     3,    35,    -1,    -1,    -1,
-      -1,    40,    -1,    25,    26,    -1,    28,    29,    30,    31,
-      32,    33,    -1,    35,    -1,    37,    -1,    25,    26,    -1,
-      28,    29,    30,    31,    32,    33,    -1,    35,    -1,    37,
-       4,     5,     6,     7,     8,     9,    10,    -1,    12,    13,
-      14,    15,    16,    17,    18,    19,    20,    21,     3,    -1,
-      -1,    -1,    -1,    -1,    -1,    29,    -1,    -1,    -1,    33,
-       3,    35,    36,    -1,    -1,    -1,    -1,    -1,    -1,    -1,
-      25,    26,    -1,    28,    29,    30,    31,    32,    33,    -1,
-      35,    -1,    25,    26,    -1,    28,    29,    30,    31,    32,
-      33,    -1,    35,     4,     5,     6,    -1,    -1,    -1,    10,
-      -1,    12,    13,    14,    15,    16,    17,    18,    19,    20,
-      21,    -1,    -1,    -1,    -1,    -1,    -1,     6,    29,    -1,
-      -1,    -1,    33,    12,    35,    14,    15,    16,    17,    18,
+      40,    25,   180,    10,    33,    39,    19,   116,    19,   118,
+      25,    36,   121,   191,   192,    25,    25,    36,    19,   128,
+     129,    44,    28,    29,    30,    31,    32,    33,   120,    35,
+      42,     2,   177,    41,   122,   186,    41,    41,   147,    41,
+     132,   150,    36,    40,    42,    40,    42,   119,   140,    41,
+     167,    -1,    -1,    -1,    -1,    -1,   165,    -1,    -1,    -1,
+      -1,    -1,    -1,    -1,   178,    -1,   158,    -1,    -1,    -1,
+      -1,   163,    -1,    -1,    -1,   167,    -1,    -1,     3,   171,
+     172,    -1,    -1,    -1,    -1,   177,   178,    -1,   180,    -1,
+      -1,    -1,    -1,    -1,   186,    -1,     3,    -1,    -1,   191,
+     192,    26,    27,    28,    29,    30,    31,    32,    33,    -1,
+      35,    -1,    -1,    -1,    -1,    -1,    -1,    -1,    43,    26,
+      27,    28,    29,    30,    31,    32,    33,    -1,    35,     4,
+       5,     6,    -1,    -1,    -1,    10,    43,    12,    13,    14,
+      15,    16,    17,    18,    19,    20,    21,    -1,    -1,    -1,
+      -1,    -1,    -1,    -1,    29,    -1,    -1,    -1,    33,    -1,
+      35,    -1,     4,     5,     6,    -1,    -1,    42,    10,    -1,
+      12,    13,    14,    15,    16,    17,    18,    19,    20,    21,
+      -1,    -1,    -1,    -1,    -1,    -1,    -1,    29,    -1,    -1,
+      -1,    33,    -1,    35,    -1,     4,     5,     6,    -1,    -1,
+      42,    10,    -1,    12,    13,    14,    15,    16,    17,    18,
+      19,    20,    21,     3,    -1,    -1,    -1,    -1,    -1,    -1,
+      29,    -1,    -1,    -1,    33,    -1,    35,    -1,     3,    -1,
+      -1,    -1,    41,    -1,    -1,    -1,    26,    27,    28,    29,
+      30,    31,    32,    33,     3,    35,    -1,    -1,    -1,    -1,
+      40,    26,    27,    28,    29,    30,    31,    32,    33,     3,
+      35,    -1,    -1,    -1,    -1,    40,    -1,    26,    27,    28,
+      29,    30,    31,    32,    33,    -1,    35,    -1,    37,    -1,
+      -1,    -1,    26,    27,    28,    29,    30,    31,    32,    33,
+      -1,    35,    -1,    37,     4,     5,     6,     7,     8,     9,
+      10,    -1,    12,    13,    14,    15,    16,    17,    18,    19,
+      20,    21,     3,    -1,    -1,    -1,    -1,    -1,    -1,    29,
+      -1,    -1,     3,    33,    -1,    35,    36,    -1,    -1,    -1,
+      -1,    -1,    -1,    -1,    -1,    26,    27,    28,    29,    30,
+      31,    32,    33,    -1,    35,    26,    27,    28,    29,    30,
+      31,    32,    33,    -1,    35,     4,     5,     6,    -1,    -1,
+      -1,    10,    -1,    12,    13,    14,    15,    16,    17,    18,
       19,    20,    21,    -1,    -1,    -1,    -1,    -1,    -1,     6,
       29,    -1,    -1,    -1,    33,    12,    35,    14,    15,    16,
       17,    18,    19,    20,    21,    -1,    -1,    -1,    -1,    -1,
-      -1,    -1,    29,    -1,    -1,    -1,    33,    -1,    35
+      -1,     6,    29,    -1,    -1,    -1,    33,    12,    35,    14,
+      15,    16,    17,    18,    19,    20,    21,    -1,    -1,    -1,
+      -1,    -1,    -1,    -1,    29,    -1,    -1,    -1,    33,    -1,
+      35
 };
 
 /* YYSTOS[STATE-NUM] -- The (internal number of the) accessing
@@ -729,14 +733,14 @@ static const unsigned char yystos[] =
       68,    71,    76,    78,    81,    82,    89,    91,    95,    79,
       77,    64,    69,    58,    19,    60,    58,    83,    92,    96,
       64,    64,    58,     6,    63,    64,    63,    37,    90,    49,
-      36,    38,    27,    39,     3,    25,    26,    28,    29,    30,
+      36,    38,    25,    39,     3,    26,    27,    28,    29,    30,
       31,    32,    33,    35,    54,    14,    15,    11,    87,    63,
       67,    67,    72,    33,    39,    33,    84,    19,    63,    93,
       33,    35,    40,    67,    19,    62,    64,    63,    63,    63,
-      63,    63,    63,    63,    63,    40,    66,    63,    27,    10,
+      63,    63,    63,    63,    63,    40,    66,    63,    25,    10,
       88,    39,    33,    19,    75,    19,    63,    94,    43,    39,
       42,   100,   101,    63,    37,    67,    67,    37,    63,    84,
-      41,    51,    63,    75,    39,    40,    40,    27,    63,    63,
+      41,    51,    63,    75,    39,    40,    40,    25,    63,    63,
       36,    52,    53,   104,   105,    37,    40,    51,    80,    40,
       19,    70,    85,    86,    63,    43,    63,    44,    42,    51,
       73,    41,    41,    51,    63,    97,   105,    41,    48,    74,
@@ -1431,422 +1435,422 @@ yyreduce:
   switch (yyn)
     {
         case 2:
-#line 43 "d:\\frame\\Package\\module-2011\\trunk\\back\\sources\\flex\\rt5\\test.y"
+#line 40 "d:\\frame\\Package\\module-2011_http\\trunk\\trunk\\flex_bison\\flex\\rt5\\test.y"
     {g_ast.p_exit((yylsp[0]).pos, (yylsp[0]).pos+(yylsp[0]).len);;}
     break;
 
   case 3:
-#line 47 "d:\\frame\\Package\\module-2011\\trunk\\back\\sources\\flex\\rt5\\test.y"
+#line 44 "d:\\frame\\Package\\module-2011_http\\trunk\\trunk\\flex_bison\\flex\\rt5\\test.y"
     {g_ast.p_enter(); g_ast.p_null_path(); g_ast.p_null_stat();;}
     break;
 
   case 6:
-#line 56 "d:\\frame\\Package\\module-2011\\trunk\\back\\sources\\flex\\rt5\\test.y"
+#line 53 "d:\\frame\\Package\\module-2011_http\\trunk\\trunk\\flex_bison\\flex\\rt5\\test.y"
     {g_ast.p_stat();;}
     break;
 
   case 9:
-#line 62 "d:\\frame\\Package\\module-2011\\trunk\\back\\sources\\flex\\rt5\\test.y"
+#line 59 "d:\\frame\\Package\\module-2011_http\\trunk\\trunk\\flex_bison\\flex\\rt5\\test.y"
     {g_ast.p_module();;}
     break;
 
   case 10:
-#line 63 "d:\\frame\\Package\\module-2011\\trunk\\back\\sources\\flex\\rt5\\test.y"
+#line 60 "d:\\frame\\Package\\module-2011_http\\trunk\\trunk\\flex_bison\\flex\\rt5\\test.y"
     {g_ast.p_using();;}
     break;
 
   case 11:
-#line 64 "d:\\frame\\Package\\module-2011\\trunk\\back\\sources\\flex\\rt5\\test.y"
+#line 61 "d:\\frame\\Package\\module-2011_http\\trunk\\trunk\\flex_bison\\flex\\rt5\\test.y"
     {g_ast.p_export();;}
     break;
 
   case 18:
-#line 77 "d:\\frame\\Package\\module-2011\\trunk\\back\\sources\\flex\\rt5\\test.y"
+#line 74 "d:\\frame\\Package\\module-2011_http\\trunk\\trunk\\flex_bison\\flex\\rt5\\test.y"
     {g_ast.p_insert(); ;}
     break;
 
   case 26:
-#line 105 "d:\\frame\\Package\\module-2011\\trunk\\back\\sources\\flex\\rt5\\test.y"
+#line 102 "d:\\frame\\Package\\module-2011_http\\trunk\\trunk\\flex_bison\\flex\\rt5\\test.y"
     {g_ast.p_string((yyvsp[0].m_id));g_ast.p_new_path(); ;}
     break;
 
   case 27:
-#line 106 "d:\\frame\\Package\\module-2011\\trunk\\back\\sources\\flex\\rt5\\test.y"
+#line 103 "d:\\frame\\Package\\module-2011_http\\trunk\\trunk\\flex_bison\\flex\\rt5\\test.y"
     {g_ast.p_string((yyvsp[0].m_id));g_ast.p_path();;}
     break;
 
   case 28:
-#line 110 "d:\\frame\\Package\\module-2011\\trunk\\back\\sources\\flex\\rt5\\test.y"
+#line 107 "d:\\frame\\Package\\module-2011_http\\trunk\\trunk\\flex_bison\\flex\\rt5\\test.y"
     {g_ast.p_new_var_list(); ;}
     break;
 
   case 29:
-#line 111 "d:\\frame\\Package\\module-2011\\trunk\\back\\sources\\flex\\rt5\\test.y"
+#line 108 "d:\\frame\\Package\\module-2011_http\\trunk\\trunk\\flex_bison\\flex\\rt5\\test.y"
     {g_ast.p_var_list(); ;}
     break;
 
   case 30:
-#line 116 "d:\\frame\\Package\\module-2011\\trunk\\back\\sources\\flex\\rt5\\test.y"
+#line 113 "d:\\frame\\Package\\module-2011_http\\trunk\\trunk\\flex_bison\\flex\\rt5\\test.y"
     {g_ast.p_string((yyvsp[0].m_id)); g_ast.p_new_path(); ;}
     break;
 
   case 31:
-#line 117 "d:\\frame\\Package\\module-2011\\trunk\\back\\sources\\flex\\rt5\\test.y"
+#line 114 "d:\\frame\\Package\\module-2011_http\\trunk\\trunk\\flex_bison\\flex\\rt5\\test.y"
     {g_ast.p_string((yyvsp[0].m_id));g_ast.p_path();;}
     break;
 
   case 32:
-#line 121 "d:\\frame\\Package\\module-2011\\trunk\\back\\sources\\flex\\rt5\\test.y"
+#line 118 "d:\\frame\\Package\\module-2011_http\\trunk\\trunk\\flex_bison\\flex\\rt5\\test.y"
     {g_ast.p_null_para_list(); ;}
     break;
 
   case 33:
-#line 122 "d:\\frame\\Package\\module-2011\\trunk\\back\\sources\\flex\\rt5\\test.y"
+#line 119 "d:\\frame\\Package\\module-2011_http\\trunk\\trunk\\flex_bison\\flex\\rt5\\test.y"
     {g_ast.p_assign((yylsp[-3]).pos, (yylsp[-3]).pos+(yyloc).len); ;}
     break;
 
   case 34:
-#line 126 "d:\\frame\\Package\\module-2011\\trunk\\back\\sources\\flex\\rt5\\test.y"
+#line 123 "d:\\frame\\Package\\module-2011_http\\trunk\\trunk\\flex_bison\\flex\\rt5\\test.y"
     {g_ast.p_self_op(true, true); ;}
     break;
 
   case 35:
-#line 127 "d:\\frame\\Package\\module-2011\\trunk\\back\\sources\\flex\\rt5\\test.y"
+#line 124 "d:\\frame\\Package\\module-2011_http\\trunk\\trunk\\flex_bison\\flex\\rt5\\test.y"
     {g_ast.p_self_op(false, true); ;}
     break;
 
   case 36:
-#line 128 "d:\\frame\\Package\\module-2011\\trunk\\back\\sources\\flex\\rt5\\test.y"
+#line 125 "d:\\frame\\Package\\module-2011_http\\trunk\\trunk\\flex_bison\\flex\\rt5\\test.y"
     {g_ast.p_self_op(true, false); ;}
     break;
 
   case 37:
-#line 129 "d:\\frame\\Package\\module-2011\\trunk\\back\\sources\\flex\\rt5\\test.y"
+#line 126 "d:\\frame\\Package\\module-2011_http\\trunk\\trunk\\flex_bison\\flex\\rt5\\test.y"
     {g_ast.p_self_op(false, false); ;}
     break;
 
   case 38:
-#line 130 "d:\\frame\\Package\\module-2011\\trunk\\back\\sources\\flex\\rt5\\test.y"
+#line 127 "d:\\frame\\Package\\module-2011_http\\trunk\\trunk\\flex_bison\\flex\\rt5\\test.y"
     {g_ast.p_unitop("-");;}
     break;
 
   case 39:
-#line 131 "d:\\frame\\Package\\module-2011\\trunk\\back\\sources\\flex\\rt5\\test.y"
+#line 128 "d:\\frame\\Package\\module-2011_http\\trunk\\trunk\\flex_bison\\flex\\rt5\\test.y"
     {g_ast.p_binop("+", (yyloc).pos, (yyloc).pos+(yyloc).len);;}
     break;
 
   case 40:
-#line 132 "d:\\frame\\Package\\module-2011\\trunk\\back\\sources\\flex\\rt5\\test.y"
+#line 129 "d:\\frame\\Package\\module-2011_http\\trunk\\trunk\\flex_bison\\flex\\rt5\\test.y"
     {g_ast.p_binop("-", (yyloc).pos, (yyloc).pos+(yyloc).len);;}
     break;
 
   case 41:
-#line 133 "d:\\frame\\Package\\module-2011\\trunk\\back\\sources\\flex\\rt5\\test.y"
+#line 130 "d:\\frame\\Package\\module-2011_http\\trunk\\trunk\\flex_bison\\flex\\rt5\\test.y"
     {g_ast.p_binop("*", (yyloc).pos, (yyloc).pos+(yyloc).len);;}
     break;
 
   case 42:
-#line 134 "d:\\frame\\Package\\module-2011\\trunk\\back\\sources\\flex\\rt5\\test.y"
+#line 131 "d:\\frame\\Package\\module-2011_http\\trunk\\trunk\\flex_bison\\flex\\rt5\\test.y"
     {g_ast.p_binop("/", (yyloc).pos, (yyloc).pos+(yyloc).len);;}
     break;
 
   case 43:
-#line 135 "d:\\frame\\Package\\module-2011\\trunk\\back\\sources\\flex\\rt5\\test.y"
+#line 132 "d:\\frame\\Package\\module-2011_http\\trunk\\trunk\\flex_bison\\flex\\rt5\\test.y"
     {g_ast.p_binop("%", (yyloc).pos, (yyloc).pos+(yyloc).len);;}
     break;
 
   case 44:
-#line 136 "d:\\frame\\Package\\module-2011\\trunk\\back\\sources\\flex\\rt5\\test.y"
+#line 133 "d:\\frame\\Package\\module-2011_http\\trunk\\trunk\\flex_bison\\flex\\rt5\\test.y"
     {g_ast.p_binop("==", (yyloc).pos, (yyloc).pos+(yyloc).len);;}
     break;
 
   case 45:
-#line 137 "d:\\frame\\Package\\module-2011\\trunk\\back\\sources\\flex\\rt5\\test.y"
+#line 134 "d:\\frame\\Package\\module-2011_http\\trunk\\trunk\\flex_bison\\flex\\rt5\\test.y"
     {g_ast.p_binop("<", (yyloc).pos, (yyloc).pos+(yyloc).len);;}
     break;
 
   case 46:
-#line 138 "d:\\frame\\Package\\module-2011\\trunk\\back\\sources\\flex\\rt5\\test.y"
+#line 135 "d:\\frame\\Package\\module-2011_http\\trunk\\trunk\\flex_bison\\flex\\rt5\\test.y"
     {g_ast.p_binop(">", (yyloc).pos, (yyloc).pos+(yyloc).len);;}
     break;
 
   case 51:
-#line 143 "d:\\frame\\Package\\module-2011\\trunk\\back\\sources\\flex\\rt5\\test.y"
+#line 140 "d:\\frame\\Package\\module-2011_http\\trunk\\trunk\\flex_bison\\flex\\rt5\\test.y"
     {g_ast.p_bool(true);;}
     break;
 
   case 52:
-#line 144 "d:\\frame\\Package\\module-2011\\trunk\\back\\sources\\flex\\rt5\\test.y"
+#line 141 "d:\\frame\\Package\\module-2011_http\\trunk\\trunk\\flex_bison\\flex\\rt5\\test.y"
     {g_ast.p_bool(false);;}
     break;
 
   case 53:
-#line 145 "d:\\frame\\Package\\module-2011\\trunk\\back\\sources\\flex\\rt5\\test.y"
+#line 142 "d:\\frame\\Package\\module-2011_http\\trunk\\trunk\\flex_bison\\flex\\rt5\\test.y"
     {g_ast.p_number((yyvsp[0].m_number), (yylsp[0]).pos, (yylsp[0]).pos+(yylsp[0]).len); ;}
     break;
 
   case 54:
-#line 146 "d:\\frame\\Package\\module-2011\\trunk\\back\\sources\\flex\\rt5\\test.y"
+#line 143 "d:\\frame\\Package\\module-2011_http\\trunk\\trunk\\flex_bison\\flex\\rt5\\test.y"
     {g_ast.p_quot_string((yyvsp[0].m_str));;}
     break;
 
   case 57:
-#line 149 "d:\\frame\\Package\\module-2011\\trunk\\back\\sources\\flex\\rt5\\test.y"
+#line 146 "d:\\frame\\Package\\module-2011_http\\trunk\\trunk\\flex_bison\\flex\\rt5\\test.y"
     {g_ast.p_index(); ;}
     break;
 
   case 58:
-#line 153 "d:\\frame\\Package\\module-2011\\trunk\\back\\sources\\flex\\rt5\\test.y"
+#line 150 "d:\\frame\\Package\\module-2011_http\\trunk\\trunk\\flex_bison\\flex\\rt5\\test.y"
     {g_ast.p_var(false); ;}
     break;
 
   case 59:
-#line 154 "d:\\frame\\Package\\module-2011\\trunk\\back\\sources\\flex\\rt5\\test.y"
+#line 151 "d:\\frame\\Package\\module-2011_http\\trunk\\trunk\\flex_bison\\flex\\rt5\\test.y"
     {g_ast.p_var(true); ;}
     break;
 
   case 60:
-#line 158 "d:\\frame\\Package\\module-2011\\trunk\\back\\sources\\flex\\rt5\\test.y"
+#line 155 "d:\\frame\\Package\\module-2011_http\\trunk\\trunk\\flex_bison\\flex\\rt5\\test.y"
     {g_ast.p_null_para_list(); ;}
     break;
 
   case 61:
-#line 159 "d:\\frame\\Package\\module-2011\\trunk\\back\\sources\\flex\\rt5\\test.y"
+#line 156 "d:\\frame\\Package\\module-2011_http\\trunk\\trunk\\flex_bison\\flex\\rt5\\test.y"
     { g_ast.p_apply((yyloc).pos, (yyloc).pos+(yyloc).len); ;}
     break;
 
   case 62:
-#line 160 "d:\\frame\\Package\\module-2011\\trunk\\back\\sources\\flex\\rt5\\test.y"
+#line 157 "d:\\frame\\Package\\module-2011_http\\trunk\\trunk\\flex_bison\\flex\\rt5\\test.y"
     {g_ast.p_null_para_list(); g_ast.p_apply((yyloc).pos, (yyloc).pos+(yyloc).len);;}
     break;
 
   case 63:
-#line 164 "d:\\frame\\Package\\module-2011\\trunk\\back\\sources\\flex\\rt5\\test.y"
+#line 161 "d:\\frame\\Package\\module-2011_http\\trunk\\trunk\\flex_bison\\flex\\rt5\\test.y"
     {g_ast.p_para_list();;}
     break;
 
   case 64:
-#line 165 "d:\\frame\\Package\\module-2011\\trunk\\back\\sources\\flex\\rt5\\test.y"
+#line 162 "d:\\frame\\Package\\module-2011_http\\trunk\\trunk\\flex_bison\\flex\\rt5\\test.y"
     {g_ast.p_para_list();;}
     break;
 
   case 65:
-#line 171 "d:\\frame\\Package\\module-2011\\trunk\\back\\sources\\flex\\rt5\\test.y"
+#line 168 "d:\\frame\\Package\\module-2011_http\\trunk\\trunk\\flex_bison\\flex\\rt5\\test.y"
     {g_ast.p_enter(); g_ast.p_null_path(); ;}
     break;
 
   case 66:
-#line 172 "d:\\frame\\Package\\module-2011\\trunk\\back\\sources\\flex\\rt5\\test.y"
+#line 169 "d:\\frame\\Package\\module-2011_http\\trunk\\trunk\\flex_bison\\flex\\rt5\\test.y"
     {g_ast.p_null_stat(); ;}
     break;
 
   case 67:
-#line 173 "d:\\frame\\Package\\module-2011\\trunk\\back\\sources\\flex\\rt5\\test.y"
+#line 170 "d:\\frame\\Package\\module-2011_http\\trunk\\trunk\\flex_bison\\flex\\rt5\\test.y"
     {g_ast.p_exit((yyloc).pos, (yyloc).pos+(yyloc).len); ;}
     break;
 
   case 68:
-#line 178 "d:\\frame\\Package\\module-2011\\trunk\\back\\sources\\flex\\rt5\\test.y"
+#line 175 "d:\\frame\\Package\\module-2011_http\\trunk\\trunk\\flex_bison\\flex\\rt5\\test.y"
     {g_ast.p_new_var_list(); g_ast.p_null_para_list(); g_ast.p_enter(); g_ast.p_null_path(); ;}
     break;
 
   case 69:
-#line 179 "d:\\frame\\Package\\module-2011\\trunk\\back\\sources\\flex\\rt5\\test.y"
+#line 176 "d:\\frame\\Package\\module-2011_http\\trunk\\trunk\\flex_bison\\flex\\rt5\\test.y"
     {g_ast.p_null_stat(); ;}
     break;
 
   case 70:
-#line 180 "d:\\frame\\Package\\module-2011\\trunk\\back\\sources\\flex\\rt5\\test.y"
+#line 177 "d:\\frame\\Package\\module-2011_http\\trunk\\trunk\\flex_bison\\flex\\rt5\\test.y"
     {g_ast.p_exit((yyloc).pos, (yyloc).pos+(yyloc).len); g_ast.p_para_list(); g_ast.p_assign((yyloc).pos, (yyloc).pos+(yyloc).len); ;}
     break;
 
   case 74:
-#line 190 "d:\\frame\\Package\\module-2011\\trunk\\back\\sources\\flex\\rt5\\test.y"
+#line 187 "d:\\frame\\Package\\module-2011_http\\trunk\\trunk\\flex_bison\\flex\\rt5\\test.y"
     {g_ast.p_string((yyvsp[0].m_id));g_ast.p_path();;}
     break;
 
   case 75:
-#line 191 "d:\\frame\\Package\\module-2011\\trunk\\back\\sources\\flex\\rt5\\test.y"
+#line 188 "d:\\frame\\Package\\module-2011_http\\trunk\\trunk\\flex_bison\\flex\\rt5\\test.y"
     {g_ast.p_string((yyvsp[0].m_id));g_ast.p_path();;}
     break;
 
   case 76:
-#line 195 "d:\\frame\\Package\\module-2011\\trunk\\back\\sources\\flex\\rt5\\test.y"
+#line 192 "d:\\frame\\Package\\module-2011_http\\trunk\\trunk\\flex_bison\\flex\\rt5\\test.y"
     {g_ast.p_null_para_list(); g_ast.p_return(); ;}
     break;
 
   case 77:
-#line 196 "d:\\frame\\Package\\module-2011\\trunk\\back\\sources\\flex\\rt5\\test.y"
+#line 193 "d:\\frame\\Package\\module-2011_http\\trunk\\trunk\\flex_bison\\flex\\rt5\\test.y"
     {g_ast.p_null_para_list(); ;}
     break;
 
   case 78:
-#line 196 "d:\\frame\\Package\\module-2011\\trunk\\back\\sources\\flex\\rt5\\test.y"
+#line 193 "d:\\frame\\Package\\module-2011_http\\trunk\\trunk\\flex_bison\\flex\\rt5\\test.y"
     {g_ast.p_return();;}
     break;
 
   case 79:
-#line 200 "d:\\frame\\Package\\module-2011\\trunk\\back\\sources\\flex\\rt5\\test.y"
+#line 197 "d:\\frame\\Package\\module-2011_http\\trunk\\trunk\\flex_bison\\flex\\rt5\\test.y"
     {g_ast.p_null_para_list(); g_ast.p_return(true); ;}
     break;
 
   case 80:
-#line 201 "d:\\frame\\Package\\module-2011\\trunk\\back\\sources\\flex\\rt5\\test.y"
+#line 198 "d:\\frame\\Package\\module-2011_http\\trunk\\trunk\\flex_bison\\flex\\rt5\\test.y"
     {g_ast.p_null_para_list(); ;}
     break;
 
   case 81:
-#line 201 "d:\\frame\\Package\\module-2011\\trunk\\back\\sources\\flex\\rt5\\test.y"
+#line 198 "d:\\frame\\Package\\module-2011_http\\trunk\\trunk\\flex_bison\\flex\\rt5\\test.y"
     {g_ast.p_return(true); ;}
     break;
 
   case 82:
-#line 205 "d:\\frame\\Package\\module-2011\\trunk\\back\\sources\\flex\\rt5\\test.y"
+#line 202 "d:\\frame\\Package\\module-2011_http\\trunk\\trunk\\flex_bison\\flex\\rt5\\test.y"
     {g_ast.p_stat();;}
     break;
 
   case 83:
-#line 206 "d:\\frame\\Package\\module-2011\\trunk\\back\\sources\\flex\\rt5\\test.y"
+#line 203 "d:\\frame\\Package\\module-2011_http\\trunk\\trunk\\flex_bison\\flex\\rt5\\test.y"
     {g_ast.p_stat();;}
     break;
 
   case 85:
-#line 215 "d:\\frame\\Package\\module-2011\\trunk\\back\\sources\\flex\\rt5\\test.y"
+#line 212 "d:\\frame\\Package\\module-2011_http\\trunk\\trunk\\flex_bison\\flex\\rt5\\test.y"
     {g_ast.p_if_comlete((yyloc).pos, (yyloc).pos+(yyloc).len);;}
     break;
 
   case 86:
-#line 216 "d:\\frame\\Package\\module-2011\\trunk\\back\\sources\\flex\\rt5\\test.y"
+#line 213 "d:\\frame\\Package\\module-2011_http\\trunk\\trunk\\flex_bison\\flex\\rt5\\test.y"
     {g_ast.p_if_comlete((yyloc).pos, (yyloc).pos+(yyloc).len);;}
     break;
 
   case 87:
-#line 220 "d:\\frame\\Package\\module-2011\\trunk\\back\\sources\\flex\\rt5\\test.y"
+#line 217 "d:\\frame\\Package\\module-2011_http\\trunk\\trunk\\flex_bison\\flex\\rt5\\test.y"
     {g_ast.p_if();  ;}
     break;
 
   case 88:
-#line 224 "d:\\frame\\Package\\module-2011\\trunk\\back\\sources\\flex\\rt5\\test.y"
+#line 221 "d:\\frame\\Package\\module-2011_http\\trunk\\trunk\\flex_bison\\flex\\rt5\\test.y"
     {g_ast.p_null_stat(); ;}
     break;
 
   case 89:
-#line 225 "d:\\frame\\Package\\module-2011\\trunk\\back\\sources\\flex\\rt5\\test.y"
+#line 222 "d:\\frame\\Package\\module-2011_http\\trunk\\trunk\\flex_bison\\flex\\rt5\\test.y"
     {g_ast.p_then(); ;}
     break;
 
   case 90:
-#line 226 "d:\\frame\\Package\\module-2011\\trunk\\back\\sources\\flex\\rt5\\test.y"
+#line 223 "d:\\frame\\Package\\module-2011_http\\trunk\\trunk\\flex_bison\\flex\\rt5\\test.y"
     {g_ast.p_null_stat(); ;}
     break;
 
   case 91:
-#line 227 "d:\\frame\\Package\\module-2011\\trunk\\back\\sources\\flex\\rt5\\test.y"
+#line 224 "d:\\frame\\Package\\module-2011_http\\trunk\\trunk\\flex_bison\\flex\\rt5\\test.y"
     {g_ast.p_stat(); g_ast.p_then(); ;}
     break;
 
   case 93:
-#line 233 "d:\\frame\\Package\\module-2011\\trunk\\back\\sources\\flex\\rt5\\test.y"
+#line 230 "d:\\frame\\Package\\module-2011_http\\trunk\\trunk\\flex_bison\\flex\\rt5\\test.y"
     {g_ast.p_else(); ;}
     break;
 
   case 94:
-#line 235 "d:\\frame\\Package\\module-2011\\trunk\\back\\sources\\flex\\rt5\\test.y"
+#line 232 "d:\\frame\\Package\\module-2011_http\\trunk\\trunk\\flex_bison\\flex\\rt5\\test.y"
     {g_ast.p_stat(); g_ast.p_else(); ;}
     break;
 
   case 95:
-#line 239 "d:\\frame\\Package\\module-2011\\trunk\\back\\sources\\flex\\rt5\\test.y"
+#line 236 "d:\\frame\\Package\\module-2011_http\\trunk\\trunk\\flex_bison\\flex\\rt5\\test.y"
     {g_ast.p_null_stat(); ;}
     break;
 
   case 96:
-#line 243 "d:\\frame\\Package\\module-2011\\trunk\\back\\sources\\flex\\rt5\\test.y"
+#line 240 "d:\\frame\\Package\\module-2011_http\\trunk\\trunk\\flex_bison\\flex\\rt5\\test.y"
     {g_ast.p_null_array(); g_ast.p_null_para_list(); g_ast.p_array();;}
     break;
 
   case 97:
-#line 244 "d:\\frame\\Package\\module-2011\\trunk\\back\\sources\\flex\\rt5\\test.y"
+#line 241 "d:\\frame\\Package\\module-2011_http\\trunk\\trunk\\flex_bison\\flex\\rt5\\test.y"
     {g_ast.p_null_array(); g_ast.p_null_para_list(); ;}
     break;
 
   case 98:
-#line 245 "d:\\frame\\Package\\module-2011\\trunk\\back\\sources\\flex\\rt5\\test.y"
+#line 242 "d:\\frame\\Package\\module-2011_http\\trunk\\trunk\\flex_bison\\flex\\rt5\\test.y"
     {g_ast.p_array(); ;}
     break;
 
   case 99:
-#line 249 "d:\\frame\\Package\\module-2011\\trunk\\back\\sources\\flex\\rt5\\test.y"
+#line 246 "d:\\frame\\Package\\module-2011_http\\trunk\\trunk\\flex_bison\\flex\\rt5\\test.y"
     {g_ast.p_null_map(); ;}
     break;
 
   case 102:
-#line 254 "d:\\frame\\Package\\module-2011\\trunk\\back\\sources\\flex\\rt5\\test.y"
+#line 251 "d:\\frame\\Package\\module-2011_http\\trunk\\trunk\\flex_bison\\flex\\rt5\\test.y"
     {g_ast.p_map(); ;}
     break;
 
   case 103:
-#line 255 "d:\\frame\\Package\\module-2011\\trunk\\back\\sources\\flex\\rt5\\test.y"
+#line 252 "d:\\frame\\Package\\module-2011_http\\trunk\\trunk\\flex_bison\\flex\\rt5\\test.y"
     {g_ast.p_map(); ;}
     break;
 
   case 104:
-#line 256 "d:\\frame\\Package\\module-2011\\trunk\\back\\sources\\flex\\rt5\\test.y"
+#line 253 "d:\\frame\\Package\\module-2011_http\\trunk\\trunk\\flex_bison\\flex\\rt5\\test.y"
     {g_ast.p_quot_string((yyvsp[0].m_id)); ;}
     break;
 
   case 105:
-#line 257 "d:\\frame\\Package\\module-2011\\trunk\\back\\sources\\flex\\rt5\\test.y"
+#line 254 "d:\\frame\\Package\\module-2011_http\\trunk\\trunk\\flex_bison\\flex\\rt5\\test.y"
     {g_ast.p_map(); ;}
     break;
 
   case 106:
-#line 261 "d:\\frame\\Package\\module-2011\\trunk\\back\\sources\\flex\\rt5\\test.y"
+#line 258 "d:\\frame\\Package\\module-2011_http\\trunk\\trunk\\flex_bison\\flex\\rt5\\test.y"
     {g_ast.p_null_for(); ;}
     break;
 
   case 107:
-#line 262 "d:\\frame\\Package\\module-2011\\trunk\\back\\sources\\flex\\rt5\\test.y"
+#line 259 "d:\\frame\\Package\\module-2011_http\\trunk\\trunk\\flex_bison\\flex\\rt5\\test.y"
     {g_ast.p_for_condition(); ;}
     break;
 
   case 108:
-#line 262 "d:\\frame\\Package\\module-2011\\trunk\\back\\sources\\flex\\rt5\\test.y"
+#line 259 "d:\\frame\\Package\\module-2011_http\\trunk\\trunk\\flex_bison\\flex\\rt5\\test.y"
     {g_ast.p_null_stat(); ;}
     break;
 
   case 109:
-#line 263 "d:\\frame\\Package\\module-2011\\trunk\\back\\sources\\flex\\rt5\\test.y"
+#line 260 "d:\\frame\\Package\\module-2011_http\\trunk\\trunk\\flex_bison\\flex\\rt5\\test.y"
     {g_ast.p_for_stats((yyloc).pos, (yyloc).pos+(yyloc).len); ;}
     break;
 
   case 113:
-#line 270 "d:\\frame\\Package\\module-2011\\trunk\\back\\sources\\flex\\rt5\\test.y"
+#line 267 "d:\\frame\\Package\\module-2011_http\\trunk\\trunk\\flex_bison\\flex\\rt5\\test.y"
     {g_ast.p_null_stat(); ;}
     break;
 
   case 114:
-#line 270 "d:\\frame\\Package\\module-2011\\trunk\\back\\sources\\flex\\rt5\\test.y"
+#line 267 "d:\\frame\\Package\\module-2011_http\\trunk\\trunk\\flex_bison\\flex\\rt5\\test.y"
     {g_ast.p_for_start(); ;}
     break;
 
   case 116:
-#line 274 "d:\\frame\\Package\\module-2011\\trunk\\back\\sources\\flex\\rt5\\test.y"
+#line 271 "d:\\frame\\Package\\module-2011_http\\trunk\\trunk\\flex_bison\\flex\\rt5\\test.y"
     {g_ast.p_null_stat(); ;}
     break;
 
   case 117:
-#line 274 "d:\\frame\\Package\\module-2011\\trunk\\back\\sources\\flex\\rt5\\test.y"
+#line 271 "d:\\frame\\Package\\module-2011_http\\trunk\\trunk\\flex_bison\\flex\\rt5\\test.y"
     {g_ast.p_for_every(); ;}
     break;
 
   case 118:
-#line 278 "d:\\frame\\Package\\module-2011\\trunk\\back\\sources\\flex\\rt5\\test.y"
+#line 275 "d:\\frame\\Package\\module-2011_http\\trunk\\trunk\\flex_bison\\flex\\rt5\\test.y"
     {g_ast.p_stat(); ;}
     break;
 
   case 119:
-#line 279 "d:\\frame\\Package\\module-2011\\trunk\\back\\sources\\flex\\rt5\\test.y"
+#line 276 "d:\\frame\\Package\\module-2011_http\\trunk\\trunk\\flex_bison\\flex\\rt5\\test.y"
     {g_ast.p_stat(); ;}
     break;
 
@@ -1855,7 +1859,7 @@ yyreduce:
     }
 
 /* Line 1126 of yacc.c.  */
-#line 1859 "d:\\frame\\Package\\module-2011\\trunk\\back\\sources\\flex\\rt5\\\\test.tab.cpp"
+#line 1863 "d:\\frame\\Package\\module-2011_http\\trunk\\trunk\\flex_bison\\flex\\rt5\\\\test.tab.cpp"
 
   yyvsp -= yylen;
   yyssp -= yylen;
@@ -2130,6 +2134,6 @@ yyreturn:
 }
 
 
-#line 286 "d:\\frame\\Package\\module-2011\\trunk\\back\\sources\\flex\\rt5\\test.y"
+#line 283 "d:\\frame\\Package\\module-2011_http\\trunk\\trunk\\flex_bison\\flex\\rt5\\test.y"
 
 

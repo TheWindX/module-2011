@@ -83,14 +83,14 @@
 
 
 #if ! defined (YYSTYPE) && ! defined (YYSTYPE_IS_DECLARED)
-#line 9 "d:\\frame\\Package\\module-2011\\trunk\\back\\sources\\flex\\rt5\\test.y"
+#line 9 "d:\\frame\\Package\\module-2011_http\\trunk\\trunk\\flex_bison\\flex\\rt5\\test.y"
 typedef union YYSTYPE {
 	char* m_id;
 	char* m_str;
 	int m_number;
 } YYSTYPE;
 /* Line 1447 of yacc.c.  */
-#line 94 "d:\\frame\\Package\\module-2011\\trunk\\back\\sources\\flex\\rt5\\\\test.tab.hpp"
+#line 94 "d:\\frame\\Package\\module-2011_http\\trunk\\trunk\\flex_bison\\flex\\rt5\\\\test.tab.hpp"
 # define yystype YYSTYPE /* obsolescent; will be withdrawn */
 # define YYSTYPE_IS_DECLARED 1
 # define YYSTYPE_IS_TRIVIAL 1
