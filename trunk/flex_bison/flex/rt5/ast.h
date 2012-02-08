@@ -3,6 +3,7 @@
 
 #include "data_struct.h"
 #include "code_seg.h"
+#include "symbol.h"
 
 namespace ns_core
 {

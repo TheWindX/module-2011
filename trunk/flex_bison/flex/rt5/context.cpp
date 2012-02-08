@@ -9,6 +9,23 @@
 
 namespace ns_core
 {
+	ns_util::st_var* st_context::reg_global(const char* func_name)
+	{
+		ns_util::st_var* v = m_symbols.reg_global_name(func_name);
+		u32 id = v->g.path->get_id();
+		if(m_vm_cor.m_globals.size() <= id) m_vm_cor.m_globals.resize(id+1);
+		return v;
+	}
+
+	u32 st_context::reg_function(const char* func_name, f_proto func)
+	{
+		ns_util::st_var* var = reg_global(func_name);
+		u32 idx = var->g.path->get_id();
+		st_value& v = m_vm_cor.get_global(idx);
+		v = st_v_primary_function::make_value(func);
+		return idx;
+	}
+
 	void st_context::enter_function(st_function* func)
 	{
 		m_functions_reg.push(func);
@@ -44,7 +61,7 @@ namespace ns_core
 	void st_context::load_buffer(const char* buff, u32 buff_sz)
 	{
 		g_bison_use.reset_buffer(buff, buff_sz);
-		get_vm_cor().m_symbols.reset_visitor();//符号表的访问重置
+		m_symbols.reset_visitor();//符号表的访问重置
 
 		m_debug.m_src_text.reset(buff, buff_sz);//debug text初始化
 		g_flex_user.set_new_line_handler(&ns_core::ns_debug::on_new_line);//建立[(line, pos)]
@@ -69,7 +86,8 @@ namespace ns_core
 
 	st_context::st_context()
 	{
-		m_ast_cor.m_vm_cor.init();
+		m_vm_cor.init();
+		//TODO这里注册 primary
 	}
 
 	st_ast* st_context::get_ast_root()
@@ -81,14 +99,14 @@ namespace ns_core
 	void st_context::gen_var()
 	{
 		ns_core::ns_ast::st_ast* pa = m_ast_cor.get_p_value(0);
-		get_vm_cor().m_symbols.reset_visitor();//符号表的访问重置
+		m_symbols.reset_visitor();//符号表的访问重置
 		pa->gen_var(this);
 	}
 
 	void st_context::gen_code()
 	{
 		ns_core::ns_ast::st_ast* pa = m_ast_cor.get_p_value(0);
-		get_vm_cor().m_symbols.reset_visitor();//符号表的访问重置
+		m_symbols.reset_visitor();//符号表的访问重置
 		pa->gen_code(this);
 	}
 
@@ -125,8 +143,8 @@ namespace ns_core
 	{
 		st_function* f = m_functions_stk[0];
 
-		st_value v = st_v_function::make_value(&m_ast_cor.m_vm_cor, f->m_code);
-		m_ast_cor.m_vm_cor.m_evals.push(v);
+		st_value v = st_v_function::make_value(&m_vm_cor, f->m_code);
+		m_vm_cor.m_evals.push(v);
 	}
 
 	void st_context::clean()

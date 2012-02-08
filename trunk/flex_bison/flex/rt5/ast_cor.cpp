@@ -2,6 +2,8 @@
 #include <iostream>
 
 #include "ast_cor.h"
+#include "vm.h"
+#include "context.h"
 
 using namespace ns_core::ns_ast;
 
@@ -11,7 +13,7 @@ namespace ns_core
 	void st_ast_cor::clean()
 	{
 		m_p_values.clear();
-		m_vm_cor.m_symbols.clean();
+		m_context->m_symbols.clean();
 	}
 
 	st_ast* st_ast_cor::get_p_value(s32 index)
@@ -66,7 +68,7 @@ namespace ns_core
 		ns_ast::st_path* stat = dynamic_cast<ns_ast::st_path*>(this->get_p_value(-1) );
 		std::string str = stat->to_string();
 		//m_ctx->m_symbol.m_global.module_by_string(str.c_str() );
-		m_vm_cor.m_symbols.module_path(str.c_str() );
+		m_context->m_symbols.module_path(str.c_str() );
 
 		pop_p_value(1);
 	};
@@ -79,7 +81,7 @@ namespace ns_core
 		ns_ast::st_path* stat = dynamic_cast<ns_ast::st_path*>(this->get_p_value(-1) );
 		std::string str = stat->to_string();
 		//m_ctx->m_symbol.m_global.using_path_by_string(str.c_str() );
-		m_vm_cor.m_symbols.using_path(str.c_str() );
+		m_context->m_symbols.using_path(str.c_str() );
 		pop_p_value(1);
 	};
 
@@ -94,11 +96,11 @@ namespace ns_core
 		for(u32 i = 0; i<sz; ++i)
 		{
 			char* cstr = str.at(i)->m_str;
-			bool b = m_vm_cor.m_symbols.export_symbol(cstr);
-			ns_util::st_var* var = m_vm_cor.m_symbols.reg_name(cstr);
+			bool b = m_context->m_symbols.export_symbol(cstr);
+			ns_util::st_var* var = m_context->m_symbols.reg_name(cstr);
 
 			u32 idx = var->g.path->get_id();
-			if(idx >= m_vm_cor.m_globals.size() ) m_vm_cor.m_globals.resize(idx+1);
+			if(idx >= m_context->get_vm_cor().m_globals.size() ) m_context->get_vm_cor().m_globals.resize(idx+1);
 		}
 		pop_p_value(1);
 	};
@@ -321,7 +323,7 @@ namespace ns_core
 #ifdef _AST_DEBUG
 		std::cout<<"enter"<<std::endl;
 #endif
-		m_vm_cor.m_symbols.enter();
+		m_context->m_symbols.enter();
 	};
 
 	void st_ast_cor::p_exit(u32 l, u32 r)
@@ -343,7 +345,7 @@ namespace ns_core
 		push_p_value(func);
 
 		//m_ctx->m_symbol.exit();
-		m_vm_cor.m_symbols.exit();
+		m_context->m_symbols.exit();
 	};
 
 	void st_ast_cor::p_return(bool byield)//TODO

@@ -3,15 +3,22 @@
 #include "ast_cor.h"
 #include "singleton.h"
 #include "debug.h"
+#include "symbol.h"
 
 namespace ns_core
 {
 	struct st_context
 	{
+		st_vm_cor m_vm_cor;
 		st_ast_cor m_ast_cor;
-
-		st_vm_cor& get_vm_cor(){ return m_ast_cor.m_vm_cor; }
+		
+		st_vm_cor& get_vm_cor(){ return m_vm_cor; }
 		st_ast_cor& get_ast_cor(){ return m_ast_cor; }
+
+		//·ûºÅ±í¹ÜÀí
+		ns_util::st_symbols m_symbols;
+		ns_util::st_var* reg_global(const char* func_name);
+		u32 reg_function(const char* func_name, f_proto func);
 
 		ns_util::array<st_function*> m_functions_reg;
 		ns_util::array<st_function*> m_functions_stk;

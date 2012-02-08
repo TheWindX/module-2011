@@ -371,27 +371,27 @@ int main17(int argc, char** argv)
 //	u32 c1 = rt.c_apply_begin();
 //	rt.c_push_local(1);
 //	rt.c_push_local(0);
-//	rt.c_push_global("std.core.add");
+//	//rt.c_push_global("std.core.add");
 //	rt.c_apply();
 //	rt.c_pop_local(1);
 //
 //	rt.c_apply_begin();
 //	rt.c_push_local(0);
 //	rt.c_push_int(-1);
-//	rt.c_push_global("std.core.add");
+//	//rt.c_push_global("std.core.add");
 //	rt.c_apply();
 //	rt.c_pop_local(0);
 //	
 //	rt.c_apply_begin();
 //	rt.c_push_local(0);
 //	rt.c_push_int(0);
-//	rt.c_push_global("std.equal_num");
+//	//rt.c_push_global("std.equal_num");
 //	rt.c_apply();
 //	rt.c_goto_false(c1);
 //
 //	rt.c_apply_begin();
 //	rt.c_push_local(1);
-//	rt.c_push_global("std.sys.print");
+//	//rt.c_push_global("std.sys.print");
 //	rt.c_apply();
 //
 //	rt.c_ret_begin();
@@ -435,7 +435,7 @@ int main20(int argc, char** argv)
 	rt.c_apply_begin();
 	rt.c_push_local(0);
 	rt.c_push_local(1);
-	rt.c_push_global("std.core.add");
+	////rt.c_push_global("std.core.add");
 	rt.c_apply();
 	rt.c_ret();
 	
@@ -448,7 +448,7 @@ int main20(int argc, char** argv)
 	rt.c_push_int(4);
 	rt.c_push_local(0);
 	rt.c_apply();
-	rt.c_push_global("std.sys.print");
+	//rt.c_push_global("std.sys.print");
 	rt.c_apply();
 	rt.c_ret_begin();
 	rt.c_ret();
@@ -465,87 +465,87 @@ int main20(int argc, char** argv)
 	return 0;
 }
 
-int main21(int argc, char** argv)
-{
-	using namespace ns_util;
-	using namespace ns_core;
-
-	st_vm_cor rt;
-	rt.init();
-	
-	//code begin
-	/************************************************************************/
-	/* 
-	global t = function(x)
-	if x == 0 then return 0;//x = 0L
-	else
-	return x+t(x-1)
-	end
-
-	t(50)
-	*/
-	/************************************************************************/
-	rt.m_symbols.enter();
-	rt.m_symbols.export_symbol("gf");
-	rt.m_symbols.exit();
-	u32 f_idx = rt.c_function_begin();
-	rt.c_pop_local(0);
-	rt.c_apply_begin();
-	rt.c_push_local(0);
-	rt.c_push_int(0);
-	rt.c_push_global("std.equal_num");
-	rt.c_apply();
-	u32 idx2 = rt.c_goto_false(13);//todo goto t1;
-	rt.c_ret_begin();
-	rt.c_push_int(0);
-	rt.c_ret();
-	//t1:
-	u32 idx4 = rt.c_ret_begin();
-	rt.c_apply_begin();
-	u32 idx3 = rt.c_push_local(0);
-	rt.c_apply_begin();
-	rt.c_apply_begin();
-	rt.c_push_local(0);
-	rt.c_push_int(-1);
-	rt.c_push_global("std.core.add");
-	rt.c_apply();
-	rt.c_push_global("gf");
-	rt.c_apply();
-	rt.c_push_global("std.core.add");
-	rt.c_apply();
-	rt.c_ret();
-
-	u32 f_idx2 = rt.c_push_function(f_idx, 1, 1);
-	rt.c_pop_global("gf");
-	rt.c_function_begin();
-	rt.c_apply_begin();
-	rt.c_apply_begin();
-	rt.c_push_int(100);
-	rt.c_push_global("gf");
-	rt.c_apply();
-	rt.c_push_global("std.sys.print");
-	rt.c_apply();
-	rt.c_ret_begin();
-	u32 idx5 = rt.c_ret();
-
-	
-	
-	//////////////////////////////////////////////////////////////////////////
-	//
-	rt.m_codes[idx2].m_num = idx4;
-	st_function_code cfunc(f_idx2, 0, 1);
-	st_function_value f(&rt, &cfunc);
-	rt.apply_begin();
-	rt.apply_function(&f);
-
-
-	rt.set_dbg(true);
-	//rt.set_dbg_step(true);
-	rt.add_break(idx5);
-	rt.eval();
-	
-	return 0;
-}
+//int main21(int argc, char** argv)
+//{
+//	using namespace ns_util;
+//	using namespace ns_core;
+//
+//	st_vm_cor rt;
+//	rt.init();
+//	
+//	//code begin
+//	/************************************************************************/
+//	/* 
+//	global t = function(x)
+//	if x == 0 then return 0;//x = 0L
+//	else
+//	return x+t(x-1)
+//	end
+//
+//	t(50)
+//	*/
+//	/************************************************************************/
+//	rt.m_symbols.enter();
+//	rt.m_symbols.export_symbol("gf");
+//	rt.m_symbols.exit();
+//	u32 f_idx = rt.c_function_begin();
+//	rt.c_pop_local(0);
+//	rt.c_apply_begin();
+//	rt.c_push_local(0);
+//	rt.c_push_int(0);
+//	//rt.c_push_global("std.equal_num");
+//	rt.c_apply();
+//	u32 idx2 = rt.c_goto_false(13);//todo goto t1;
+//	rt.c_ret_begin();
+//	rt.c_push_int(0);
+//	rt.c_ret();
+//	//t1:
+//	u32 idx4 = rt.c_ret_begin();
+//	rt.c_apply_begin();
+//	u32 idx3 = rt.c_push_local(0);
+//	rt.c_apply_begin();
+//	rt.c_apply_begin();
+//	rt.c_push_local(0);
+//	rt.c_push_int(-1);
+//	//rt.c_push_global("std.core.add");
+//	rt.c_apply();
+//	//rt.c_push_global("gf");
+//	rt.c_apply();
+//	//rt.c_push_global("std.core.add");
+//	rt.c_apply();
+//	rt.c_ret();
+//
+//	u32 f_idx2 = rt.c_push_function(f_idx, 1, 1);
+//	rt.c_pop_global("gf");
+//	rt.c_function_begin();
+//	rt.c_apply_begin();
+//	rt.c_apply_begin();
+//	rt.c_push_int(100);
+//	//rt.c_push_global("gf");
+//	rt.c_apply();
+//	//rt.c_push_global("std.sys.print");
+//	rt.c_apply();
+//	rt.c_ret_begin();
+//	u32 idx5 = rt.c_ret();
+//
+//	
+//	
+//	//////////////////////////////////////////////////////////////////////////
+//	//
+//	rt.m_codes[idx2].m_num = idx4;
+//	st_function_code cfunc(f_idx2, 0, 1);
+//	st_function_value f(&rt, &cfunc);
+//	rt.apply_begin();
+//	rt.apply_function(&f);
+//
+//
+//	rt.set_dbg(true);
+//	//rt.set_dbg_step(true);
+//	rt.add_break(idx5);
+//	rt.eval();
+//	
+//	return 0;
+//}
 
 
 int main22(int argc, char** argv)
@@ -573,7 +573,7 @@ int main22(int argc, char** argv)
 	rt.c_apply_begin();
 	rt.c_push_local(0);
 	rt.c_push_int(0);
-	rt.c_push_global("std.equal_num");
+	//rt.c_push_global("std.equal_num");
 	rt.c_apply();
 	u32 idx2 = rt.c_goto_false(13);//todo goto t1;
 	rt.c_ret_begin();
@@ -587,11 +587,11 @@ int main22(int argc, char** argv)
 	rt.c_apply_begin();
 	rt.c_push_local(0);
 	rt.c_push_int(-1);
-	rt.c_push_global("std.core.add");
+	////rt.c_push_global("std.core.add");
 	rt.c_apply();
 	rt.c_push_ref(0);
 	rt.c_apply();
-	rt.c_push_global("std.core.add");
+	////rt.c_push_global("std.core.add");
 	rt.c_apply();
 	rt.c_ret();
 
@@ -603,7 +603,7 @@ int main22(int argc, char** argv)
 	rt.c_push_int(100);
 	rt.c_push_ref(0);//ref
 	rt.c_apply();
-	rt.c_push_global("std.sys.print");
+	//rt.c_push_global("std.sys.print");
 	rt.c_apply();
 	rt.c_ret_begin();
 	u32 idx5 = rt.c_ret();
@@ -626,7 +626,7 @@ int main22(int argc, char** argv)
 
 
 	//rt.set_dbg(true);
-	rt.set_dbg_step(true);
+	//rt.set_dbg_step(true);
 	//rt.add_break(idx5);
 	rt.eval();
 	
@@ -657,7 +657,7 @@ int main23(int argc, char** argv)
 	rt.c_apply_begin();
 	rt.c_push_local(0);
 	rt.c_push_ref(0);
-	rt.c_push_global("std.core.add");
+	////rt.c_push_global("std.core.add");
 	rt.c_apply();
 	rt.c_ret();
 
@@ -672,7 +672,7 @@ int main23(int argc, char** argv)
 	rt.c_push_int(100);
 	rt.c_push_local(0);
 	rt.c_apply();
-	rt.c_push_global("std.sys.print");
+	//rt.c_push_global("std.sys.print");
 	rt.c_apply();
 	
 
@@ -694,7 +694,7 @@ int main23(int argc, char** argv)
 
 
 	//rt.set_dbg(true);
-	rt.set_dbg_step(true);
+	//rt.set_dbg_step(true);
 	//rt.add_break(idx5);
 	rt.eval();
 	
@@ -726,7 +726,7 @@ int main24(int argc, char** argv)
 	rt.c_apply_begin();
 	rt.c_push_ref(0);
 	rt.c_push_ref(1);
-	rt.c_push_global("std.core.add");
+	//rt.c_push_global("std.core.add");
 	rt.c_apply();
 	rt.c_ret();
 
@@ -755,7 +755,7 @@ int main24(int argc, char** argv)
 
 	rt.c_apply();
 
-	rt.c_push_global("std.sys.print");
+	//rt.c_push_global("std.sys.print");
 	rt.c_apply();
 
 	rt.c_ret_begin();
@@ -780,8 +780,8 @@ int main24(int argc, char** argv)
 	code3->add_ref(1);//p
 
 
-	rt.set_dbg(true);
-	rt.set_dbg_step(true);
+	//rt.set_dbg(true);
+	//rt.set_dbg_step(true);
 	//rt.add_break(idx5);
 	rt.eval();
 	
@@ -838,7 +838,7 @@ int main(int, char**)
 	//g_ctx.load_string("function(){return;};");
 	g_ctx.load_file("test.txt");
 	//g_ctx.	get_vm_cor().set_dbg(true);
-	g_ctx.get_vm_cor().set_dbg_step(true);
+	//g_ctx.get_vm_cor().set_dbg_step(true);
 
 
 	//´òÓ¡

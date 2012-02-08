@@ -2,22 +2,19 @@
 
 #pragma once
 
-
 #include "ast.h"
-#include "vm.h"
 
 namespace ns_core
 {
 	using namespace ns_ast;
 
 	struct st_ast_cor
-	{
-		st_vm_cor m_vm_cor;
-
+	{	
+		st_context* m_context;
 		array<st_ast*> m_p_values;//伪代码求值栈, 用于建立AST, 最后在栈里的就是root
 		void clean();
 
-		st_ast* get_p_value(s32 index);
+ 		st_ast* get_p_value(s32 index);
 		void pop_p_value(u32 num = 1);
 		void push_p_value(st_ast*);
 
