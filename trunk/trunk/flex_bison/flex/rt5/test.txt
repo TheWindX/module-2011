@@ -1,0 +1,25 @@
+using std;
+using std.sys;
+using std.core;
+
+n_stream = function(){for(num = 2;true;++num){yield num;} };
+
+p_stream = function(){
+	p = [];
+	for(;true;b = true){
+		n = n_stream();
+		for(i = 0; i<size(p); ++i){
+			if(n%p[i] == 0){
+				i = size(p);
+				b = false;
+			}
+		}
+		if(b){push(p, n);yield n;}
+	}
+};
+
+for(i=0; i<10; ++i){print(p_stream() ); }
+
+inc_by = function(m){ return function(n) {return m+n;}; };
+
+print(inc_by(3)(4) );

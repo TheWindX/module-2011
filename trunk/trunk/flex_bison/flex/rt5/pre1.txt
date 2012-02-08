@@ -1,0 +1,6 @@
+module pre1
+
+export test
+
+test = 12345;
+

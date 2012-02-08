@@ -1,0 +1,58 @@
+/*
+module my_test.test1
+
+export test_main
+
+
+
+if(a<1000)
+	g.print("<1000");
+else if(a<10000)
+	g.print("<10000");
+else
+{
+	g.print("print > 10000");
+	g.print("large than 10000");
+	if(1>1000)
+		g.print("k<1000");
+}
+*/
+a = 100*-100;
+print("a = ", a);
+
+k = m{2:4, 5:[1,2,4, m{5:6, 7:8} ], "string":4, "abc":5, "txt":6};
+//k[5][3] = 4;
+
+g.push(k[5], 1000);
+g.print( "size: ", g.size(k[5]) );
+g.print( g.pop(k[5]) );
+g.print( "size: ", g.size(k[5]) );
+g.print( g.pop(k[5]) );
+g.print( "size: ", g.size(k[5]) );
+g.print( g.pop(k[5]) );
+g.print( "size: ", g.size(k[5]) );
+g.print( g.pop(k[5]) );
+g.print( "size: ", g.size(k[5]) );
+g.print( g.pop(k[5]) );
+g.print( "size: ", g.size(k[5]) );
+
+g.print(k);
+
+n = 0;
+for(n = 0 # i = 0; i<100000; ++i # n = n+i)
+{
+	k = 0;
+}
+
+g.print(n);
+a, b = 100.2, 1000;
+a, b = a, b;
+g.print(a, b);
+
+using g;
+g.print(type("asdf"), type(1234), 1234.5678 );
+
+k = 1;
+g.print(++k);
+g.print(k);
+g.pause();
