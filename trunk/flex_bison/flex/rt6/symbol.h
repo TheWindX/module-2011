@@ -6,56 +6,56 @@
 namespace ns_core
 {
 	using namespace ns_base;
-	struct st_path//表示一个路径中的结点
+	struct st_sym_path//表示一个路径中的结点
 	{
 		bool is_branch();
 		bool is_leaf();
 		const char* part_name();
 		const char* full_name();
 		
-		st_path* upper();
-		st_path* first();
-		st_path* next();
+		st_sym_path* upper();
+		st_sym_path* first();
+		st_sym_path* next();
 		
-		bool find(const char* name, st_path*& ret_path);
-		st_path* reg_branch(const char* name);
-		st_path* reg_leaf(const char* name);
+		bool find(const char* name, st_sym_path*& ret_path);
+		st_sym_path* reg_branch(const char* name);
+		st_sym_path* reg_leaf(const char* name);
 
-		st_path* reg_part_name(const char*);
-		st_path* reg_part_path(const char*);
-		st_path* find_part(const char* name);
+		st_sym_path* reg_part_name(const char*);
+		st_sym_path* reg_part_path(const char*);
+		st_sym_path* find_part(const char* name);
 
 		void set_id(u32 id);
 		u32 get_id();
 
 		void print(const char* head);//for debug
 
-		st_path(st_path* up, const char* name, bool is_leaf = true);
-		st_path();
-		~st_path();
+		st_sym_path(st_sym_path* up, const char* name, bool is_leaf = true);
+		st_sym_path();
+		~st_sym_path();
 	private:
 		bool m_is_leaf;
 		char* m_name;
 		u32 m_id;
 
-		struct st_cmp{	bool operator() (st_path *s1, st_path *s2) 
+		struct st_cmp{	bool operator() (st_sym_path *s1, st_sym_path *s2) 
 			const{return strcmp(s1->m_name, s2->m_name) < 0;}};
 
-		st_path* m_up;
-		st_set<st_path*, st_cmp> m_downs;
+		st_sym_path* m_up;
+		st_set<st_sym_path*, st_cmp> m_downs;
 	};
 
 	struct st_global
 	{
-		st_path* get_root();
+		st_sym_path* get_root();
 
 		void moudle_enter();
 		void moudle_exit();
 		void module_path(const char* path);
-		st_path* export_symbol(const char* name);
+		st_sym_path* export_symbol(const char* name);
 		bool using_path(const char* path);
 
-		bool find_path(const char* path, st_path*& ret_path);
+		bool find_path(const char* path, st_sym_path*& ret_path);
 	
 		void print();
 		st_global();
@@ -63,9 +63,9 @@ namespace ns_core
 
 		u32 gen_id();
 	private:
-		st_path m_root;
-		array<st_path*> m_cur_path;
-		array<st_path*> m_usings;
+		st_sym_path m_root;
+		array<st_sym_path*> m_cur_path;
+		array<st_sym_path*> m_usings;
 		array<u32> m_using_tags;
 
 		u32 m_id_count;
@@ -80,14 +80,14 @@ namespace ns_core
 		e_local,
 		e_ref,
 	};
-	struct st_var
+	struct st_sym_var
 	{
 		u32 m_type;
 		union
 		{
 			struct
 			{
-				st_path* path;
+				st_sym_path* path;
 			}g;
 
 			struct
@@ -102,15 +102,15 @@ namespace ns_core
 				char* name;
 				st_scope* scope;
 				u32 idx;
-				st_var* ref;
+				st_sym_var* ref;
 			}r;
 		};
 
-		st_var(st_path*);//global
-		st_var(st_scope* scope, const char* name);//local
-		st_var(st_scope* scope, const char* name, st_var* ref);//ref
+		st_sym_var(st_sym_path*);//global
+		st_sym_var(st_scope* scope, const char* name);//local
+		st_sym_var(st_scope* scope, const char* name, st_sym_var* ref);//ref
 
-		~st_var();
+		~st_sym_var();
 	};
 
 	//local
@@ -120,13 +120,13 @@ namespace ns_core
 		array<st_scope*> m_downs;
 
 		st_global* m_global;
-		array<st_var*> m_local_vars;
-		array<st_var*> m_ref_vars;
+		array<st_sym_var*> m_local_vars;
+		array<st_sym_var*> m_ref_vars;
 		
 
-		st_var* find_name(const char* name);
-		st_var* reg_name(const char* name);
-		st_var* reg_arg_name(const char* name);
+		st_sym_var* find_name(const char* name);
+		st_sym_var* reg_name(const char* name);
+		st_sym_var* reg_arg_name(const char* name);
 
 		u32 m_iter;
 		st_scope* enter();//返回新建立的local
@@ -137,7 +137,7 @@ namespace ns_core
 
 		void print(const char* head);
 	private:
-		st_var* ref_var(st_var* var);
+		st_sym_var* ref_var(st_sym_var* var);
 	};
 
 	struct st_symbols
@@ -158,10 +158,10 @@ namespace ns_core
 		bool export_symbol(const char*);
 		
 
-		st_var* reg_global_name(const char*);
-		st_var* reg_name(const char*);
-		st_var* reg_arg_name(const char*);
-		st_var* find_name(const char* name);
+		st_sym_var* reg_global_name(const char*);
+		st_sym_var* reg_name(const char*);
+		st_sym_var* reg_arg_name(const char*);
+		st_sym_var* find_name(const char* name);
 
 		void enter();
 		void exit();

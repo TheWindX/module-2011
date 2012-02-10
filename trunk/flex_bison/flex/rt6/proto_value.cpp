@@ -8,7 +8,7 @@
 
 namespace ns_core
 {
-	static const char* value_to_string(st_value v, st_vm* rt)
+	const char* value_to_string(st_value v, st_vm* rt)
 	{
 		if(rt->m_proto_values.size()>v.m_tag)
 		{
@@ -21,7 +21,7 @@ namespace ns_core
 		}
 	}
 	
-	static const char* code_to_string(st_code c, st_vm* rt)
+	const char* code_to_string(st_code c, st_vm* rt)
 	{
 		if(rt->m_proto_codes.size()>c.m_tag)
 		{

@@ -6,7 +6,8 @@
 namespace ns_core
 {
 	//for codes
-
+	
+	const char* code_to_string(st_code c, st_vm* rt);
 	//push_local
 	struct st_c_push_local : public i_code_proto
 	{
