@@ -37,7 +37,8 @@ void st_bf::print_b()
 {
 	printf("b");
 }
-
+//#include "ast.h"
+//#include "ast_cons.h"
 int main(int argc, char** argv)
 {
 	st_b b;

@@ -331,7 +331,6 @@ namespace ns_core
 		str += get_name();
 		str += " ";
 
-		char buff[128];
 		char* v = c.get<char*>();
 		str += v;
 
@@ -719,6 +718,4 @@ namespace ns_core
 		ret.set<bool>(byield);
 		return ret;
 	}
-
-	
 }

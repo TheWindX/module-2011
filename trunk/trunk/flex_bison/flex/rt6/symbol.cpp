@@ -12,17 +12,17 @@ namespace ns_core
 {
 	using namespace ns_base;
 
-	bool st_path::is_branch()
+	bool st_sym_path::is_branch()
 	{
 		return !m_is_leaf;
 	}
 
-	bool st_path::is_leaf()
+	bool st_sym_path::is_leaf()
 	{
 		return m_is_leaf;
 	}
 
-	const char* st_path::part_name()
+	const char* st_sym_path::part_name()
 	{
 		if(m_name)
 			return m_name;
@@ -30,13 +30,13 @@ namespace ns_core
 			return "";
 	}
 
-	const char* st_path::full_name()
+	const char* st_sym_path::full_name()
 	{	
 		static std::string ret = "";
 		
 		array<char*> path;
 		path.push(m_name);
-		st_path* p = m_up;
+		st_sym_path* p = m_up;
 		for(; p; p=p->upper() )
 		{
 			path.push(p->m_name);
@@ -52,30 +52,30 @@ namespace ns_core
 		return ret.c_str();
 	}
 
-	st_path* st_path::upper()
+	st_sym_path* st_sym_path::upper()
 	{
 		return m_up;
 	}
 
-	st_path* st_path::first()
+	st_sym_path* st_sym_path::first()
 	{
 		bool b = m_downs.first();
 		if(!b) return 0;
 		return m_downs.get();
 	}
 
-	st_path* st_path::next()
+	st_sym_path* st_sym_path::next()
 	{
 		bool b = m_downs.next();
 		if(!b) return 0;
 		return m_downs.get();
 	}
 
-	bool st_path::find(const char* path, st_path*& ret)
+	bool st_sym_path::find(const char* path, st_sym_path*& ret)
 	{	
 		//分词
 		std::stringstream stm_path(path);
-		st_path* p_tmp = this;
+		st_sym_path* p_tmp = this;
 		ret = p_tmp;
 		std::string name = "";
 		for(;p_tmp;)
@@ -99,11 +99,11 @@ namespace ns_core
 		return true;
 	}
 
-	st_path* st_path::reg_branch(const char* path)
+	st_sym_path* st_sym_path::reg_branch(const char* path)
 	{
 		//分词
 		std::stringstream stm_path(path);
-		st_path* p_tmp = this;
+		st_sym_path* p_tmp = this;
 		std::string name = "";
 		for(;;)
 		{
@@ -120,11 +120,11 @@ namespace ns_core
 		return p_tmp;
 	}
 
-	st_path* st_path::reg_leaf(const char* path)
+	st_sym_path* st_sym_path::reg_leaf(const char* path)
 	{
 		//分词
 		std::stringstream stm_path(path);
-		st_path* p_tmp = this;
+		st_sym_path* p_tmp = this;
 		std::string name = "";
 		for(;;)
 		{
@@ -141,73 +141,73 @@ namespace ns_core
 		return p_tmp;
 	}
 
-	st_path::st_path(st_path* up, const char* name, bool is_leaf)
+	st_sym_path::st_sym_path(st_sym_path* up, const char* name, bool is_leaf)
 	{
 		m_name = strdup(name);
 		m_is_leaf = is_leaf;
 		m_up = up;
 	}
 
-	st_path::st_path()
+	st_sym_path::st_sym_path()
 	{
 		m_name = 0;
 		m_is_leaf = false;
 		m_up = 0;
 	}
 
-	st_path::~st_path()
+	st_sym_path::~st_sym_path()
 	{
 		free(m_name);
-		st_path* p = first();
+		st_sym_path* p = first();
 		for(;p;p = next() )
 		{
 			delete p;
 		}
 	}
 
-	st_path* st_path::reg_part_name(const char* name)
+	st_sym_path* st_sym_path::reg_part_name(const char* name)
 	{
-		st_path* p = find_part(name);
+		st_sym_path* p = find_part(name);
 		if(!p)
 		{
-			p = new st_path(this, name, true);
+			p = new st_sym_path(this, name, true);
 			m_downs.insert(p);
 		}
 		return p;
 	}
 
-	st_path* st_path::reg_part_path(const char* name)
+	st_sym_path* st_sym_path::reg_part_path(const char* name)
 	{
-		st_path* p = find_part(name);
+		st_sym_path* p = find_part(name);
 		if(!p)
 		{
-			p = new st_path(this, name, false);
+			p = new st_sym_path(this, name, false);
 			m_downs.insert(p);
 		}
 		return p;
 	}
 
-	st_path* st_path::find_part(const char* name)
+	st_sym_path* st_sym_path::find_part(const char* name)
 	{
-		st_path p(0, name);
+		st_sym_path p(0, name);
 		bool b = m_downs.find(&p);
 		if(!b)return 0;
 		return m_downs.get();
 	}
 
-	void st_path::set_id(u32 id)
+	void st_sym_path::set_id(u32 id)
 	{
 		m_id = id;
 	}
 
-	u32 st_path::get_id()
+	u32 st_sym_path::get_id()
 	{
 		return m_id;
 	}
 
-	void st_path::print(const char* head)
+	void st_sym_path::print(const char* head)
 	{
-		st_path* p = first();
+		st_sym_path* p = first();
 		for(;p;p = next() )
 		{
 			if(p->m_is_leaf)
@@ -223,7 +223,7 @@ namespace ns_core
 		}
 	}
 
-	st_path* st_global::get_root()
+	st_sym_path* st_global::get_root()
 	{
 		return &m_root;
 	}
@@ -246,14 +246,14 @@ namespace ns_core
 		if(0 == strcmp(path, "") )m_cur_path.top() = &m_root;
 		else
 		{
-			st_path* p = m_root.reg_branch(path);
+			st_sym_path* p = m_root.reg_branch(path);
 			m_cur_path.top() = p;
 		}
 	}
 
-	st_path* st_global::export_symbol(const char* name)
+	st_sym_path* st_global::export_symbol(const char* name)
 	{
-		st_path* p;
+		st_sym_path* p;
 		if(m_cur_path.top()->find(name, p) )
 		{
 			return p;
@@ -265,7 +265,7 @@ namespace ns_core
 
 	bool st_global::using_path(const char* path)
 	{
-		st_path* p;
+		st_sym_path* p;
 		bool b = find_path(path, p);
 		if(!b) return false;
 		u32 idx = m_usings.find(p);
@@ -276,21 +276,21 @@ namespace ns_core
 		return true;
 	}
 
-	bool st_global::find_path(const char* path, st_path*& ret_path)
+	bool st_global::find_path(const char* path, st_sym_path*& ret_path)
 	{
 		//1.m_cur_path查找， 
 		//2.在usings查找
 		//3.在global查找
 		for(u32 i = 0; i<m_cur_path.size(); ++i)
 		{
-			st_path* p = m_cur_path[i];
+			st_sym_path* p = m_cur_path[i];
 			bool b = p->find(path, ret_path);
 			if(b) return true;
 		}
 		
 		for(u32 i = 0; i<m_usings.size(); ++i)
 		{
-			st_path* p = m_usings[i];
+			st_sym_path* p = m_usings[i];
 			bool b = p->find(path, ret_path);
 			if(b) return true;
 		}
@@ -301,7 +301,7 @@ namespace ns_core
 	void st_global::print()
 	{
 		std::cout<<"(global):"<<std::endl;
-		st_path* p = this->get_root();
+		st_sym_path* p = this->get_root();
 		p->print("");
 	}
 
@@ -323,20 +323,20 @@ namespace ns_core
 	{ 
 	}
 
-	st_var::st_var(st_path* p)//global
+	st_sym_var::st_sym_var(st_sym_path* p)//global
 	{
 		m_type = e_global;
 		g.path = p;
 	}
 
-	st_var::st_var(st_scope* scope, const char* name)//local
+	st_sym_var::st_sym_var(st_scope* scope, const char* name)//local
 	{
 		m_type = e_local;
 		l.scope = scope;
 		l.name = strdup(name);
 	}
 
-	st_var::st_var(st_scope* scope, const char* name, st_var* ref)//ref
+	st_sym_var::st_sym_var(st_scope* scope, const char* name, st_sym_var* ref)//ref
 	{
 		m_type = e_ref;
 		r.scope = scope;
@@ -344,19 +344,19 @@ namespace ns_core
 		r.name = strdup(name);
 	}
 
-	st_var::~st_var()
+	st_sym_var::~st_sym_var()
 	{
 		if(m_type == e_global) return;
 		if(m_type == e_local) { free(l.name); return;}
 		if(m_type == e_ref) {free(l.name); return; }
 	}
 
-	st_var* st_scope::find_name(const char* name)
+	st_sym_var* st_scope::find_name(const char* name)
 	{
 		//local find
 		for(u32 i = 0; i<m_local_vars.size(); ++i)
 		{
-			st_var* ret = m_local_vars[i];
+			st_sym_var* ret = m_local_vars[i];
 			if(strcmp(ret->l.name, name) == 0)
 			{
 				return ret;
@@ -366,7 +366,7 @@ namespace ns_core
 		//ref find
 		for(u32 i = 0; i<m_ref_vars.size(); ++i)
 		{
-			st_var* ret = m_ref_vars[i];
+			st_sym_var* ret = m_ref_vars[i];
 			if(strcmp(ret->l.name, name) == 0)
 			{
 				return ret;
@@ -374,9 +374,9 @@ namespace ns_core
 		}
 
 		//global
-		static st_map<st_path*, st_var*> g_vars;
+		static st_map<st_sym_path*, st_sym_var*> g_vars;
 		
-		st_path* p;
+		st_sym_path* p;
 		bool b = m_global->find_path(name, p);
 		if(b)
 		{
@@ -387,7 +387,7 @@ namespace ns_core
 			}
 			else
 			{
-				st_var* v = new st_var(p);
+				st_sym_var* v = new st_sym_var(p);
 				g_vars.insert(p, v);
 				return v;
 			}
@@ -397,9 +397,9 @@ namespace ns_core
 		return 0;
 	}
 
-	st_var* st_scope::reg_name(const char* name)
+	st_sym_var* st_scope::reg_name(const char* name)
 	{
-		st_var* v = find_name(name);
+		st_sym_var* v = find_name(name);
 		if(v)
 		{
 			st_scope* s;
@@ -416,16 +416,16 @@ namespace ns_core
 		else
 		{
 			//new local
-			st_var* var = new st_var(this, name);
+			st_sym_var* var = new st_sym_var(this, name);
 			m_local_vars.push(var);
 			
 			return var;
 		}
 	}
 
-	st_var* st_scope::reg_arg_name(const char* name)
+	st_sym_var* st_scope::reg_arg_name(const char* name)
 	{
-		st_var* v = find_name(name);
+		st_sym_var* v = find_name(name);
 		if(v)
 		{
 			st_scope* s;
@@ -446,7 +446,7 @@ namespace ns_core
 		{
 new_local:	
 			//new local
-			st_var* var = new st_var(this, name);
+			st_sym_var* var = new st_sym_var(this, name);
 			m_local_vars.push(var);
 
 			return var;
@@ -461,7 +461,7 @@ new_local:
 		{
 			std::cout<<head<<m_ref_vars[i]->r.idx<<": "
 				<<m_ref_vars[i]->r.name<<": ";
-			st_var* ref = m_ref_vars[i]->r.ref;
+			st_sym_var* ref = m_ref_vars[i]->r.ref;
 			if(ref)
 				std::cout<<ref->r.idx<<std::endl;
 			else
@@ -483,7 +483,7 @@ new_local:
 		}
 	}
 
-	st_var* st_scope::ref_var(st_var* v)
+	st_sym_var* st_scope::ref_var(st_sym_var* v)
 	{
 		if(v->m_type == e_local)
 		{
@@ -507,12 +507,12 @@ new_local:
 		}
 
 		//逐级生成ref
-		st_var* tmp_var = v;
+		st_sym_var* tmp_var = v;
 		
 		do 
 		{
 			tmp = stk.pop();
-			st_var* new_var = new st_var(tmp, v->l.name, tmp_var);
+			st_sym_var* new_var = new st_sym_var(tmp, v->l.name, tmp_var);
 			tmp->m_ref_vars.push(new_var);
 			tmp_var = new_var;
 		} while(stk.size() != 0);
@@ -592,15 +592,15 @@ new_local:
 
 	bool st_symbols::export_symbol(const char* name)
 	{
-		st_path* p = m_cur_scope->m_global->export_symbol(name);
+		st_sym_path* p = m_cur_scope->m_global->export_symbol(name);
 		if(p) return true;
 		return false;
 	}
 
-	st_var* st_symbols::reg_global_name(const char* name)
+	st_sym_var* st_symbols::reg_global_name(const char* name)
 	{
-		st_path* p;
-		st_var* v = find_name(name);
+		st_sym_path* p;
+		st_sym_var* v = find_name(name);
 		if(v)
 		{
 			if(v->m_type == e_global)
@@ -614,17 +614,17 @@ new_local:
 		}
 	}
 
-	st_var* st_symbols::reg_name(const char* name)
+	st_sym_var* st_symbols::reg_name(const char* name)
 	{
 		return m_cur_scope->reg_name(name);
 	}
 
-	st_var* st_symbols::reg_arg_name(const char* name)
+	st_sym_var* st_symbols::reg_arg_name(const char* name)
 	{
 		return m_cur_scope->reg_arg_name(name);
 	}
 
-	st_var* st_symbols::find_name(const char* name)
+	st_sym_var* st_symbols::find_name(const char* name)
 	{
 		return m_cur_scope->find_name(name);
 	}

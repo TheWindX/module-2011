@@ -150,7 +150,16 @@
 				RelativePath=".\symbol.h">
 			</File>
 			<File
+				RelativePath=".\vm.cpp">
+			</File>
+			<File
 				RelativePath=".\vm.h">
+			</File>
+			<File
+				RelativePath=".\vm_cons.cpp">
+			</File>
+			<File
+				RelativePath=".\vm_cons.h">
 			</File>
 			<File
 				RelativePath=".\vm_data.h">
@@ -178,8 +187,92 @@
 				</File>
 			</Filter>
 		</Filter>
+		<Filter
+			Name="compile"
+			Filter="">
+			<Filter
+				Name="flex&amp;bison"
+				Filter="">
+				<File
+					RelativePath=".\bison_header.h">
+				</File>
+				<File
+					RelativePath=".\bison_user.cpp">
+				</File>
+				<File
+					RelativePath=".\bison_user.h">
+				</File>
+				<File
+					RelativePath=".\flex_header.h">
+				</File>
+				<File
+					RelativePath=".\flex_user.cpp">
+				</File>
+				<File
+					RelativePath=".\flex_user.h">
+				</File>
+				<Filter
+					Name="gen"
+					Filter="">
+					<File
+						RelativePath=".\syntax.tab.cpp">
+					</File>
+					<File
+						RelativePath=".\syntax.y">
+						<FileConfiguration
+							Name="Debug|Win32">
+							<Tool
+								Name="VCCustomBuildTool"
+								CommandLine="bison.exe -d -g -v -o&quot;$(InputDir)\$(InputName).tab.cpp&quot; $(InputPath)"
+								Outputs="$(InputName).tab.cpp"/>
+						</FileConfiguration>
+					</File>
+					<File
+						RelativePath=".\tokens.l">
+						<FileConfiguration
+							Name="Debug|Win32">
+							<Tool
+								Name="VCCustomBuildTool"
+								CommandLine="&quot;flex.exe&quot; -o&quot;$(InputDir)\$(InputName).yy.cpp&quot; &quot;$(InputPath)&quot;"
+								Outputs="$(InputName).yy.cpp"/>
+						</FileConfiguration>
+					</File>
+					<File
+						RelativePath=".\tokens.yy.cpp">
+					</File>
+				</Filter>
+			</Filter>
+			<Filter
+				Name="ast"
+				Filter="">
+				<File
+					RelativePath=".\ast.cpp">
+				</File>
+				<File
+					RelativePath=".\ast.h">
+				</File>
+				<File
+					RelativePath=".\ast_cons.cpp">
+				</File>
+				<File
+					RelativePath=".\ast_cons.h">
+				</File>
+				<File
+					RelativePath=".\config.h">
+				</File>
+			</Filter>
+		</Filter>
 		<File
-			RelativePath=".\compile_test.cpp">
+			RelativePath=".\context.cpp">
+		</File>
+		<File
+			RelativePath=".\context.h">
+		</File>
+		<File
+			RelativePath=".\test.cpp">
+		</File>
+		<File
+			RelativePath=".\user_file.txt">
 		</File>
 		<File
 			RelativePath=".\value.h">

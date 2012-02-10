@@ -7,6 +7,8 @@ namespace ns_core
 {
 	using namespace ns_base;
 	
+	const char* value_to_string(st_value v, st_vm* rt);
+
 	//null
 	struct st_v_null : public i_value_proto
 	{

@@ -26,11 +26,13 @@ namespace ns_core
 
 		//注册到全局符号表和全局变量表
 		u32 reg_function(const char* func_name, f_proto func);
+		ns_core::st_sym_var* reg_global(const char* func_name);//注册全局符号名
+
+		void clear();
 	};
 
 	struct st_vm_eval : public st_vm_plugs
 	{
-		void init();//init all proto for code & value & other init state
 		void eval();//求值
 
 		void apply_begin();
@@ -42,6 +44,7 @@ namespace ns_core
 		void ret(bool byield = false);
 	};
 
-	struct st_vm : public st_vm_eval{};
-
+	struct st_vm : public st_vm_eval
+	{	
+	};
 }
