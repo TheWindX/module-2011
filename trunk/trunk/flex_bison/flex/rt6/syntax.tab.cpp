@@ -69,7 +69,7 @@
      FOR = 268,
      SELF_ADD = 269,
      SELF_SUB = 270,
-     EXTERN = 271,
+     GLOBAL = 271,
      TRUE = 272,
      FALSE = 273,
      BREAK = 274,
@@ -97,7 +97,7 @@
 #define FOR 268
 #define SELF_ADD 269
 #define SELF_SUB 270
-#define EXTERN 271
+#define GLOBAL 271
 #define TRUE 272
 #define FALSE 273
 #define BREAK 274
@@ -464,7 +464,7 @@ static const char *const yytname[] =
 {
   "$end", "error", "$undefined", "EQUAL", "YIELD", "RETURN", "FUNCTION",
   "MODULE", "EXPORT", "USING", "IF", "ELSE", "TABLE_HEAD", "FOR",
-  "SELF_ADD", "SELF_SUB", "EXTERN", "TRUE", "FALSE", "BREAK", "CONTINUE",
+  "SELF_ADD", "SELF_SUB", "GLOBAL", "TRUE", "FALSE", "BREAK", "CONTINUE",
   "ID", "NUMBER", "STRING", "EMPTY_ELSE", "ELSE_PRE", "IF_PRE", "'='",
   "'<'", "'>'", "'+'", "'-'", "'*'", "'/'", "'%'", "'('", "INDEX", "'['",
   "';'", "']'", "'.'", "','", "')'", "'{'", "'}'", "':'", "'#'", "$accept",

@@ -13,7 +13,7 @@
 }
 
 %token EQUAL YIELD RETURN FUNCTION MODULE EXPORT USING
-%token IF ELSE TABLE_HEAD FOR SELF_ADD SELF_SUB EXTERN TRUE FALSE BREAK CONTINUE
+%token IF ELSE TABLE_HEAD FOR SELF_ADD SELF_SUB GLOBAL TRUE FALSE BREAK CONTINUE
 
 %token <m_id> ID
 %token <m_number> NUMBER
@@ -150,7 +150,7 @@ expr :
 	
 expr_var :
 	path {g_ast.p_var(false); }
-	| EXTERN path {g_ast.p_var(true); }
+	| GLOBAL path {g_ast.p_var(true); }
 	;
 	
 expr_apply :

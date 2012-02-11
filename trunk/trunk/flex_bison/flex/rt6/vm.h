@@ -28,7 +28,7 @@ namespace ns_core
 		u32 reg_function(const char* func_name, f_proto func);
 		ns_core::st_sym_var* reg_global(const char* func_name);//注册全局符号名
 
-		void clear();
+		void clear();//TODO, 清除注册 proto, 和primary_function
 	};
 
 	struct st_vm_eval : public st_vm_plugs

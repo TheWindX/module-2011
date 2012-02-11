@@ -89,8 +89,11 @@ namespace ns_core
 		m_codes.clear();
 		m_proto_codes.clear();
 		m_proto_values.clear();
+	}
 
-		
+	void st_vm_cons::clean()
+	{
+		//TODO, Çå³ý±àÒëÖÐ¼ä×´Ì¬
 	}
 
 	u32 st_vm_cons::get_code_size()

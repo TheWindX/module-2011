@@ -59,7 +59,7 @@ ID	[a-zA-Z_]
 "else"		{return ELSE;}
 
 "for"		{return FOR;}
-"extern"	{return EXTERN;}
+"global"	{return GLOBAL;}
 
 "true"		{return TRUE;}
 "false"		{return FALSE;}
@@ -108,7 +108,11 @@ return NUMBER;
 "++"	{return SELF_ADD;}
 "--"	{return SELF_SUB;}
 
-.	{printf("invalid: %d\n", yytext[0]);}
+.	{
+	char str_tmp[256];
+	sprintf(str_tmp, "invalid: %d\n", yytext[0]);
+	yyerror(str_tmp);
+}
 
 %%
 int yywrap(){return 1;}

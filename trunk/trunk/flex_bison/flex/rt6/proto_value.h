@@ -124,6 +124,18 @@ namespace ns_core
 		}
 	};
 
+	struct st_v_extern_function : public i_value_proto
+	{
+		const char* get_name(){return "v_extern_function";}
+		static st_value make_value(i_functor* func)
+		{
+			st_value ret;
+			ret.m_val = func;
+			ret.m_tag = singleton<st_v_extern_function>::instance().m_tag;
+			return ret;
+		}
+	};
+
 	struct st_v_array : public i_value_proto
 	{
 		const char* get_name(){return "v_array";}

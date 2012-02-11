@@ -1,9 +1,9 @@
 
-
-
 #pragma once
 
 struct st_bison_use;
+
+extern void yyerror (char const *);//´íÎó´¦Àí
 
 struct i_bison_use
 {

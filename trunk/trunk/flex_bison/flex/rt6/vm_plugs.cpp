@@ -50,9 +50,4 @@ namespace ns_core
 		if(m_globals.size() <= id) m_globals.resize(id+1);
 		return v;
 	}
-	void st_vm_plugs::clear()
-	{
-
-	}
-
 }

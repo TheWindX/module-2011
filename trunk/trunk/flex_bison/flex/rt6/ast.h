@@ -84,7 +84,7 @@ namespace ns_core
 			st_var_list* m_left;
 			st_para_list* m_right;
 
-			array<ns_core::st_sym_var*> m_left_var;
+			//array<ns_core::st_sym_var*> m_left_var;
 			void gen_var(st_context* ctx);
 			void gen_code(st_context* ctx);
 		};

@@ -11,7 +11,6 @@ struct i_flex_use
 
 	void reset_buffer(const char* buff, size_t sz);
 	int lex();
-	
 
 	//Õû¸öbuffer
 	const char* get_buffer_ptr();
