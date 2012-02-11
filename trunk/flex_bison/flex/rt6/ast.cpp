@@ -183,9 +183,10 @@ namespace ns_core
 			for(u32 i = 0; i<sz; ++i)
 			{
 				st_var* p = m_left->m_vars[i];
-				ns_core::st_sym_var* var = ctx->get_vm_cons().m_symbols.reg_name(p->m_name);
-				assert(var);
-				m_left_var.push(var);
+				//ns_core::st_sym_var* var = ctx->get_vm_cons().m_symbols.reg_name(p->m_name);
+				p->gen_var(ctx);
+				//assert(var);
+				//m_left_var.push(var);
 			}
 			m_right->gen_var(ctx);
 		}
@@ -197,10 +198,12 @@ namespace ns_core
 
 			m_right->gen_code(ctx);
 
-			u32 sz = m_left_var.size();
+			u32 sz = m_left->m_vars.size();
 			for(u32 i = sz-1; i != U32_NA; --i)
-			{	
-				ns_core::st_sym_var* p = m_left_var[i];
+			{
+				st_var* var = m_left->m_vars[i];
+				ns_core::st_sym_var* p = var->m_var;
+
 				if(p->m_type == ns_core::e_global)
 				{
 					st_code_info code; 
@@ -219,7 +222,32 @@ namespace ns_core
 					ctx->get_vm_cons().c_pop_ref(p->r.idx, &code.m_code);
 					m_function->m_codes.push(code);
 				}
+				else assert(false);
 			}
+
+			//u32 sz = m_left_var.size();
+			//for(u32 i = sz-1; i != U32_NA; --i)
+			//{	
+			//	ns_core::st_sym_var* p = m_left_var[i];
+			//	if(p->m_type == ns_core::e_global)
+			//	{
+			//		st_code_info code; 
+			//		ctx->get_vm_cons().c_pop_global(p->g.path->full_name(), &code.m_code);
+			//		m_function->m_codes.push(code);
+			//	}
+			//	else if(p->m_type == ns_core::e_local)
+			//	{
+			//		st_code_info code; 
+			//		ctx->get_vm_cons().c_pop_local(p->l.idx, &code.m_code);
+			//		m_function->m_codes.push(code);
+			//	}
+			//	else if(p->m_type == ns_core::e_ref)
+			//	{
+			//		st_code_info code; 
+			//		ctx->get_vm_cons().c_pop_ref(p->r.idx, &code.m_code);
+			//		m_function->m_codes.push(code);
+			//	}
+			//}
 
 			m_code_id2 = m_function->m_codes.size();
 		}
@@ -275,7 +303,9 @@ namespace ns_core
 				m_var = ctx->get_vm_cons().reg_global(m_name);//注册在全局符号表和全局变量表里
 			}
 			else
+			{
 				m_var = ctx->get_vm_cons().m_symbols.reg_name(m_name);
+			}
 		}
 
 		void st_var::gen_code(st_context* ctx)

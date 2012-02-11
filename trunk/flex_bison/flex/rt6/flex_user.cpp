@@ -1,9 +1,9 @@
 
-#include "flex_header.h"
-
 #include <vector>
 #include <string>
 
+#include "flex_header.h"
+#include "exception.h"
 
 struct st_flex_use
 {

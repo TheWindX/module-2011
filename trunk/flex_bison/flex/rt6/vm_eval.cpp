@@ -17,9 +17,10 @@ namespace ns_core
 			i_code_proto* proc = get_code_proto(code.m_tag);
 			proc->run(code.m_val, static_cast<st_vm*>(this) );
 		}
+		--m_cur_pc;
 	}
 
-	void st_vm_eval::apply_begin()
+	void st_vm_eval::apply_begin()//
 	{
 		//push_eval_tag
 		m_eval_tags.push(m_cur_eval_tag);
@@ -28,6 +29,7 @@ namespace ns_core
 
 	void st_vm_eval::apply_function(st_function_value* vfunc)
 	{	
+		//function states
 		m_funcs.push(m_cur_func);
 		m_cur_func = vfunc;
 

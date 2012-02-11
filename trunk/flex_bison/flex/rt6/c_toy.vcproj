@@ -144,6 +144,9 @@
 				RelativePath=".\primarys.h">
 			</File>
 			<File
+				RelativePath=".\proto_code.cpp">
+			</File>
+			<File
 				RelativePath=".\symbol.cpp">
 			</File>
 			<File
@@ -173,9 +176,6 @@
 			<Filter
 				Name="proto"
 				Filter="">
-				<File
-					RelativePath=".\proto_code.cpp">
-				</File>
 				<File
 					RelativePath=".\proto_code.h">
 				</File>
@@ -223,7 +223,8 @@
 							Name="Debug|Win32">
 							<Tool
 								Name="VCCustomBuildTool"
-								CommandLine="bison.exe -d -g -v -o&quot;$(InputDir)\$(InputName).tab.cpp&quot; $(InputPath)"
+								CommandLine="bison.exe -d -g -v -o&quot;$(InputDir)\$(InputName).tab.cpp&quot; $(InputPath)
+"
 								Outputs="$(InputName).tab.cpp"/>
 						</FileConfiguration>
 					</File>
@@ -233,7 +234,8 @@
 							Name="Debug|Win32">
 							<Tool
 								Name="VCCustomBuildTool"
-								CommandLine="&quot;flex.exe&quot; -o&quot;$(InputDir)\$(InputName).yy.cpp&quot; &quot;$(InputPath)&quot;"
+								CommandLine="&quot;flex.exe&quot; -o&quot;$(InputDir)\$(InputName).yy.cpp&quot; &quot;$(InputPath)&quot;
+"
 								Outputs="$(InputName).yy.cpp"/>
 						</FileConfiguration>
 					</File>
@@ -267,6 +269,9 @@
 		</File>
 		<File
 			RelativePath=".\context.h">
+		</File>
+		<File
+			RelativePath=".\exception.h">
 		</File>
 		<File
 			RelativePath=".\test.cpp">

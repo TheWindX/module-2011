@@ -142,9 +142,9 @@ namespace ns_core
 
 	struct st_symbols
 	{	
-		st_global* m_global;
-		st_scope* m_root_scope;
-		st_scope* m_cur_scope;
+		st_global* m_global;//全局符号表
+		st_scope* m_root_scope;//根符号表
+		st_scope* m_cur_scope;//当前环境符号表
 		
 		void moudle_enter();
 		void moudle_exit();
@@ -154,14 +154,13 @@ namespace ns_core
 		//TODO, 保留符号表，给每一个编译映射一个符号表(module_name, scope), 无设定名, 就用系统生成名字
 		void clean();
 		
-		bool using_path(const char*);
-		bool export_symbol(const char*);
+		bool using_path(const char*);//加入了查找路径
+		bool export_symbol(const char*);//定义全局符号名
 		
-
-		st_sym_var* reg_global_name(const char*);
-		st_sym_var* reg_name(const char*);
-		st_sym_var* reg_arg_name(const char*);
-		st_sym_var* find_name(const char* name);
+		st_sym_var* reg_global_name(const char*);//注册全局符号名
+		st_sym_var* reg_name(const char*);//这里不可注册 x.y
+		st_sym_var* reg_arg_name(const char*);//这里不可注册 x.y
+		st_sym_var* find_name(const char* name);//在当前环境下, 查找包括 x.y这样的名字, 
 
 		void enter();
 		void exit();

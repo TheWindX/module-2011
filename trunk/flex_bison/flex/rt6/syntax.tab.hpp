@@ -42,7 +42,7 @@
      FOR = 268,
      SELF_ADD = 269,
      SELF_SUB = 270,
-     EXTERN = 271,
+     GLOBAL = 271,
      TRUE = 272,
      FALSE = 273,
      BREAK = 274,
@@ -70,7 +70,7 @@
 #define FOR 268
 #define SELF_ADD 269
 #define SELF_SUB 270
-#define EXTERN 271
+#define GLOBAL 271
 #define TRUE 272
 #define FALSE 273
 #define BREAK 274

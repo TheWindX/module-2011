@@ -6,6 +6,8 @@
 #include "proto_value.h"
 #include "proto_code.h"
 
+#include "exception.h"
+
 namespace ns_core
 {
 	void st_context::gen_var()
@@ -100,26 +102,40 @@ namespace ns_core
 
 	void st_context_user::load_buffer(const char* buff, u32 buff_sz)
 	{
-		g_bison_use.reset_buffer(buff, buff_sz);
-		get_vm_cons().m_symbols.reset_visitor();//符号表的访问重置
+		try
+		{
+			g_bison_use.reset_buffer(buff, buff_sz);
+			get_vm_cons().m_symbols.reset_visitor();//符号表的访问重置
 
-		g_bison_use.parse();//这样生成了parse tree
-		assert(get_ast_cons().m_p_values.size() == 1);
+			g_bison_use.parse();//这样生成了parse tree
+			assert(get_ast_cons().m_p_values.size() == 1);
 
-		gen_var();//生成 parse tree 上的 var info
-		gen_code();//生成parse tree 上的 code info
-		gen_idx();//从parse tree 到 vm codes
-		patch();//完成后对vm code 的 goto index 的修正
+			gen_var();//生成 parse tree 上的 var info
+			gen_code();//生成parse tree 上的 code info
+			gen_idx();//从parse tree 到 vm codes
+			patch();//完成后对vm code 的 goto index 的修正
 
-		//把编译得到的 function置到 vm 里
-		st_function* f = m_functions_stk[0];
-		st_value v = st_v_function::make_value(&get_vm_cons(), f->m_code);
-		get_vm_cons().m_evals.push(v);
+			//把编译得到的 function置到 vm 里
+			st_function* f = m_functions_stk[0];
+			st_value v = st_v_function::make_value(&get_vm_cons(), f->m_code);
+			get_vm_cons().m_evals.push(v);
 
-		//清除编译中间状态
-		m_functions_reg.clear();
-		m_functions_stk.clear();
-		get_ast_cons().clean();
+			//清除编译中间状态
+			m_functions_reg.clear();
+			m_functions_stk.clear();
+			get_ast_cons().clean();
+			get_vm_cons().clean();
+		}
+		catch(st_compile_exception ex)
+		{	
+			//清除编译中间状态
+			m_functions_reg.clear();
+			m_functions_stk.clear();
+			get_ast_cons().clean();
+			get_vm_cons().clean();
+			throw ex;
+		}
+		
 	}
 
 
@@ -133,8 +149,7 @@ namespace ns_core
 		u32 sz = get_vm_cons().m_codes.size();
 		for(u32 i = 0; i<get_vm_cons().m_codes.size(); ++i)
 		{
-			printf(code_to_string(get_vm_cons().m_codes[i], &get_vm_cons() ) );
-			printf("\n");
+			printf("%d %s\n", i, code_to_string(get_vm_cons().m_codes[i], &get_vm_cons() ) );
 		}		
 	}
 

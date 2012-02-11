@@ -3,6 +3,7 @@
 
 #include "context.h"
 
+#include "bison_user.h"
 using namespace ns_core::ns_ast;
 
 namespace ns_core
@@ -55,8 +56,8 @@ namespace ns_core
 #ifdef _AST_DEBUG
 		std::cout<<"stat"<<std::endl;
 #endif
-		st_stat_list* stat_ls = dynamic_cast<st_stat_list*>(this->get_p_value(-2) );
-		st_stat* stat = dynamic_cast<st_stat*>(this->get_p_value(-1) );
+		st_stat_list* stat_ls = static_cast<st_stat_list*>(this->get_p_value(-2) );
+		st_stat* stat = static_cast<st_stat*>(this->get_p_value(-1) );
 		stat_ls->m_stats.push(stat);
 		pop_p_value(2);
 		push_p_value(stat_ls);
@@ -67,7 +68,7 @@ namespace ns_core
 #ifdef _AST_DEBUG
 		std::cout<<"module"<<std::endl;
 #endif
-		ns_ast::st_path* stat = dynamic_cast<ns_ast::st_path*>(this->get_p_value(-1) );
+		ns_ast::st_path* stat = static_cast<ns_ast::st_path*>(this->get_p_value(-1) );
 		std::string str = stat->to_string();
 		//m_ctx->m_symbol.m_global.module_by_string(str.c_str() );
 		m_vm_cons->m_symbols.module_path(str.c_str() );
@@ -80,7 +81,7 @@ namespace ns_core
 #ifdef _AST_DEBUG
 		std::cout<<"using"<<std::endl;
 #endif
-		ns_ast::st_path* stat = dynamic_cast<ns_ast::st_path*>(this->get_p_value(-1) );
+		ns_ast::st_path* stat = static_cast<ns_ast::st_path*>(this->get_p_value(-1) );
 		std::string str = stat->to_string();
 		//m_ctx->m_symbol.m_global.using_path_by_string(str.c_str() );
 		m_vm_cons->m_symbols.using_path(str.c_str() );
@@ -92,7 +93,7 @@ namespace ns_core
 #ifdef _AST_DEBUG
 		std::cout<<"export"<<std::endl;
 #endif
-		ns_ast::st_path* stat = dynamic_cast<ns_ast::st_path*>(this->get_p_value(-1) );
+		ns_ast::st_path* stat = static_cast<ns_ast::st_path*>(this->get_p_value(-1) );
 		array<st_string*> str;
 		str.swap(stat->m_strs);
 		u32 sz = str.size();
@@ -122,7 +123,7 @@ namespace ns_core
 #ifdef _AST_DEBUG
 		std::cout<<"new_path"<<std::endl;
 #endif
-		ns_ast::st_string* str = dynamic_cast<ns_ast::st_string*>(this->get_p_value(-1) );
+		ns_ast::st_string* str = static_cast<ns_ast::st_string*>(this->get_p_value(-1) );
 		ns_ast::st_path* p = new ns_ast::st_path;
 		p->m_strs.push(str);
 		pop_p_value(1);
@@ -145,8 +146,8 @@ namespace ns_core
 #ifdef _AST_DEBUG
 		std::cout<<"path"<<std::endl;
 #endif
-		ns_ast::st_path* path = dynamic_cast<ns_ast::st_path*>(this->get_p_value(-2) );
-		st_string* str = dynamic_cast<st_string*>(this->get_p_value(-1) );
+		ns_ast::st_path* path = static_cast<ns_ast::st_path*>(this->get_p_value(-2) );
+		st_string* str = static_cast<st_string*>(this->get_p_value(-1) );
 		path->m_strs.push(str);
 		pop_p_value(2);
 		push_p_value(path);
@@ -157,15 +158,25 @@ namespace ns_core
 #ifdef _AST_DEBUG
 		std::cout<<"var"<<std::endl;
 #endif
-		st_path* p = dynamic_cast<st_path*>(this->get_p_value(-1) );
+		st_path* p = static_cast<st_path*>(this->get_p_value(-1) );
+
+		if(p->m_strs.size() > 1&& !is_extern)
+		{
+			const char* var_name = p->to_string();
+			st_sym_var* sv = m_vm_cons->m_symbols.find_name(var_name);
+			if(sv == 0)
+			{
+				//exception
+				char str_tmp[256];
+				sprintf(str_tmp, "%s 不是有效的变量名!\n", p->to_string() );
+				yyerror(str_tmp);
+			}
+		}
 
 		st_var* v = new st_var;
 		v->m_name = strdup(p->to_string() );
 
-		if(p->m_strs.size() > 1)
-			v->m_extern = true;
-		else
-			v->m_extern = is_extern;
+		v->m_extern = is_extern;
 		pop_p_value(1);
 		push_p_value(v);
 	}
@@ -175,7 +186,7 @@ namespace ns_core
 #ifdef _AST_DEBUG
 		std::cout<<"new_path_list"<<std::endl;
 #endif
-		ns_ast::st_var* var = dynamic_cast<ns_ast::st_var*>(this->get_p_value(-1) );
+		ns_ast::st_var* var = static_cast<ns_ast::st_var*>(this->get_p_value(-1) );
 		ns_ast::st_var_list* pl = new ns_ast::st_var_list;
 		pl->m_vars.push(var);
 		pop_p_value(1);
@@ -187,8 +198,8 @@ namespace ns_core
 #ifdef _AST_DEBUG
 		std::cout<<"var_list"<<std::endl;
 #endif
-		ns_ast::st_var_list* pl = dynamic_cast<ns_ast::st_var_list*>(this->get_p_value(-2) );
-		ns_ast::st_var* var  = dynamic_cast<ns_ast::st_var*>(this->get_p_value(-1) );
+		ns_ast::st_var_list* pl = static_cast<ns_ast::st_var_list*>(this->get_p_value(-2) );
+		ns_ast::st_var* var  = static_cast<ns_ast::st_var*>(this->get_p_value(-1) );
 
 		pl->m_vars.push(var);
 		pop_p_value(1);
@@ -200,8 +211,8 @@ namespace ns_core
 		std::cout<<"assign"<<std::endl;
 #endif
 
-		ns_ast::st_var_list* vars = dynamic_cast<ns_ast::st_var_list*>(this->get_p_value(-2) );
-		st_para_list* exprs = dynamic_cast<st_para_list*>(this->get_p_value(-1) );
+		ns_ast::st_var_list* vars = static_cast<ns_ast::st_var_list*>(this->get_p_value(-2) );
+		st_para_list* exprs = static_cast<st_para_list*>(this->get_p_value(-1) );
 
 		st_assign* assign = new st_assign;
 		assign->m_left = vars;
@@ -218,7 +229,7 @@ namespace ns_core
 #ifdef _AST_DEBUG
 		std::cout<<"unit_op:"<<op<<std::endl;
 #endif
-		st_expr* right = dynamic_cast<st_expr*>(this->get_p_value(-1) );
+		st_expr* right = static_cast<st_expr*>(this->get_p_value(-1) );
 		st_unitary* uop = new st_unitary;
 		uop->m_right = right;
 		uop->m_op = op;
@@ -232,8 +243,8 @@ namespace ns_core
 #ifdef _AST_DEBUG
 		std::cout<<"bin_op:"<<op<<std::endl;
 #endif
-		st_expr* left = dynamic_cast<st_expr*>(this->get_p_value(-2) );
-		st_expr* right = dynamic_cast<st_expr*>(this->get_p_value(-1) );
+		st_expr* left = static_cast<st_expr*>(this->get_p_value(-2) );
+		st_expr* right = static_cast<st_expr*>(this->get_p_value(-1) );
 
 		st_binary* binop = new st_binary;
 		binop->m_left = left;
@@ -295,8 +306,8 @@ namespace ns_core
 #ifdef _AST_DEBUG
 		std::cout<<"para_list"<<std::endl;
 #endif
-		st_para_list* left = dynamic_cast<st_para_list*>(this->get_p_value(-2) );
-		st_expr* right = dynamic_cast<st_expr*>(this->get_p_value(-1) );
+		st_para_list* left = static_cast<st_para_list*>(this->get_p_value(-2) );
+		st_expr* right = static_cast<st_expr*>(this->get_p_value(-1) );
 
 		left->m_exprs.push(right);
 		pop_p_value(2);
@@ -309,8 +320,8 @@ namespace ns_core
 		std::cout<<"apply"<<std::endl;
 #endif
 
-		st_expr* func = dynamic_cast<st_expr*>(this->get_p_value(-2) );
-		st_para_list* para_list = dynamic_cast<st_para_list*>(this->get_p_value(-1) );
+		st_expr* func = static_cast<st_expr*>(this->get_p_value(-2) );
+		st_para_list* para_list = static_cast<st_para_list*>(this->get_p_value(-1) );
 
 		st_apply* apply = new st_apply;
 		apply->m_function_head = func;
@@ -335,8 +346,8 @@ namespace ns_core
 		std::cout<<"exit"<<std::endl;
 #endif
 
-		ns_ast::st_path* path = dynamic_cast<ns_ast::st_path*>(this->get_p_value(-2) );
-		st_stat_list* stat_list = dynamic_cast<st_stat_list*>(this->get_p_value(-1) );
+		ns_ast::st_path* path = static_cast<ns_ast::st_path*>(this->get_p_value(-2) );
+		st_stat_list* stat_list = static_cast<st_stat_list*>(this->get_p_value(-1) );
 
 		st_function* func = new st_function;
 		func->m_args = path;
@@ -357,7 +368,7 @@ namespace ns_core
 		std::cout<<"return"<<std::endl;
 #endif
 
-		st_para_list* exprs = dynamic_cast<st_para_list*>(this->get_p_value(-1) );
+		st_para_list* exprs = static_cast<st_para_list*>(this->get_p_value(-1) );
 		st_return* ret = new st_return;
 		ret->m_byield = byield;
 		ret->m_exprs = exprs;
@@ -381,7 +392,7 @@ namespace ns_core
 
 	void st_ast_cons::p_if_comlete(u32 l, u32 r)
 	{
-		ns_ast::st_if_else* s_if_else = dynamic_cast<ns_ast::st_if_else*>(this->get_p_value(-1) );
+		ns_ast::st_if_else* s_if_else = static_cast<ns_ast::st_if_else*>(this->get_p_value(-1) );
 		s_if_else->m_src_pos1 = l;
 		s_if_else->m_src_pos2 = r;
 	}
@@ -391,9 +402,9 @@ namespace ns_core
 #ifdef _AST_DEBUG
 		std::cout<<"then"<<std::endl;
 #endif
-		ns_ast::st_if_else* s_if_else = dynamic_cast<ns_ast::st_if_else*>(this->get_p_value(-3) );
-		ns_ast::st_expr* expr = dynamic_cast<ns_ast::st_expr*>(this->get_p_value(-2) );
-		st_stat_list* stat_list = dynamic_cast<st_stat_list*>(this->get_p_value(-1) );
+		ns_ast::st_if_else* s_if_else = static_cast<ns_ast::st_if_else*>(this->get_p_value(-3) );
+		ns_ast::st_expr* expr = static_cast<ns_ast::st_expr*>(this->get_p_value(-2) );
+		st_stat_list* stat_list = static_cast<st_stat_list*>(this->get_p_value(-1) );
 
 		st_if* s_if = new st_if;
 		s_if->m_expr = expr;
@@ -408,8 +419,8 @@ namespace ns_core
 #ifdef _AST_DEBUG
 		std::cout<<"else"<<std::endl;
 #endif
-		ns_ast::st_if_else* s_if_else = dynamic_cast<ns_ast::st_if_else*>(this->get_p_value(-2) );
-		st_stat_list* stat_list = dynamic_cast<st_stat_list*>(this->get_p_value(-1) );
+		ns_ast::st_if_else* s_if_else = static_cast<ns_ast::st_if_else*>(this->get_p_value(-2) );
+		st_stat_list* stat_list = static_cast<st_stat_list*>(this->get_p_value(-1) );
 
 		st_else* s_else = new st_else;
 		s_else->m_stats = stat_list;
@@ -437,8 +448,8 @@ namespace ns_core
 #ifdef _AST_DEBUG
 		std::cout<<"for_start"<<std::endl;
 #endif
-		ns_ast::st_for* pfor = dynamic_cast<ns_ast::st_for*>(this->get_p_value(-2) );
-		st_stat_list* pstats = dynamic_cast<st_stat_list*>(this->get_p_value(-1) );
+		ns_ast::st_for* pfor = static_cast<ns_ast::st_for*>(this->get_p_value(-2) );
+		st_stat_list* pstats = static_cast<st_stat_list*>(this->get_p_value(-1) );
 		pfor->m_start = pstats;
 		pop_p_value(1);
 	}
@@ -448,8 +459,8 @@ namespace ns_core
 #ifdef _AST_DEBUG
 		std::cout<<"for_condition"<<std::endl;
 #endif
-		ns_ast::st_for* pfor = dynamic_cast<ns_ast::st_for*>(this->get_p_value(-2) );
-		st_expr* p_expr = dynamic_cast<st_expr*>(this->get_p_value(-1) );
+		ns_ast::st_for* pfor = static_cast<ns_ast::st_for*>(this->get_p_value(-2) );
+		st_expr* p_expr = static_cast<st_expr*>(this->get_p_value(-1) );
 		pfor->m_condition = p_expr;
 		pop_p_value(1);
 	}
@@ -459,8 +470,8 @@ namespace ns_core
 #ifdef _AST_DEBUG
 		std::cout<<"for_every"<<std::endl;
 #endif
-		ns_ast::st_for* pfor = dynamic_cast<ns_ast::st_for*>(this->get_p_value(-2) );
-		st_stat_list* pstats = dynamic_cast<st_stat_list*>(this->get_p_value(-1) );
+		ns_ast::st_for* pfor = static_cast<ns_ast::st_for*>(this->get_p_value(-2) );
+		st_stat_list* pstats = static_cast<st_stat_list*>(this->get_p_value(-1) );
 		pfor->m_every = pstats;
 		pop_p_value(1);
 	}
@@ -470,8 +481,8 @@ namespace ns_core
 #ifdef _AST_DEBUG
 		std::cout<<"for_stats"<<std::endl;
 #endif
-		ns_ast::st_for* pfor = dynamic_cast<ns_ast::st_for*>(this->get_p_value(-2) );
-		st_stat_list* pstats = dynamic_cast<st_stat_list*>(this->get_p_value(-1) );
+		ns_ast::st_for* pfor = static_cast<ns_ast::st_for*>(this->get_p_value(-2) );
+		st_stat_list* pstats = static_cast<st_stat_list*>(this->get_p_value(-1) );
 		pfor->m_stats = pstats;
 		pfor->m_src_pos1 = l;
 		pfor->m_src_pos2 = r;
@@ -492,8 +503,8 @@ namespace ns_core
 #ifdef _AST_DEBUG
 		std::cout<<"array"<<std::endl;
 #endif
-		st_array_expr* expr_arr = dynamic_cast<ns_ast::st_array_expr*>(this->get_p_value(-2) );
-		st_para_list* plist = dynamic_cast<st_para_list*>(this->get_p_value(-1) );
+		st_array_expr* expr_arr = static_cast<ns_ast::st_array_expr*>(this->get_p_value(-2) );
+		st_para_list* plist = static_cast<st_para_list*>(this->get_p_value(-1) );
 
 		expr_arr->m_para_list = plist;
 		pop_p_value(1);
@@ -513,9 +524,9 @@ namespace ns_core
 #ifdef _AST_DEBUG
 		std::cout<<"map"<<std::endl;
 #endif
-		st_map_expr* expr_arr = dynamic_cast<ns_ast::st_map_expr*>(this->get_p_value(-3) );
-		st_expr* expr = dynamic_cast<st_expr*>(this->get_p_value(-2) );
-		st_expr* expr1 = dynamic_cast<st_expr*>(this->get_p_value(-1) );
+		st_map_expr* expr_arr = static_cast<ns_ast::st_map_expr*>(this->get_p_value(-3) );
+		st_expr* expr = static_cast<st_expr*>(this->get_p_value(-2) );
+		st_expr* expr1 = static_cast<st_expr*>(this->get_p_value(-1) );
 		expr_arr->m_key_values.push(st_key_value() );
 		expr_arr->m_key_values.top().m_key = expr;
 		expr_arr->m_key_values.top().m_value = expr1;
@@ -527,9 +538,9 @@ namespace ns_core
 #ifdef _AST_DEBUG
 		std::cout<<"insert"<<std::endl;
 #endif
-		st_expr* expr_arr = dynamic_cast<ns_ast::st_expr*>(this->get_p_value(-3) );
-		st_expr* expr = dynamic_cast<st_expr*>(this->get_p_value(-2) );
-		st_expr* expr1 = dynamic_cast<st_expr*>(this->get_p_value(-1) );
+		st_expr* expr_arr = static_cast<ns_ast::st_expr*>(this->get_p_value(-3) );
+		st_expr* expr = static_cast<st_expr*>(this->get_p_value(-2) );
+		st_expr* expr1 = static_cast<st_expr*>(this->get_p_value(-1) );
 		st_apply* p_app = new st_apply;
 		st_var* pvar = new st_var;
 		pvar->m_name = strdup("std.core.insert");
@@ -548,8 +559,8 @@ namespace ns_core
 #ifdef _AST_DEBUG
 		std::cout<<"index"<<std::endl;
 #endif
-		st_expr* expr_arr = dynamic_cast<ns_ast::st_expr*>(this->get_p_value(-2) );
-		st_expr* expr = dynamic_cast<st_expr*>(this->get_p_value(-1) );
+		st_expr* expr_arr = static_cast<ns_ast::st_expr*>(this->get_p_value(-2) );
+		st_expr* expr = static_cast<st_expr*>(this->get_p_value(-1) );
 		st_apply* p_app = new st_apply;
 		st_var* pvar = new st_var;
 		pvar->m_name = strdup("std.core.index");
@@ -575,7 +586,7 @@ namespace ns_core
 		
 #endif
 		st_self_op* p = new st_self_op;
-		p->m_var = dynamic_cast<ns_ast::st_var*>(this->get_p_value(-1) );
+		p->m_var = static_cast<ns_ast::st_var*>(this->get_p_value(-1) );
 		p->m_add_or_sub = add_or_sub;
 		p->m_pre_or_post = pre_or_post;
 		pop_p_value(1);

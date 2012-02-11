@@ -10,8 +10,11 @@ namespace ns_core
 	{
 		st_vm_cons();
 		void init();//init all proto for code & value & other init state
-		void release();//release all proto for code & value & other in init & runtime generate
+		void release();//TODO, release all proto for code & value & other in init & runtime generate
 
+		void clean();//TODO, 出错时，清除所有恢复状态
+
+		
 		u32 get_code_size();
 		u32 c_ret_begin(st_code* code = 0);
 		u32 c_ret(st_code* code = 0, bool byield = false);

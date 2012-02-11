@@ -34,28 +34,35 @@ i_bison_use::~i_bison_use()
 
 i_bison_use g_bison_use;
 
-
+#include <sstream>
+#include "exception.h"
 void yyerror (char const * error_info)
 {
+	std::stringstream ss;
 	std::string str_err = error_info;
 	if(str_err.find("syntax error", 0) != std::string::npos )
 	{
 		str_err.replace(0, 12, "Óï·¨´íÎó");
 	}
 
-	std::cout<<str_err.c_str()<<" at line: "<<g_flex_user.get_cur_row()<<"  col: "<<g_flex_user.get_cur_col()<<std::endl;
+	ss<<str_err.c_str()<<" at line: "<<g_flex_user.get_cur_row()<<"  col: "<<g_flex_user.get_cur_col()<<std::endl;
 	std::string err_line = g_flex_user.get_line(yylloc.first_line-1 );
-	std::cout<<err_line.c_str()<<std::endl;
+	ss<<err_line.c_str()<<std::endl;
 
 	size_t col = g_flex_user.get_cur_col()-g_flex_user.get_length()+1;
 	for(size_t i=0; i<col-1; ++i)
 	{
 		if(err_line[i] != '\t')
-			std::cout<<' ';
+			ss<<' ';
 		else
-			std::cout<<"        ";
+			ss<<"        ";
 	}
-	std::cout<<"^\n";
+	ss<<"^\n";
+
+	st_compile_exception ex;
+	ex.m_type = st_compile_exception::e_comile_err;
+	ex.m_desc = ss.str();
+	throw ex;
 };
 
 
