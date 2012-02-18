@@ -130,7 +130,7 @@ struct st_user : public st_on_time
 
 
 
-int main(int argc, char** argv)
+int main3(int argc, char** argv)
 {
 	st_user user;
 	user.main();
