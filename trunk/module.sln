@@ -7,10 +7,6 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "filesystem", "filesystem\fi
 	ProjectSection(ProjectDependencies) = postProject
 	EndProjectSection
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "user", "user\user.vcproj", "{230CD8E0-03DE-4C5A-817C-DF23FCF50684}"
-	ProjectSection(ProjectDependencies) = postProject
-	EndProjectSection
-EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "console", "console\console.vcproj", "{230CD8E0-03DE-4C5A-817C-DF23FCF50684}"
 	ProjectSection(ProjectDependencies) = postProject
 	EndProjectSection
@@ -63,11 +59,15 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "telnet", "telnet\telnet.vcp
 	ProjectSection(ProjectDependencies) = postProject
 	EndProjectSection
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "test3", "tmp_use\test3.vcproj", "{230CD8E0-03DE-4C5A-817C-DF23FCF50684}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "unit_test", "tmp_use\test3.vcproj", "{230CD8E0-03DE-4C5A-817C-DF23FCF50684}"
 	ProjectSection(ProjectDependencies) = postProject
 	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "compress", "compress\compress.vcproj", "{230CD8E0-03DE-4C5A-817C-DF23FCF50684}"
+	ProjectSection(ProjectDependencies) = postProject
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "c_toy", "ct\ct.vcproj", "{40995ECB-F7FF-47DA-B89A-635811F6A5D0}"
 	ProjectSection(ProjectDependencies) = postProject
 	EndProjectSection
 EndProject
@@ -145,10 +145,10 @@ Global
 		{230CD8E0-03DE-4C5A-817C-DF23FCF50684}.Debug.Build.0 = Debug|Win32
 		{230CD8E0-03DE-4C5A-817C-DF23FCF50684}.Release.ActiveCfg = Release|Win32
 		{230CD8E0-03DE-4C5A-817C-DF23FCF50684}.Release.Build.0 = Release|Win32
-		{230CD8E0-03DE-4C5A-817C-DF23FCF50684}.Debug.ActiveCfg = Debug|Win32
-		{230CD8E0-03DE-4C5A-817C-DF23FCF50684}.Debug.Build.0 = Debug|Win32
-		{230CD8E0-03DE-4C5A-817C-DF23FCF50684}.Release.ActiveCfg = Release|Win32
-		{230CD8E0-03DE-4C5A-817C-DF23FCF50684}.Release.Build.0 = Release|Win32
+		{40995ECB-F7FF-47DA-B89A-635811F6A5D0}.Debug.ActiveCfg = Debug|Win32
+		{40995ECB-F7FF-47DA-B89A-635811F6A5D0}.Debug.Build.0 = Debug|Win32
+		{40995ECB-F7FF-47DA-B89A-635811F6A5D0}.Release.ActiveCfg = Release|Win32
+		{40995ECB-F7FF-47DA-B89A-635811F6A5D0}.Release.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 	EndGlobalSection

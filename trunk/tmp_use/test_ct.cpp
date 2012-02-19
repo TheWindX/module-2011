@@ -7,18 +7,21 @@
 #include <string>
 
 
-#include "../c_toy/interface.h"
-
+#include "../ct/interface.h"
+#include "../console/interface_ct.h"
 
 using namespace ns_base;
 
 int main(int argc, char** argv)
 {
-	using namespace ns_c_toy;
-	h_c_toy* hc;
-	get(hc);
-	hc->load_string("std.sys.print(1234,5678);");
-	hc->run();
+	h_console_script_ct* hcsc;
+	get(hcsc);
+
+	hcsc->entry_thread();
+	while(1)
+	{
+		hcsc->run_once();
+	}
 
 	return 0;
 }

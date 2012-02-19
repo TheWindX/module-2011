@@ -114,7 +114,7 @@
 
 
 /* Copy the first part of user declarations.  */
-#line 1 "d:\\frame\\Package\\module-2011_http\\trunk\\trunk\\flex_bison\\flex\\rt6\\syntax.y"
+#line 1 "d:\\frame\\Package\\module-2011_http\\trunk\\trunk\\ct\\syntax.y"
 
 #include "flex_user.h"
 #include "bison_header.h"
@@ -141,14 +141,14 @@
 #endif
 
 #if ! defined (YYSTYPE) && ! defined (YYSTYPE_IS_DECLARED)
-#line 9 "d:\\frame\\Package\\module-2011_http\\trunk\\trunk\\flex_bison\\flex\\rt6\\syntax.y"
+#line 9 "d:\\frame\\Package\\module-2011_http\\trunk\\trunk\\ct\\syntax.y"
 typedef union YYSTYPE {
 	char* m_id;
 	char* m_str;
 	int m_number;
 } YYSTYPE;
 /* Line 196 of yacc.c.  */
-#line 152 "d:\\frame\\Package\\module-2011_http\\trunk\\trunk\\flex_bison\\flex\\rt6\\\\syntax.tab.cpp"
+#line 152 "d:\\frame\\Package\\module-2011_http\\trunk\\trunk\\ct\\\\syntax.tab.cpp"
 # define yystype YYSTYPE /* obsolescent; will be withdrawn */
 # define YYSTYPE_IS_DECLARED 1
 # define YYSTYPE_IS_TRIVIAL 1
@@ -172,7 +172,7 @@ typedef struct YYLTYPE
 
 
 /* Line 219 of yacc.c.  */
-#line 176 "d:\\frame\\Package\\module-2011_http\\trunk\\trunk\\flex_bison\\flex\\rt6\\\\syntax.tab.cpp"
+#line 176 "d:\\frame\\Package\\module-2011_http\\trunk\\trunk\\ct\\\\syntax.tab.cpp"
 
 #if ! defined (YYSIZE_T) && defined (__SIZE_TYPE__)
 # define YYSIZE_T __SIZE_TYPE__
@@ -1440,432 +1440,432 @@ yyreduce:
   switch (yyn)
     {
         case 2:
-#line 41 "d:\\frame\\Package\\module-2011_http\\trunk\\trunk\\flex_bison\\flex\\rt6\\syntax.y"
+#line 41 "d:\\frame\\Package\\module-2011_http\\trunk\\trunk\\ct\\syntax.y"
     {g_ast.p_exit((yylsp[0]).pos, (yylsp[0]).pos+(yylsp[0]).len);;}
     break;
 
   case 3:
-#line 45 "d:\\frame\\Package\\module-2011_http\\trunk\\trunk\\flex_bison\\flex\\rt6\\syntax.y"
+#line 45 "d:\\frame\\Package\\module-2011_http\\trunk\\trunk\\ct\\syntax.y"
     {g_ast.p_enter(); g_ast.p_null_path(); g_ast.p_null_stat();;}
     break;
 
   case 6:
-#line 54 "d:\\frame\\Package\\module-2011_http\\trunk\\trunk\\flex_bison\\flex\\rt6\\syntax.y"
+#line 54 "d:\\frame\\Package\\module-2011_http\\trunk\\trunk\\ct\\syntax.y"
     {g_ast.p_stat();;}
     break;
 
   case 9:
-#line 60 "d:\\frame\\Package\\module-2011_http\\trunk\\trunk\\flex_bison\\flex\\rt6\\syntax.y"
+#line 60 "d:\\frame\\Package\\module-2011_http\\trunk\\trunk\\ct\\syntax.y"
     {g_ast.p_module();;}
     break;
 
   case 10:
-#line 61 "d:\\frame\\Package\\module-2011_http\\trunk\\trunk\\flex_bison\\flex\\rt6\\syntax.y"
+#line 61 "d:\\frame\\Package\\module-2011_http\\trunk\\trunk\\ct\\syntax.y"
     {g_ast.p_using();;}
     break;
 
   case 11:
-#line 62 "d:\\frame\\Package\\module-2011_http\\trunk\\trunk\\flex_bison\\flex\\rt6\\syntax.y"
+#line 62 "d:\\frame\\Package\\module-2011_http\\trunk\\trunk\\ct\\syntax.y"
     {g_ast.p_export();;}
     break;
 
   case 20:
-#line 77 "d:\\frame\\Package\\module-2011_http\\trunk\\trunk\\flex_bison\\flex\\rt6\\syntax.y"
+#line 77 "d:\\frame\\Package\\module-2011_http\\trunk\\trunk\\ct\\syntax.y"
     {g_ast.p_insert(); ;}
     break;
 
   case 28:
-#line 104 "d:\\frame\\Package\\module-2011_http\\trunk\\trunk\\flex_bison\\flex\\rt6\\syntax.y"
+#line 104 "d:\\frame\\Package\\module-2011_http\\trunk\\trunk\\ct\\syntax.y"
     {g_ast.p_string((yyvsp[0].m_id));g_ast.p_new_path(); ;}
     break;
 
   case 29:
-#line 105 "d:\\frame\\Package\\module-2011_http\\trunk\\trunk\\flex_bison\\flex\\rt6\\syntax.y"
+#line 105 "d:\\frame\\Package\\module-2011_http\\trunk\\trunk\\ct\\syntax.y"
     {g_ast.p_string((yyvsp[0].m_id));g_ast.p_path();;}
     break;
 
   case 30:
-#line 109 "d:\\frame\\Package\\module-2011_http\\trunk\\trunk\\flex_bison\\flex\\rt6\\syntax.y"
+#line 109 "d:\\frame\\Package\\module-2011_http\\trunk\\trunk\\ct\\syntax.y"
     {g_ast.p_new_var_list(); ;}
     break;
 
   case 31:
-#line 110 "d:\\frame\\Package\\module-2011_http\\trunk\\trunk\\flex_bison\\flex\\rt6\\syntax.y"
+#line 110 "d:\\frame\\Package\\module-2011_http\\trunk\\trunk\\ct\\syntax.y"
     {g_ast.p_var_list(); ;}
     break;
 
   case 32:
-#line 115 "d:\\frame\\Package\\module-2011_http\\trunk\\trunk\\flex_bison\\flex\\rt6\\syntax.y"
+#line 115 "d:\\frame\\Package\\module-2011_http\\trunk\\trunk\\ct\\syntax.y"
     {g_ast.p_string((yyvsp[0].m_id)); g_ast.p_new_path(); ;}
     break;
 
   case 33:
-#line 116 "d:\\frame\\Package\\module-2011_http\\trunk\\trunk\\flex_bison\\flex\\rt6\\syntax.y"
+#line 116 "d:\\frame\\Package\\module-2011_http\\trunk\\trunk\\ct\\syntax.y"
     {g_ast.p_string((yyvsp[0].m_id));g_ast.p_path();;}
     break;
 
   case 34:
-#line 120 "d:\\frame\\Package\\module-2011_http\\trunk\\trunk\\flex_bison\\flex\\rt6\\syntax.y"
+#line 120 "d:\\frame\\Package\\module-2011_http\\trunk\\trunk\\ct\\syntax.y"
     {g_ast.p_null_para_list(); ;}
     break;
 
   case 35:
-#line 121 "d:\\frame\\Package\\module-2011_http\\trunk\\trunk\\flex_bison\\flex\\rt6\\syntax.y"
+#line 121 "d:\\frame\\Package\\module-2011_http\\trunk\\trunk\\ct\\syntax.y"
     {g_ast.p_assign((yylsp[-3]).pos, (yylsp[-3]).pos+(yyloc).len); ;}
     break;
 
   case 36:
-#line 125 "d:\\frame\\Package\\module-2011_http\\trunk\\trunk\\flex_bison\\flex\\rt6\\syntax.y"
+#line 125 "d:\\frame\\Package\\module-2011_http\\trunk\\trunk\\ct\\syntax.y"
     {g_ast.p_self_op(true, true); ;}
     break;
 
   case 37:
-#line 126 "d:\\frame\\Package\\module-2011_http\\trunk\\trunk\\flex_bison\\flex\\rt6\\syntax.y"
+#line 126 "d:\\frame\\Package\\module-2011_http\\trunk\\trunk\\ct\\syntax.y"
     {g_ast.p_self_op(false, true); ;}
     break;
 
   case 38:
-#line 127 "d:\\frame\\Package\\module-2011_http\\trunk\\trunk\\flex_bison\\flex\\rt6\\syntax.y"
+#line 127 "d:\\frame\\Package\\module-2011_http\\trunk\\trunk\\ct\\syntax.y"
     {g_ast.p_self_op(true, false); ;}
     break;
 
   case 39:
-#line 128 "d:\\frame\\Package\\module-2011_http\\trunk\\trunk\\flex_bison\\flex\\rt6\\syntax.y"
+#line 128 "d:\\frame\\Package\\module-2011_http\\trunk\\trunk\\ct\\syntax.y"
     {g_ast.p_self_op(false, false); ;}
     break;
 
   case 40:
-#line 129 "d:\\frame\\Package\\module-2011_http\\trunk\\trunk\\flex_bison\\flex\\rt6\\syntax.y"
+#line 129 "d:\\frame\\Package\\module-2011_http\\trunk\\trunk\\ct\\syntax.y"
     {g_ast.p_unitop("-");;}
     break;
 
   case 41:
-#line 130 "d:\\frame\\Package\\module-2011_http\\trunk\\trunk\\flex_bison\\flex\\rt6\\syntax.y"
+#line 130 "d:\\frame\\Package\\module-2011_http\\trunk\\trunk\\ct\\syntax.y"
     {g_ast.p_binop("+", (yyloc).pos, (yyloc).pos+(yyloc).len);;}
     break;
 
   case 42:
-#line 131 "d:\\frame\\Package\\module-2011_http\\trunk\\trunk\\flex_bison\\flex\\rt6\\syntax.y"
+#line 131 "d:\\frame\\Package\\module-2011_http\\trunk\\trunk\\ct\\syntax.y"
     {g_ast.p_binop("-", (yyloc).pos, (yyloc).pos+(yyloc).len);;}
     break;
 
   case 43:
-#line 132 "d:\\frame\\Package\\module-2011_http\\trunk\\trunk\\flex_bison\\flex\\rt6\\syntax.y"
+#line 132 "d:\\frame\\Package\\module-2011_http\\trunk\\trunk\\ct\\syntax.y"
     {g_ast.p_binop("*", (yyloc).pos, (yyloc).pos+(yyloc).len);;}
     break;
 
   case 44:
-#line 133 "d:\\frame\\Package\\module-2011_http\\trunk\\trunk\\flex_bison\\flex\\rt6\\syntax.y"
+#line 133 "d:\\frame\\Package\\module-2011_http\\trunk\\trunk\\ct\\syntax.y"
     {g_ast.p_binop("/", (yyloc).pos, (yyloc).pos+(yyloc).len);;}
     break;
 
   case 45:
-#line 134 "d:\\frame\\Package\\module-2011_http\\trunk\\trunk\\flex_bison\\flex\\rt6\\syntax.y"
+#line 134 "d:\\frame\\Package\\module-2011_http\\trunk\\trunk\\ct\\syntax.y"
     {g_ast.p_binop("%", (yyloc).pos, (yyloc).pos+(yyloc).len);;}
     break;
 
   case 46:
-#line 135 "d:\\frame\\Package\\module-2011_http\\trunk\\trunk\\flex_bison\\flex\\rt6\\syntax.y"
+#line 135 "d:\\frame\\Package\\module-2011_http\\trunk\\trunk\\ct\\syntax.y"
     {g_ast.p_binop("==", (yyloc).pos, (yyloc).pos+(yyloc).len);;}
     break;
 
   case 47:
-#line 136 "d:\\frame\\Package\\module-2011_http\\trunk\\trunk\\flex_bison\\flex\\rt6\\syntax.y"
+#line 136 "d:\\frame\\Package\\module-2011_http\\trunk\\trunk\\ct\\syntax.y"
     {g_ast.p_binop("<", (yyloc).pos, (yyloc).pos+(yyloc).len);;}
     break;
 
   case 48:
-#line 137 "d:\\frame\\Package\\module-2011_http\\trunk\\trunk\\flex_bison\\flex\\rt6\\syntax.y"
+#line 137 "d:\\frame\\Package\\module-2011_http\\trunk\\trunk\\ct\\syntax.y"
     {g_ast.p_binop(">", (yyloc).pos, (yyloc).pos+(yyloc).len);;}
     break;
 
   case 53:
-#line 142 "d:\\frame\\Package\\module-2011_http\\trunk\\trunk\\flex_bison\\flex\\rt6\\syntax.y"
+#line 142 "d:\\frame\\Package\\module-2011_http\\trunk\\trunk\\ct\\syntax.y"
     {g_ast.p_bool(true);;}
     break;
 
   case 54:
-#line 143 "d:\\frame\\Package\\module-2011_http\\trunk\\trunk\\flex_bison\\flex\\rt6\\syntax.y"
+#line 143 "d:\\frame\\Package\\module-2011_http\\trunk\\trunk\\ct\\syntax.y"
     {g_ast.p_bool(false);;}
     break;
 
   case 55:
-#line 144 "d:\\frame\\Package\\module-2011_http\\trunk\\trunk\\flex_bison\\flex\\rt6\\syntax.y"
+#line 144 "d:\\frame\\Package\\module-2011_http\\trunk\\trunk\\ct\\syntax.y"
     {g_ast.p_number((yyvsp[0].m_number), (yylsp[0]).pos, (yylsp[0]).pos+(yylsp[0]).len); ;}
     break;
 
   case 56:
-#line 145 "d:\\frame\\Package\\module-2011_http\\trunk\\trunk\\flex_bison\\flex\\rt6\\syntax.y"
+#line 145 "d:\\frame\\Package\\module-2011_http\\trunk\\trunk\\ct\\syntax.y"
     {g_ast.p_quot_string((yyvsp[0].m_str));;}
     break;
 
   case 59:
-#line 148 "d:\\frame\\Package\\module-2011_http\\trunk\\trunk\\flex_bison\\flex\\rt6\\syntax.y"
+#line 148 "d:\\frame\\Package\\module-2011_http\\trunk\\trunk\\ct\\syntax.y"
     {g_ast.p_index(); ;}
     break;
 
   case 60:
-#line 152 "d:\\frame\\Package\\module-2011_http\\trunk\\trunk\\flex_bison\\flex\\rt6\\syntax.y"
+#line 152 "d:\\frame\\Package\\module-2011_http\\trunk\\trunk\\ct\\syntax.y"
     {g_ast.p_var(false); ;}
     break;
 
   case 61:
-#line 153 "d:\\frame\\Package\\module-2011_http\\trunk\\trunk\\flex_bison\\flex\\rt6\\syntax.y"
+#line 153 "d:\\frame\\Package\\module-2011_http\\trunk\\trunk\\ct\\syntax.y"
     {g_ast.p_var(true); ;}
     break;
 
   case 62:
-#line 157 "d:\\frame\\Package\\module-2011_http\\trunk\\trunk\\flex_bison\\flex\\rt6\\syntax.y"
+#line 157 "d:\\frame\\Package\\module-2011_http\\trunk\\trunk\\ct\\syntax.y"
     {g_ast.p_null_para_list(); ;}
     break;
 
   case 63:
-#line 158 "d:\\frame\\Package\\module-2011_http\\trunk\\trunk\\flex_bison\\flex\\rt6\\syntax.y"
+#line 158 "d:\\frame\\Package\\module-2011_http\\trunk\\trunk\\ct\\syntax.y"
     { g_ast.p_apply((yyloc).pos, (yyloc).pos+(yyloc).len); ;}
     break;
 
   case 64:
-#line 159 "d:\\frame\\Package\\module-2011_http\\trunk\\trunk\\flex_bison\\flex\\rt6\\syntax.y"
+#line 159 "d:\\frame\\Package\\module-2011_http\\trunk\\trunk\\ct\\syntax.y"
     {g_ast.p_null_para_list(); g_ast.p_apply((yyloc).pos, (yyloc).pos+(yyloc).len);;}
     break;
 
   case 65:
-#line 163 "d:\\frame\\Package\\module-2011_http\\trunk\\trunk\\flex_bison\\flex\\rt6\\syntax.y"
+#line 163 "d:\\frame\\Package\\module-2011_http\\trunk\\trunk\\ct\\syntax.y"
     {g_ast.p_para_list();;}
     break;
 
   case 66:
-#line 164 "d:\\frame\\Package\\module-2011_http\\trunk\\trunk\\flex_bison\\flex\\rt6\\syntax.y"
+#line 164 "d:\\frame\\Package\\module-2011_http\\trunk\\trunk\\ct\\syntax.y"
     {g_ast.p_para_list();;}
     break;
 
   case 67:
-#line 170 "d:\\frame\\Package\\module-2011_http\\trunk\\trunk\\flex_bison\\flex\\rt6\\syntax.y"
+#line 170 "d:\\frame\\Package\\module-2011_http\\trunk\\trunk\\ct\\syntax.y"
     {g_ast.p_enter(); g_ast.p_null_path(); ;}
     break;
 
   case 68:
-#line 171 "d:\\frame\\Package\\module-2011_http\\trunk\\trunk\\flex_bison\\flex\\rt6\\syntax.y"
+#line 171 "d:\\frame\\Package\\module-2011_http\\trunk\\trunk\\ct\\syntax.y"
     {g_ast.p_null_stat(); ;}
     break;
 
   case 69:
-#line 172 "d:\\frame\\Package\\module-2011_http\\trunk\\trunk\\flex_bison\\flex\\rt6\\syntax.y"
+#line 172 "d:\\frame\\Package\\module-2011_http\\trunk\\trunk\\ct\\syntax.y"
     {g_ast.p_exit((yyloc).pos, (yyloc).pos+(yyloc).len); ;}
     break;
 
   case 70:
-#line 177 "d:\\frame\\Package\\module-2011_http\\trunk\\trunk\\flex_bison\\flex\\rt6\\syntax.y"
+#line 177 "d:\\frame\\Package\\module-2011_http\\trunk\\trunk\\ct\\syntax.y"
     {g_ast.p_new_var_list(); g_ast.p_null_para_list(); g_ast.p_enter(); g_ast.p_null_path(); ;}
     break;
 
   case 71:
-#line 178 "d:\\frame\\Package\\module-2011_http\\trunk\\trunk\\flex_bison\\flex\\rt6\\syntax.y"
+#line 178 "d:\\frame\\Package\\module-2011_http\\trunk\\trunk\\ct\\syntax.y"
     {g_ast.p_null_stat(); ;}
     break;
 
   case 72:
-#line 179 "d:\\frame\\Package\\module-2011_http\\trunk\\trunk\\flex_bison\\flex\\rt6\\syntax.y"
+#line 179 "d:\\frame\\Package\\module-2011_http\\trunk\\trunk\\ct\\syntax.y"
     {g_ast.p_exit((yyloc).pos, (yyloc).pos+(yyloc).len); g_ast.p_para_list(); g_ast.p_assign((yyloc).pos, (yyloc).pos+(yyloc).len); ;}
     break;
 
   case 76:
-#line 189 "d:\\frame\\Package\\module-2011_http\\trunk\\trunk\\flex_bison\\flex\\rt6\\syntax.y"
+#line 189 "d:\\frame\\Package\\module-2011_http\\trunk\\trunk\\ct\\syntax.y"
     {g_ast.p_string((yyvsp[0].m_id));g_ast.p_path();;}
     break;
 
   case 77:
-#line 190 "d:\\frame\\Package\\module-2011_http\\trunk\\trunk\\flex_bison\\flex\\rt6\\syntax.y"
+#line 190 "d:\\frame\\Package\\module-2011_http\\trunk\\trunk\\ct\\syntax.y"
     {g_ast.p_string((yyvsp[0].m_id));g_ast.p_path();;}
     break;
 
   case 78:
-#line 194 "d:\\frame\\Package\\module-2011_http\\trunk\\trunk\\flex_bison\\flex\\rt6\\syntax.y"
+#line 194 "d:\\frame\\Package\\module-2011_http\\trunk\\trunk\\ct\\syntax.y"
     {g_ast.p_break();;}
     break;
 
   case 79:
-#line 198 "d:\\frame\\Package\\module-2011_http\\trunk\\trunk\\flex_bison\\flex\\rt6\\syntax.y"
+#line 198 "d:\\frame\\Package\\module-2011_http\\trunk\\trunk\\ct\\syntax.y"
     {g_ast.p_continue();;}
     break;
 
   case 80:
-#line 201 "d:\\frame\\Package\\module-2011_http\\trunk\\trunk\\flex_bison\\flex\\rt6\\syntax.y"
+#line 201 "d:\\frame\\Package\\module-2011_http\\trunk\\trunk\\ct\\syntax.y"
     {g_ast.p_null_para_list(); g_ast.p_return(); ;}
     break;
 
   case 81:
-#line 202 "d:\\frame\\Package\\module-2011_http\\trunk\\trunk\\flex_bison\\flex\\rt6\\syntax.y"
+#line 202 "d:\\frame\\Package\\module-2011_http\\trunk\\trunk\\ct\\syntax.y"
     {g_ast.p_null_para_list(); ;}
     break;
 
   case 82:
-#line 202 "d:\\frame\\Package\\module-2011_http\\trunk\\trunk\\flex_bison\\flex\\rt6\\syntax.y"
+#line 202 "d:\\frame\\Package\\module-2011_http\\trunk\\trunk\\ct\\syntax.y"
     {g_ast.p_return();;}
     break;
 
   case 83:
-#line 206 "d:\\frame\\Package\\module-2011_http\\trunk\\trunk\\flex_bison\\flex\\rt6\\syntax.y"
+#line 206 "d:\\frame\\Package\\module-2011_http\\trunk\\trunk\\ct\\syntax.y"
     {g_ast.p_null_para_list(); g_ast.p_return(true); ;}
     break;
 
   case 84:
-#line 207 "d:\\frame\\Package\\module-2011_http\\trunk\\trunk\\flex_bison\\flex\\rt6\\syntax.y"
+#line 207 "d:\\frame\\Package\\module-2011_http\\trunk\\trunk\\ct\\syntax.y"
     {g_ast.p_null_para_list(); ;}
     break;
 
   case 85:
-#line 207 "d:\\frame\\Package\\module-2011_http\\trunk\\trunk\\flex_bison\\flex\\rt6\\syntax.y"
+#line 207 "d:\\frame\\Package\\module-2011_http\\trunk\\trunk\\ct\\syntax.y"
     {g_ast.p_return(true); ;}
     break;
 
   case 86:
-#line 211 "d:\\frame\\Package\\module-2011_http\\trunk\\trunk\\flex_bison\\flex\\rt6\\syntax.y"
+#line 211 "d:\\frame\\Package\\module-2011_http\\trunk\\trunk\\ct\\syntax.y"
     {g_ast.p_stat();;}
     break;
 
   case 87:
-#line 212 "d:\\frame\\Package\\module-2011_http\\trunk\\trunk\\flex_bison\\flex\\rt6\\syntax.y"
+#line 212 "d:\\frame\\Package\\module-2011_http\\trunk\\trunk\\ct\\syntax.y"
     {g_ast.p_stat();;}
     break;
 
   case 89:
-#line 221 "d:\\frame\\Package\\module-2011_http\\trunk\\trunk\\flex_bison\\flex\\rt6\\syntax.y"
+#line 221 "d:\\frame\\Package\\module-2011_http\\trunk\\trunk\\ct\\syntax.y"
     {g_ast.p_if_comlete((yyloc).pos, (yyloc).pos+(yyloc).len);;}
     break;
 
   case 90:
-#line 222 "d:\\frame\\Package\\module-2011_http\\trunk\\trunk\\flex_bison\\flex\\rt6\\syntax.y"
+#line 222 "d:\\frame\\Package\\module-2011_http\\trunk\\trunk\\ct\\syntax.y"
     {g_ast.p_if_comlete((yyloc).pos, (yyloc).pos+(yyloc).len);;}
     break;
 
   case 91:
-#line 226 "d:\\frame\\Package\\module-2011_http\\trunk\\trunk\\flex_bison\\flex\\rt6\\syntax.y"
+#line 226 "d:\\frame\\Package\\module-2011_http\\trunk\\trunk\\ct\\syntax.y"
     {g_ast.p_if();  ;}
     break;
 
   case 92:
-#line 230 "d:\\frame\\Package\\module-2011_http\\trunk\\trunk\\flex_bison\\flex\\rt6\\syntax.y"
+#line 230 "d:\\frame\\Package\\module-2011_http\\trunk\\trunk\\ct\\syntax.y"
     {g_ast.p_null_stat(); ;}
     break;
 
   case 93:
-#line 231 "d:\\frame\\Package\\module-2011_http\\trunk\\trunk\\flex_bison\\flex\\rt6\\syntax.y"
+#line 231 "d:\\frame\\Package\\module-2011_http\\trunk\\trunk\\ct\\syntax.y"
     {g_ast.p_then(); ;}
     break;
 
   case 94:
-#line 232 "d:\\frame\\Package\\module-2011_http\\trunk\\trunk\\flex_bison\\flex\\rt6\\syntax.y"
+#line 232 "d:\\frame\\Package\\module-2011_http\\trunk\\trunk\\ct\\syntax.y"
     {g_ast.p_null_stat(); ;}
     break;
 
   case 95:
-#line 233 "d:\\frame\\Package\\module-2011_http\\trunk\\trunk\\flex_bison\\flex\\rt6\\syntax.y"
+#line 233 "d:\\frame\\Package\\module-2011_http\\trunk\\trunk\\ct\\syntax.y"
     {g_ast.p_stat(); g_ast.p_then(); ;}
     break;
 
   case 97:
-#line 239 "d:\\frame\\Package\\module-2011_http\\trunk\\trunk\\flex_bison\\flex\\rt6\\syntax.y"
+#line 239 "d:\\frame\\Package\\module-2011_http\\trunk\\trunk\\ct\\syntax.y"
     {g_ast.p_else(); ;}
     break;
 
   case 98:
-#line 241 "d:\\frame\\Package\\module-2011_http\\trunk\\trunk\\flex_bison\\flex\\rt6\\syntax.y"
+#line 241 "d:\\frame\\Package\\module-2011_http\\trunk\\trunk\\ct\\syntax.y"
     {g_ast.p_stat(); g_ast.p_else(); ;}
     break;
 
   case 99:
-#line 245 "d:\\frame\\Package\\module-2011_http\\trunk\\trunk\\flex_bison\\flex\\rt6\\syntax.y"
+#line 245 "d:\\frame\\Package\\module-2011_http\\trunk\\trunk\\ct\\syntax.y"
     {g_ast.p_null_stat(); ;}
     break;
 
   case 100:
-#line 249 "d:\\frame\\Package\\module-2011_http\\trunk\\trunk\\flex_bison\\flex\\rt6\\syntax.y"
+#line 249 "d:\\frame\\Package\\module-2011_http\\trunk\\trunk\\ct\\syntax.y"
     {g_ast.p_null_array(); g_ast.p_null_para_list(); g_ast.p_array();;}
     break;
 
   case 101:
-#line 250 "d:\\frame\\Package\\module-2011_http\\trunk\\trunk\\flex_bison\\flex\\rt6\\syntax.y"
+#line 250 "d:\\frame\\Package\\module-2011_http\\trunk\\trunk\\ct\\syntax.y"
     {g_ast.p_null_array(); g_ast.p_null_para_list(); ;}
     break;
 
   case 102:
-#line 251 "d:\\frame\\Package\\module-2011_http\\trunk\\trunk\\flex_bison\\flex\\rt6\\syntax.y"
+#line 251 "d:\\frame\\Package\\module-2011_http\\trunk\\trunk\\ct\\syntax.y"
     {g_ast.p_array(); ;}
     break;
 
   case 103:
-#line 255 "d:\\frame\\Package\\module-2011_http\\trunk\\trunk\\flex_bison\\flex\\rt6\\syntax.y"
+#line 255 "d:\\frame\\Package\\module-2011_http\\trunk\\trunk\\ct\\syntax.y"
     {g_ast.p_null_map(); ;}
     break;
 
   case 106:
-#line 260 "d:\\frame\\Package\\module-2011_http\\trunk\\trunk\\flex_bison\\flex\\rt6\\syntax.y"
+#line 260 "d:\\frame\\Package\\module-2011_http\\trunk\\trunk\\ct\\syntax.y"
     {g_ast.p_map(); ;}
     break;
 
   case 107:
-#line 261 "d:\\frame\\Package\\module-2011_http\\trunk\\trunk\\flex_bison\\flex\\rt6\\syntax.y"
+#line 261 "d:\\frame\\Package\\module-2011_http\\trunk\\trunk\\ct\\syntax.y"
     {g_ast.p_map(); ;}
     break;
 
   case 108:
-#line 262 "d:\\frame\\Package\\module-2011_http\\trunk\\trunk\\flex_bison\\flex\\rt6\\syntax.y"
+#line 262 "d:\\frame\\Package\\module-2011_http\\trunk\\trunk\\ct\\syntax.y"
     {g_ast.p_quot_string((yyvsp[0].m_id)); ;}
     break;
 
   case 109:
-#line 263 "d:\\frame\\Package\\module-2011_http\\trunk\\trunk\\flex_bison\\flex\\rt6\\syntax.y"
+#line 263 "d:\\frame\\Package\\module-2011_http\\trunk\\trunk\\ct\\syntax.y"
     {g_ast.p_map(); ;}
     break;
 
   case 110:
-#line 267 "d:\\frame\\Package\\module-2011_http\\trunk\\trunk\\flex_bison\\flex\\rt6\\syntax.y"
+#line 267 "d:\\frame\\Package\\module-2011_http\\trunk\\trunk\\ct\\syntax.y"
     {g_ast.p_null_for(); ;}
     break;
 
   case 111:
-#line 268 "d:\\frame\\Package\\module-2011_http\\trunk\\trunk\\flex_bison\\flex\\rt6\\syntax.y"
+#line 268 "d:\\frame\\Package\\module-2011_http\\trunk\\trunk\\ct\\syntax.y"
     {g_ast.p_for_condition(); ;}
     break;
 
   case 112:
-#line 268 "d:\\frame\\Package\\module-2011_http\\trunk\\trunk\\flex_bison\\flex\\rt6\\syntax.y"
+#line 268 "d:\\frame\\Package\\module-2011_http\\trunk\\trunk\\ct\\syntax.y"
     {g_ast.p_null_stat(); ;}
     break;
 
   case 113:
-#line 269 "d:\\frame\\Package\\module-2011_http\\trunk\\trunk\\flex_bison\\flex\\rt6\\syntax.y"
+#line 269 "d:\\frame\\Package\\module-2011_http\\trunk\\trunk\\ct\\syntax.y"
     {g_ast.p_for_stats((yyloc).pos, (yyloc).pos+(yyloc).len); ;}
     break;
 
   case 117:
-#line 276 "d:\\frame\\Package\\module-2011_http\\trunk\\trunk\\flex_bison\\flex\\rt6\\syntax.y"
+#line 276 "d:\\frame\\Package\\module-2011_http\\trunk\\trunk\\ct\\syntax.y"
     {g_ast.p_null_stat(); ;}
     break;
 
   case 118:
-#line 276 "d:\\frame\\Package\\module-2011_http\\trunk\\trunk\\flex_bison\\flex\\rt6\\syntax.y"
+#line 276 "d:\\frame\\Package\\module-2011_http\\trunk\\trunk\\ct\\syntax.y"
     {g_ast.p_for_start(); ;}
     break;
 
   case 120:
-#line 280 "d:\\frame\\Package\\module-2011_http\\trunk\\trunk\\flex_bison\\flex\\rt6\\syntax.y"
+#line 280 "d:\\frame\\Package\\module-2011_http\\trunk\\trunk\\ct\\syntax.y"
     {g_ast.p_null_stat(); ;}
     break;
 
   case 121:
-#line 280 "d:\\frame\\Package\\module-2011_http\\trunk\\trunk\\flex_bison\\flex\\rt6\\syntax.y"
+#line 280 "d:\\frame\\Package\\module-2011_http\\trunk\\trunk\\ct\\syntax.y"
     {g_ast.p_for_every(); ;}
     break;
 
   case 122:
-#line 284 "d:\\frame\\Package\\module-2011_http\\trunk\\trunk\\flex_bison\\flex\\rt6\\syntax.y"
+#line 284 "d:\\frame\\Package\\module-2011_http\\trunk\\trunk\\ct\\syntax.y"
     {g_ast.p_stat(); ;}
     break;
 
   case 123:
-#line 285 "d:\\frame\\Package\\module-2011_http\\trunk\\trunk\\flex_bison\\flex\\rt6\\syntax.y"
+#line 285 "d:\\frame\\Package\\module-2011_http\\trunk\\trunk\\ct\\syntax.y"
     {g_ast.p_stat(); ;}
     break;
 
@@ -1874,7 +1874,7 @@ yyreduce:
     }
 
 /* Line 1126 of yacc.c.  */
-#line 1878 "d:\\frame\\Package\\module-2011_http\\trunk\\trunk\\flex_bison\\flex\\rt6\\\\syntax.tab.cpp"
+#line 1878 "d:\\frame\\Package\\module-2011_http\\trunk\\trunk\\ct\\\\syntax.tab.cpp"
 
   yyvsp -= yylen;
   yyssp -= yylen;
@@ -2149,6 +2149,6 @@ yyreturn:
 }
 
 
-#line 292 "d:\\frame\\Package\\module-2011_http\\trunk\\trunk\\flex_bison\\flex\\rt6\\syntax.y"
+#line 292 "d:\\frame\\Package\\module-2011_http\\trunk\\trunk\\ct\\syntax.y"
 
 

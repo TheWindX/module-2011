@@ -103,6 +103,7 @@ return NUMBER;
 "]"		{return yytext[0];}
 ":"		{return yytext[0];}
 "#"		{return yytext[0];}
+ /* 找不到更好的 TABLE_HEAD，而不引起分析冲突 blank+comment*/
 "m{"	{return TABLE_HEAD;}
 "=="	{return EQUAL;}
 "++"	{return SELF_ADD;}
