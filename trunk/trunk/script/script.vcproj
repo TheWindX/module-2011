@@ -20,6 +20,7 @@
 				Name="VCCLCompilerTool"
 				AdditionalOptions="/D _WIN32_WINNT=0x0501"
 				Optimization="0"
+				AdditionalIncludeDirectories="../head/lua"
 				PreprocessorDefinitions="WIN32;_DEBUG;_CONSOLE"
 				MinimalRebuild="TRUE"
 				BasicRuntimeChecks="3"

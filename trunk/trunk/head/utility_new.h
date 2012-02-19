@@ -11,7 +11,7 @@
 #include <crtdbg.h>
 
 #define BOOST_MS_CRT_BASED_DEBUG
-void detect_memory_leaks( bool on_off, bool out_put_debug = true)
+static void detect_memory_leaks( bool on_off, bool out_put_debug = true)
 {
 
 #ifdef BOOST_MS_CRT_BASED_DEBUG
