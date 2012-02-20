@@ -21,6 +21,7 @@
 				AdditionalOptions="/D _WIN32_WINNT=0x0501
 "
 				Optimization="0"
+				AdditionalIncludeDirectories="../head/lua"
 				PreprocessorDefinitions="WIN32;_DEBUG;_CONSOLE"
 				MinimalRebuild="TRUE"
 				BasicRuntimeChecks="3"
@@ -71,6 +72,7 @@
 				Name="VCCLCompilerTool"
 				AdditionalOptions="/D _WIN32_WINNT=0x0501"
 				Optimization="1"
+				AdditionalIncludeDirectories="../head/lua"
 				PreprocessorDefinitions="WIN32;NDEBUG;_CONSOLE"
 				RuntimeLibrary="2"
 				WarningLevel="3"
@@ -82,6 +84,7 @@
 				Name="VCLinkerTool"
 				OutputFile="$(OutDir)/../../bin/$(ProjectName).dll"
 				LinkIncremental="1"
+				AdditionalLibraryDirectories="..\lib\"
 				GenerateDebugInformation="TRUE"
 				SubSystem="1"
 				OptimizeReferences="2"

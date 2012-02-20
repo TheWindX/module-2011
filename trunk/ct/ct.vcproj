@@ -20,7 +20,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="../head;E:\MinGWStudio\MinGW\include\sys;"
+				AdditionalIncludeDirectories="../head;./"
 				PreprocessorDefinitions="WIN32;_DEBUG;_CONSOLE"
 				MinimalRebuild="TRUE"
 				BasicRuntimeChecks="3"
@@ -300,12 +300,6 @@
 		</File>
 		<File
 			RelativePath=".\exception.h">
-		</File>
-		<File
-			RelativePath=".\Timer.cpp">
-		</File>
-		<File
-			RelativePath=".\user_file.txt">
 		</File>
 		<File
 			RelativePath=".\value.h">

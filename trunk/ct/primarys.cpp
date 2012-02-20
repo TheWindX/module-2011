@@ -8,6 +8,7 @@
 
 #include "primarys.h"
 #include "vm.h"
+#include "interface.h"
 
 #define TYPE_CHECK(v, T) (assert((v).m_tag == singleton<T>::instance().m_tag) );
 namespace ns_core
@@ -371,6 +372,20 @@ namespace ns_core
 		u32 print_symbol(st_vm* rt)
 		{
 			rt->m_symbols.print();
+			return 0;
+		}
+
+		u32 _include(st_vm* rt)
+		{
+			st_value& v1 = rt->get_eval(-1);
+			TYPE_CHECK(v1, st_v_string);
+			rt->m_evals.pop();
+
+			ns_base::ns_c_toy::h_c_toy* hct;get(hct);
+			
+			char* str = v1.get<char*>();
+			hct->load_file(str);
+			hct->run();
 			return 0;
 		}
 	}

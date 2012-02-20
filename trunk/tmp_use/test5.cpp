@@ -147,7 +147,7 @@ int lua_update(lua_State* st)
 	return 0;
 }
 
-int main5(int argc, char** argv)
+int main(int argc, char** argv)
 {
 	h_driver* hd;
 	get(hd);

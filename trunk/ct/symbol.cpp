@@ -423,7 +423,7 @@ namespace ns_core
 		}
 	}
 
-	st_sym_var* st_scope::reg_arg_name(const char* name)
+	st_sym_var* st_scope::reg_arg_name(const char* name)//这个不允许重复定义
 	{
 		st_sym_var* v = find_name(name);
 		if(v)
@@ -436,6 +436,7 @@ namespace ns_core
 			if(s == this)
 			{
 				assert(false);//不能重复定义
+				return v;
 			}
 			else
 			{
