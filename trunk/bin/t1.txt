@@ -1,0 +1,22 @@
+ifconfig.me
+/
+local:49.212.31.130,20480
+remote:192.168.1.102, 474
+HTTP/1.1 200 OK
+
+Date: Sat, 26 Nov 2011 10:31:47 GMT
+
+Server: Apache
+
+Vary: Accept-Encoding
+
+Connection: close
+
+Transfer-Encoding: chunked
+
+Content-Type: text/html
+
+
+
+2ba4
+

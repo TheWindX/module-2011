@@ -1,0 +1,11 @@
+		using std.sys
+		using std.core
+    t = [1, 22, 3]; t [1] = 22;
+    print(t[2]);
+    push(t, 4);    pop(t);pop(t);pop(t);
+    print(size(t) ); 
+
+    m = m{ "key1":[1, 2, "text"], 3:"a" };
+    print(m["key1"] );
+
+    print("所有数据类型支持打印", m,  t); //print是可变参数的函数哦, 
