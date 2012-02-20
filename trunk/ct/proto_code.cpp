@@ -7,6 +7,8 @@
 
 #include "functor.h"
 
+#include "exception.h"
+
 #define TYPE_CHECK(v, T) (assert((v).m_tag == singleton<T>::instance().m_tag) );
 
 namespace ns_core
@@ -593,7 +595,13 @@ namespace ns_core
 			pf->on_eval(rt->get_i_context() );
 			rt->m_cur_eval_tag = rt->m_eval_tags.pop();
 		}
-		else assert(false);//TODO，这个名不是函数
+		//else assert(false);//TODO，这个名不是函数
+		else
+		{
+			st_compile_exception ex;
+			ex.m_desc = "运行时错误，不认识的函数名";
+			throw ex;
+		}
 	}
 
 	const char* st_c_apply::get_name()
