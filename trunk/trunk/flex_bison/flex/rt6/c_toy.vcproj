@@ -220,7 +220,8 @@
 					<File
 						RelativePath=".\syntax.y">
 						<FileConfiguration
-							Name="Debug|Win32">
+							Name="Debug|Win32"
+							ExcludedFromBuild="TRUE">
 							<Tool
 								Name="VCCustomBuildTool"
 								CommandLine="bison.exe -d -g -v -o&quot;$(InputDir)\$(InputName).tab.cpp&quot; $(InputPath)
@@ -231,7 +232,8 @@
 					<File
 						RelativePath=".\tokens.l">
 						<FileConfiguration
-							Name="Debug|Win32">
+							Name="Debug|Win32"
+							ExcludedFromBuild="TRUE">
 							<Tool
 								Name="VCCustomBuildTool"
 								CommandLine="&quot;flex.exe&quot; -o&quot;$(InputDir)\$(InputName).yy.cpp&quot; &quot;$(InputPath)&quot;

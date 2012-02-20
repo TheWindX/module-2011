@@ -79,6 +79,7 @@ namespace ns_core
 			idx = reg_function("std.core.size", &ns_primary::a_size);
 
 			idx = reg_function("std.core.type", &ns_primary::_type);
+			idx = reg_function("std.sys.dofile", &ns_primary::_include);
 
 		}
 	}
