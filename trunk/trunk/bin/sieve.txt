@@ -1,0 +1,29 @@
+module demo.sieve
+export test
+
+using std.core //for push/pop...
+using std.sys //for print
+
+p = [2];//生成的素数就放在这, 初始素数为2
+n_gen = function(){ for(i = 3; true; ++i){yield i;} };//自然数生成器
+is_p = function(num){//判断是否素数
+ sz = std.core.size(p);
+ for(i = 0; i<sz; ++i){
+  if(num%p[i]==0) return false;
+ }
+ return true;
+};
+//std.sys.print(is_p() );
+p_gen = function(){//素数生成器
+yield(p[0]);
+for(;true;){
+n = n_gen();
+if(is_p(n ) ){
+ std.core.push(p, n);
+ yield n;
+}
+}
+};
+for(i = 0; i<10; ++i){//前100位素数
+std.sys.print(p_gen() );
+}

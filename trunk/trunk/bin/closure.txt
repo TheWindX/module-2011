@@ -1,0 +1,7 @@
+bind1st = function(fbin, p1) //这个。。。就是c++里 std::bind1st，同理，你可以随便bind,
+{
+ return function(p2){return fbin(p1, p2); };
+};
+ 
+add = function(a, b){return a+b;};
+std.sys.print(bind1st(add, 3)(4) );

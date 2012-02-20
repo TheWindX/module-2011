@@ -1,0 +1,9 @@
+function fab(t){
+    r1, r2 = 1, 1;//多变量赋值，如果是那个swap的例子就比较有趣了，lua, python中你也可以这样用
+    for(i = 2; i<t; ++i){
+        rt, r2 = r2, r1+r2;
+        r1 = rt;
+    }
+    return r2;
+};
+print(fab(10) );

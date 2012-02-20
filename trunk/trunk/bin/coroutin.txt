@@ -1,0 +1,8 @@
+f = function()
+{
+yield print("step 1");
+yield print("step 2");
+yield print("step 3");
+return print("end of call");
+};
+f(); f(); f();f();f();
