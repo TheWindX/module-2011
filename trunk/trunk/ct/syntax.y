@@ -14,6 +14,8 @@
 
 %token EQUAL YIELD RETURN FUNCTION MODULE EXPORT USING
 %token IF ELSE TABLE_HEAD FOR SELF_ADD SELF_SUB GLOBAL TRUE FALSE BREAK CONTINUE
+ /* key word here! */
+%token XF
 
 %token <m_id> ID
 %token <m_number> NUMBER

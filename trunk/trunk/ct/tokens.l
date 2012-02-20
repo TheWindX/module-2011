@@ -46,7 +46,9 @@ ID	[a-zA-Z_]
 <comment>{BLANK}+		{/* eat up */}
 "*/"		{yyerror("语法错误: 是否忘记了/*");}
 
-
+"xiaofeng"	{
+		yyerror("whoisyourdaddy");
+}
 "module"	{return MODULE;}
 "export"	{return EXPORT;}
 "using"		{return USING;}
@@ -108,7 +110,6 @@ return NUMBER;
 "=="	{return EQUAL;}
 "++"	{return SELF_ADD;}
 "--"	{return SELF_SUB;}
-
 .	{
 	char str_tmp[256];
 	sprintf(str_tmp, "invalid: %d\n", yytext[0]);

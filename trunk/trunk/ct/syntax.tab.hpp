@@ -47,13 +47,14 @@
      FALSE = 273,
      BREAK = 274,
      CONTINUE = 275,
-     ID = 276,
-     NUMBER = 277,
-     STRING = 278,
-     EMPTY_ELSE = 279,
-     ELSE_PRE = 280,
-     IF_PRE = 281,
-     INDEX = 282
+     XF = 276,
+     ID = 277,
+     NUMBER = 278,
+     STRING = 279,
+     EMPTY_ELSE = 280,
+     ELSE_PRE = 281,
+     IF_PRE = 282,
+     INDEX = 283
    };
 #endif
 /* Tokens.  */
@@ -75,13 +76,14 @@
 #define FALSE 273
 #define BREAK 274
 #define CONTINUE 275
-#define ID 276
-#define NUMBER 277
-#define STRING 278
-#define EMPTY_ELSE 279
-#define ELSE_PRE 280
-#define IF_PRE 281
-#define INDEX 282
+#define XF 276
+#define ID 277
+#define NUMBER 278
+#define STRING 279
+#define EMPTY_ELSE 280
+#define ELSE_PRE 281
+#define IF_PRE 282
+#define INDEX 283
 
 
 
@@ -94,7 +96,7 @@ typedef union YYSTYPE {
 	int m_number;
 } YYSTYPE;
 /* Line 1447 of yacc.c.  */
-#line 98 "d:\\frame\\Package\\module-2011_http\\trunk\\trunk\\ct\\\\syntax.tab.hpp"
+#line 100 "d:\\frame\\Package\\module-2011_http\\trunk\\trunk\\ct\\\\syntax.tab.hpp"
 # define yystype YYSTYPE /* obsolescent; will be withdrawn */
 # define YYSTYPE_IS_DECLARED 1
 # define YYSTYPE_IS_TRIVIAL 1
