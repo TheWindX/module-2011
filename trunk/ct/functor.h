@@ -26,7 +26,6 @@ namespace ns_core
 		virtual ~i_functor() {};
 	};
 
-
 	struct impl_context : public i_context
 	{
 		st_vm* m_vm;
