@@ -129,6 +129,9 @@
 				RelativePath=".\test6.cpp">
 			</File>
 			<File
+				RelativePath=".\test7.cpp">
+			</File>
+			<File
 				RelativePath=".\test_ct.cpp">
 			</File>
 		</Filter>
